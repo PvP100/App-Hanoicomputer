@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseRecyclerView">
+        <attr name="brv_padding" format="dimension" />
+        <attr name="brv_padding_start" format="dimension" />
+        <attr name="brv_padding_end" format="dimension" />
+        <attr name="brv_padding_top" format="dimension" />
+        <attr name="brv_padding_bottom" format="dimension" />
+        <attr name="brv_enable_refresh" format="boolean" />
+        <attr name="brv_text_no_result" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HncSearchView">
+        <attr name="search_view_background" format="integer" />
+        <attr name="search_view_hint" format="string" />
+        <attr name="search_view_padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HncHeaderView" >
+        <attr name="header_title" format="string" />
+        <attr name="left_drawable" format="integer" />
+        <attr name="right_drawable" format="integer" />
+        <attr name="header_type" format="enum" >
+            <enum name="normal" value="0"/>
+            <enum name="search" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

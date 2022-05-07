@@ -1,0 +1,13 @@
+package com.example.utt.hnccomputer.entity.model
+
+import com.google.gson.annotations.SerializedName
+
+data class Brand(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("imgUrl")
+    val imgUrl: String,
+    @SerializedName("brandName")
+    val brandName: String,
+    var isSelected: Boolean = false
+)

@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Hanoicomputer</string>
+    <string name="error_place_holder">Error Happend.Try again!</string>
+    <integer name="activity_anim_duration">300</integer>
+    <integer name="activity_anim_duration_out">300</integer>
+    
+    <!--bottom navigation-->
+    <string name="menu_home">Trang chủ</string>
+    <string name="menu_category">Danh mục</string>
+    <string name="menu_my_account">Account</string>
+
+    <!--HncSearchView-->
+    <string name="hint_search">Search</string>
+
+    <!--Home page-->
+    <string name="home_brand_title">Thương hiệu</string>
+    <string name="home_see_all_title">Xem tất cả</string>
+
+    <!--Category page-->
+    <string name="category_header_title">Danh mục</string>
+
+    <!--Account page-->
+    <string name="account_information_title">Thông tin tài khoản</string>
+    <string name="account_order_information_title">Đơn hàng của tôi</string>
+    <string name="account_already_buy_information_title">Sản phẩm đã mua</string>
+
+    <!--Cart page-->
+    <string name="cart_header_title">Giỏ hàng</string>
+
+    <!--Brand page-->
+    <string name="brand_header_title">Thương hiệu</string>
+
+    <string-array name="gender">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
+
+    <string-array name="price">
+        <item>1 Trieu</item>
+        <item>2 Trieu</item>
+    </string-array>
+
+    <string-array name="dien_tich">
+        <item>15 m2</item>
+        <item>30 m2</item>
+    </string-array>
+</resources>
