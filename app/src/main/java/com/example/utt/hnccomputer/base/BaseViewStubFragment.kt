@@ -4,23 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.viewbinding.ViewBinding
-import kotlinx.android.synthetic.main.stub_fragment.*
+import com.example.utt.hnccomputer.databinding.StubFragmentBinding
 
 abstract class BaseViewStubFragment<T: ViewBinding> : BaseFragment<T>() {
+
+    private lateinit var viewStubBinding: StubFragmentBinding
 
     private var hasInflated = false
     private var visible = false
 
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, binding: T) {
-        fragmentViewStub!!.layoutResource = getViewStubLayoutResource()
+        viewStubBinding = StubFragmentBinding.inflate(inflater, container, false)
+        viewStubBinding.fragmentViewStub.viewStub?.layoutResource = getViewStubLayoutResource()
         if (visible && !hasInflated) {
-            val inflatedView = fragmentViewStub!!.inflate()
-            onCreateViewAfterViewStubInflated(inflatedView, mSavedInstanceState)
+            val inflatedView = viewStubBinding.fragmentViewStub.viewStub?.inflate()
+            inflatedView?.let { onCreateViewAfterViewStubInflated(it, mSavedInstanceState) }
             afterViewStubInflated(view)
         }
     }
@@ -45,9 +47,9 @@ abstract class BaseViewStubFragment<T: ViewBinding> : BaseFragment<T>() {
     override fun onResume() {
         super.onResume()
         visible = true
-        if (fragmentViewStub != null && !hasInflated) {
-            val inflatedView = fragmentViewStub!!.inflate()
-            onCreateViewAfterViewStubInflated(inflatedView, mSavedInstanceState)
+        if (viewStubBinding.fragmentViewStub.viewStub != null && !hasInflated) {
+            val inflatedView = viewStubBinding.fragmentViewStub.viewStub!!.inflate()
+            onCreateViewAfterViewStubInflated(inflatedView!!, mSavedInstanceState)
             afterViewStubInflated(view)
         }
     }

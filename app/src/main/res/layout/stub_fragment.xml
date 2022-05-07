@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <ViewStub
-            android:id="@+id/fragmentViewStub"
+            android:id="@+id/fragment_view_stub"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
