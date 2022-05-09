@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val apiInterface: ApiInterface, val localAssetInterface: LocalAssetInterface) {
+class Repository @Inject constructor(private val apiInterface: ApiInterface) {
 
     fun login(username:String,password:String): Single<BaseObjectResponse<LoginResponse>> {
         val loginRequest = LoginRequest()

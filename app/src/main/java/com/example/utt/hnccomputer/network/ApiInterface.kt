@@ -4,10 +4,7 @@ import com.example.utt.hnccomputer.base.entity.BaseListResponse
 import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
 import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
 import com.example.utt.hnccomputer.entity.LoginResponse
-import com.example.utt.hnccomputer.entity.model.Banner
-import com.example.utt.hnccomputer.entity.model.Brand
-import com.example.utt.hnccomputer.entity.model.Category
-import com.example.utt.hnccomputer.entity.model.HomeCategory
+import com.example.utt.hnccomputer.entity.model.*
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import io.reactivex.Single
 import retrofit2.http.*
@@ -33,4 +30,7 @@ interface ApiInterface {
     @POST("${URL}/api/auths/customer/login")
     @Headers("Content-Type: application/json")
     fun login(@Body fcmToken: String, @Header("Authorization") auth: String) : Single<BaseObjectResponse<LoginResponse>>
+
+    @GET("${URL}/api/products/getProduct")
+    fun getProduct(@Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
 }

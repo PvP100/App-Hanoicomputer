@@ -6,27 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.base.BaseViewStubFragment
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.base.adapter.category.CategoryAdapter
 import com.example.utt.hnccomputer.databinding.FragmentCategoryBinding
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
+import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryFragment : BaseViewStubFragment<FragmentCategoryBinding>() {
 
     private val viewModel: CategoryViewModel by viewModels()
 
-    private lateinit var categoryAdapter: CategoryAdapter
+    @Inject
+    lateinit var categoryAdapter: CategoryAdapter
 
     override fun initListener() {
         binding.apply {
             rcvCategory.setOnRefreshListener {
                 viewModel.getCategory()
             }
+            categoryAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+                override fun onItemClick(
+                    adapter: RecyclerView.Adapter<*>,
+                    viewHolder: RecyclerView.ViewHolder?,
+                    viewType: Int,
+                    position: Int
+                ) {
+                    transitFragment(CategoryDetailFragment(), R.id.parent_container, Bundle().apply {
+                        putSerializable(BundleKey.KEY_DETAIL_CATEGORY, categoryAdapter.getItem(position, Category::class.java))
+                    })
+                }
+            })
         }
     }
 
@@ -52,7 +70,6 @@ class CategoryFragment : BaseViewStubFragment<FragmentCategoryBinding>() {
         inflatedView: View,
         savedInstanceState: Bundle?
     ) {
-        categoryAdapter = CategoryAdapter(requireContext())
         binding.rcvCategory.setAdapter(categoryAdapter)
         binding.rcvCategory.setListLayoutManager(LinearLayout.VERTICAL)
         initListener()
