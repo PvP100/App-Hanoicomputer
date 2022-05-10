@@ -133,4 +133,6 @@ class BaseRecyclerView : RelativeLayout {
         mAdapter = adapter
         rcv_data.adapter = adapter
     }
+
+    fun getRecyclerView(): RecyclerView = rcv_data
 }

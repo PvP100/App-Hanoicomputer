@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/hnc_logo"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/app_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/medium"
+            android:textSize="20dp"
+            android:text="@string/login_title"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="@+id/hnc_logo"
+            app:layout_constraintEnd_toEndOf="@+id/hnc_logo"
+            app:layout_constraintTop_toBottomOf="@+id/hnc_logo"
+            android:id="@+id/tv_title_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:gravity="center"
+            style="@style/regular"
+            android:textSize="14dp"
+            android:id="@+id/tv_desc"
+            android:text="@string/login_desc"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_login"
+            android:layout_marginHorizontal="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:paddingVertical="8dp"
+            android:background="@drawable/bg_cancel_login"
+            android:id="@+id/btn_cancel"
+            style="@style/medium"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:text="Hủy"
+            app:layout_constraintStart_toStartOf="@+id/tv_desc"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:paddingVertical="8dp"
+            android:background="@drawable/bg_btn_login_dialog"
+            style="@style/medium"
+            android:id="@+id/btn_login"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/tv_desc"
+            android:text="Đăng nhập"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

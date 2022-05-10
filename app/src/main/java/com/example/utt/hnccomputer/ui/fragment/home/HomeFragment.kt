@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
-import com.example.utt.hnccomputer.base.adapter.home.HomeBrandAdapter
-import com.example.utt.hnccomputer.base.adapter.home.HomeCategoryAdapter
+import com.example.utt.hnccomputer.adapter.home.HomeBrandAdapter
+import com.example.utt.hnccomputer.adapter.home.HomeCategoryAdapter
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
 import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
 import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +81,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun initListener() {
         binding.apply {
-            brandCategory.tvAll.setOnClickListener {
+            brandCategory.tvAll.onAvoidDoubleClick {
                 transitFragment(
                     BrandFragment(),
                     R.id.parent_container

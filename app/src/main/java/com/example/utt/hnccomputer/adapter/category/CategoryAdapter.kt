@@ -1,4 +1,4 @@
-package com.example.utt.hnccomputer.base.adapter.category
+package com.example.utt.hnccomputer.adapter.category
 
 import android.content.Context
 import android.view.View

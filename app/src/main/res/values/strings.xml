@@ -3,7 +3,11 @@
     <string name="error_place_holder">Error Happend.Try again!</string>
     <integer name="activity_anim_duration">300</integer>
     <integer name="activity_anim_duration_out">300</integer>
-    
+
+    <!--Login Dialog-->
+    <string name="login_title">Đăng nhập</string>
+    <string name="login_desc">Bạn cần đăng nhập để sử dụng được tính năng này</string>
+
     <!--bottom navigation-->
     <string name="menu_home">Trang chủ</string>
     <string name="menu_category">Danh mục</string>
