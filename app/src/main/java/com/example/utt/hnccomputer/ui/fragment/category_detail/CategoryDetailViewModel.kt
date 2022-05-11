@@ -15,12 +15,14 @@ class CategoryDetailViewModel @Inject constructor(private val productRepository:
 
     var categoryId = 0
 
+    var brandId = 0
+
     private val _product: MutableLiveData<BaseObjectLoadMoreResponse<ResultResponse<Product>>> = MutableLiveData()
     val product: LiveData<BaseObjectLoadMoreResponse<ResultResponse<Product>>> = _product
 
     fun getProduct() {
         mDisposable.add(
-            productRepository.getProduct()
+            productRepository.getProduct(categoryId, brandId)
                 .doOnSubscribe {
                     _product.value = BaseObjectLoadMoreResponse<ResultResponse<Product>>().loading()
                 }.subscribe(

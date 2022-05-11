@@ -3,23 +3,33 @@ package com.example.utt.hnccomputer.ui.fragment.category_detail
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.databinding.FragmentCategoryDetailBinding
 import com.example.utt.hnccomputer.entity.model.Category
+import com.example.utt.hnccomputer.entity.model.Product
+import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
 
+    @Inject
+    lateinit var productAdapter: HomeProductAdapter
+
     override fun initView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         binding: FragmentCategoryDetailBinding
     ) {
+        binding.rcvProduct.setListLayoutManager(LinearLayout.VERTICAL)
+        binding.rcvProduct.setAdapter(productAdapter)
         arguments?.let {
             if (it.containsKey(BundleKey.KEY_DETAIL_CATEGORY)) {
                 categoryDetailViewModel.categoryId = (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).id
@@ -39,7 +49,9 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
 
     override fun <U> getListLoadMoreResponse(data: U?, isRefresh: Boolean, canLoadMore: Boolean) {
         super.getListLoadMoreResponse(data, isRefresh, canLoadMore)
-        Log.v("phongpv", "234234")
+        if (data is ResultResponse<*>) {
+//            binding.rcvProduct.refresh(data = data.results as List<Product>)
+        }
     }
 
     override fun initListener() {

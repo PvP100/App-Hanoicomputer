@@ -5,13 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
+import com.example.utt.hnccomputer.base.adapter.EndlessLoadingRecyclerViewAdapter
 import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.extension.inflate
 import com.example.utt.hnccomputer.extension.loadImage
 import kotlinx.android.synthetic.main.item_cell_home_product.view.*
 
-class HomeProductAdapter(context: Context) : RecyclerViewAdapter(context, false) {
+class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(context, false) {
+    override fun initLoadingViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+        return LoadingViewHolder(parent.inflate(R.layout.layout_load_more))
+    }
+
+    override fun bindLoadingViewHolder(loadingViewHolder: LoadingViewHolder, position: Int) {}
 
     override fun initNormalViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return HomeCategoryViewHolder(parent.inflate(R.layout.item_cell_home_product))
