@@ -59,4 +59,11 @@ fun String.toUpperCaseString() : String{
     return this.toUpperCase()
 }
 
+fun <T> Context.openActivityForResult(it: Class<T>, extras: Bundle.() -> Unit = {}): Intent {
+    val intent = Intent(this, it)
+    intent.putExtras(Bundle().apply(extras))
+
+    return intent
+}
+
 

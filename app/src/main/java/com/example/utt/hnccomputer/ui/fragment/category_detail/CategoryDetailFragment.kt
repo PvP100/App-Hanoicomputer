@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
-import com.example.utt.hnccomputer.base.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.databinding.FragmentCategoryDetailBinding
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.model.Product

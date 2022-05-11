@@ -4,7 +4,8 @@ import com.example.utt.hnccomputer.utils.Define
 import com.google.gson.annotations.SerializedName
 
 open class BaseResponse(
-    val typeBase: Int = 0
+    val typeBase: Int = 0,
+    val errorNoResponse: Throwable? = null,
 ){
     @SerializedName("code") val status: Int? = null
     @SerializedName("msg") val msg: String? = null
@@ -13,8 +14,8 @@ open class BaseResponse(
         return BaseResponse(Define.ResponseStatus.LOADING)
     }
 
-    fun errorNoData(): BaseResponse {
-        return BaseResponse(Define.ResponseStatus.ERROR)
+    fun errorNoData(errorNoResponse: Throwable?): BaseResponse {
+        return BaseResponse(Define.ResponseStatus.ERROR, errorNoResponse)
     }
 
     fun successNoData(): BaseResponse {

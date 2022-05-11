@@ -7,6 +7,7 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.utt.hnccomputer.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -14,8 +15,16 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
     }
 
-    fun transition(fragment: Fragment, id: Int, TAG: String, isAddToBackStack: Boolean = true) {
+    fun transition(fragment: Fragment, id: Int, TAG: String, isAddToBackStack: Boolean = true, animation: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
+        if (animation) {
+            fragmentTransaction.setCustomAnimations(
+                R.anim.slide_in,  // enter
+                R.anim.fade_out,  // exit
+                R.anim.fade_in,   // popEnter
+                R.anim.slide_out  // popExit)
+            )
+        }
         fragmentTransaction.add(id, fragment)
         if (isAddToBackStack) {
             fragmentTransaction.addToBackStack(TAG)

@@ -25,23 +25,15 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:noHistory="true"
             android:theme="@style/FullScreenTheme"
             android:windowSoftInputMode="adjustResize"
-            android:name=".ui.activity.splash.SplashActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity
-            android:theme="@style/FullScreenTheme"
-            android:windowSoftInputMode="adjustResize"
-            android:name=".ui.activity.main.MainActivity"
-            android:exported="true">
         </activity>
     </application>
 
