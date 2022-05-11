@@ -6,9 +6,10 @@ import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
 import com.example.utt.hnccomputer.network.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel constructor(private val repository: Repository) : BaseViewModel() {
+class RegisterViewModel @Inject constructor(private val repository: Repository) : BaseViewModel() {
 
     fun register(
         username: String, password: String

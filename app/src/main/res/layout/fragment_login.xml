@@ -90,9 +90,21 @@
                     android:layout_height="wrap_content" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/medium"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    android:text="Chưa có tài khoản? Đăng ký"
+                    android:id="@+id/tv_not_have_account"
+                    app:layout_constraintTop_toBottomOf="@+id/cb_save_login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_marginBottom="60dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cb_save_login"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_not_have_account"
                     android:background="@drawable/bg_btn_login"
                     android:id="@+id/btn_login"
                     android:textStyle="bold"

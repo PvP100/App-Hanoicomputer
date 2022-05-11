@@ -33,7 +33,7 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     fun login(@Body fcmToken: String = "", @Header("Authorization") auth: String) : Single<BaseObjectResponse<LoginResponse>>
 
-    @POST("${URL}/api/auths/customer/login")
+    @POST("${URL}/api/auths/customers/register")
     @Headers("Content-Type: application/json")
     fun register(@Header("Authorization") auth: String, @Body registerRequest: RegisterRequest) : Single<BaseResponse>
 

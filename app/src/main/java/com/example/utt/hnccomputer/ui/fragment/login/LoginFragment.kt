@@ -10,6 +10,7 @@ import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.openActivityWithoutAddtoBackstack
 import com.example.utt.hnccomputer.ui.activity.main.MainActivity
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
+import com.example.utt.hnccomputer.ui.fragment.register.RegisterFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +40,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         binding.apply {
             btnLogin.onAvoidDoubleClick {
                 viewModel.login(edtUsername.text.toString().trim(), edtPassword.text.toString().trim())
+            }
+            tvNotHaveAccount.setOnClickListener {
+                transitFragment(RegisterFragment(), R.id.parent_container)
             }
         }
     }
