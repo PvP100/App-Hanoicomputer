@@ -11,7 +11,7 @@ import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.base.BaseViewStubFragment
 import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
-import com.example.utt.hnccomputer.base.adapter.category.CategoryAdapter
+import com.example.utt.hnccomputer.adapter.category.CategoryAdapter
 import com.example.utt.hnccomputer.databinding.FragmentCategoryBinding
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.response.ResultResponse
@@ -72,7 +72,6 @@ class CategoryFragment : BaseViewStubFragment<FragmentCategoryBinding>() {
     ) {
         binding.rcvCategory.setAdapter(categoryAdapter)
         binding.rcvCategory.setListLayoutManager(LinearLayout.VERTICAL)
-        initListener()
         with(viewModel) {
             getCategory()
             category.observe(this@CategoryFragment) {

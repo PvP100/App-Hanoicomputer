@@ -8,8 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.utt.hnccomputer.base.adapter.banner.BannerPagerAdapter
-import com.example.utt.hnccomputer.base.adapter.banner.DotAdapter
+import com.example.utt.hnccomputer.adapter.banner.BannerPagerAdapter
+import com.example.utt.hnccomputer.adapter.banner.DotAdapter
 import com.example.utt.hnccomputer.databinding.ViewHncBannerBinding
 import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.utils.DeviceUtil

@@ -13,6 +13,9 @@ import com.example.utt.hnccomputer.ui.fragment.home.HomeFragment
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.databinding.ActivityMainBinding
 import com.example.utt.hnccomputer.extension.*
+import com.example.utt.hnccomputer.ui.dialog.LoginDialog
+import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
+import com.example.utt.hnccomputer.ui.fragment.splash.SplashFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,11 +63,24 @@ class MainActivity : BaseDataBindingActivity<ActivityMainBinding, MainViewModel>
             R.id.navigation_home -> {
                 viewDataBinding.viewPager.setCurrentItem(PAGE_HOME, false)
             }
-            R.id.navigation_favorite -> {
+            R.id.navigation_category -> {
                 viewDataBinding.viewPager.setCurrentItem(PAGE_CATEGORY, false)
             }
-            R.id.navigation_search -> {
-                viewDataBinding.viewPager.setCurrentItem(PAGE_ACCOUNT, false)
+            R.id.navigation_account -> {
+                val loginDialog = LoginDialog()
+                loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                    override fun onLogin() {
+                        transition(
+                            BrandFragment(),
+                            R.id.parent_container,
+                            BrandFragment::class.java.simpleName,
+                            false
+                        )
+                        loginDialog.dismiss()
+                    }
+                })
+                loginDialog.show(supportFragmentManager, loginDialog.tag)
+//                viewDataBinding.viewPager.setCurrentItem(PAGE_ACCOUNT, false)
             }
             else -> return false
         }

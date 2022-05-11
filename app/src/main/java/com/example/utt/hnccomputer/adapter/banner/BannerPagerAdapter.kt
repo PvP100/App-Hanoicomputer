@@ -1,4 +1,4 @@
-package com.example.utt.hnccomputer.base.adapter.banner
+package com.example.utt.hnccomputer.adapter.banner
 
 import android.content.Context
 import android.view.View

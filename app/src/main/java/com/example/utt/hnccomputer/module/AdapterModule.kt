@@ -2,6 +2,8 @@ package com.example.utt.hnccomputer.module
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.utt.hnccomputer.adapter.brand.BrandAdapter
+import com.example.utt.hnccomputer.adapter.category.CategoryAdapter
 import com.example.utt.hnccomputer.base.adapter.category.CategoryAdapter
 import com.example.utt.hnccomputer.base.adapter.home.HomeProductAdapter
 import dagger.Module
@@ -18,6 +20,12 @@ class AdapterModule {
     @Singleton
     fun provideCategoryAdapter(context: Context): CategoryAdapter {
         return CategoryAdapter(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBrandAdapter(context: Context): BrandAdapter {
+        return BrandAdapter(context)
     }
 
     @Provides
