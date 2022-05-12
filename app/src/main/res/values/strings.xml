@@ -26,6 +26,7 @@
     <!--Account page-->
     <string name="account_information_title">Thông tin tài khoản</string>
     <string name="account_order_information_title">Đơn hàng của tôi</string>
+    <string name="change_password_title">Đổi mật khẩu</string>
     <string name="account_already_buy_information_title">Sản phẩm đã mua</string>
 
     <!--Cart page-->

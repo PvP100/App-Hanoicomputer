@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentCategoryDetailBinding
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.utils.BundleKey
+import com.example.utt.hnccomputer.utils.SpacesItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,8 +31,10 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
         container: ViewGroup?,
         binding: FragmentCategoryDetailBinding
     ) {
-        binding.rcvProduct.setListLayoutManager(LinearLayout.VERTICAL)
+        binding.rcvProduct.setGridLayoutManager(2)
         binding.rcvProduct.setAdapter(productAdapter)
+        val spacingInPixels = resources.getDimensionPixelOffset(R.dimen.spacing_brand_rcv)
+        binding.rcvProduct.getRecyclerView().addItemDecoration(SpacesItemDecoration(spacingInPixels))
         arguments?.let {
             if (it.containsKey(BundleKey.KEY_DETAIL_CATEGORY)) {
                 categoryDetailViewModel.categoryId = (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).id
@@ -50,13 +55,21 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
     override fun <U> getListLoadMoreResponse(data: U?, isRefresh: Boolean, canLoadMore: Boolean) {
         super.getListLoadMoreResponse(data, isRefresh, canLoadMore)
         if (data is ResultResponse<*>) {
-//            binding.rcvProduct.refresh(data = data.results as List<Product>)
+            binding.rcvProduct.refresh(data = data.results as List<Product>)
         }
     }
 
     override fun initListener() {
         binding.apply {
+            header.listener = object : HncHeaderView.IOnClickHeader {
+                override fun onLeftClick() {
+                    activity?.onBackPressed()
+                }
 
+                override fun onRightClick() {
+                    //TODO filter
+                }
+            }
         }
     }
 
