@@ -1,6 +1,5 @@
 package com.example.utt.hnccomputer.ui.fragment.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -94,7 +93,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 override fun onRightClick() {
                    transitFragment(CartFragment(), R.id.parent_container)
                 }
-
             }
         }
     }
