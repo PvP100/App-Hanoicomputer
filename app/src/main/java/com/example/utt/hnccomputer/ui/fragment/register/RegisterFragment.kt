@@ -35,7 +35,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override fun initListener() {
         binding.apply {
             btnRegister.setOnClickListener {
-                viewModel.register(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
+//                viewModel.register(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
             }
         }
     }
