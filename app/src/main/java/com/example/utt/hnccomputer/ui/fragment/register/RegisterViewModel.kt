@@ -12,14 +12,21 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(private val repository: Repository) : BaseViewModel() {
 
     fun register(
-        username: String, password: String
+        username: String, password: String, fullName: String, birthday: String, phoneNumber: String, address: String
     ) {
 
         val base64 = "$username:$password"
 
         mDisposable.add(
             repository.register(
-                "Basic ${Base64.encodeToString(base64.toByteArray(), Base64.NO_WRAP)}", RegisterRequest("")
+                "Basic ${Base64.encodeToString(base64.toByteArray(), Base64.NO_WRAP)}", RegisterRequest(
+                    address = address,
+                    phone = phoneNumber,
+                    fullName = fullName,
+                    gender = 1,
+                    email = username,
+                    birthday = birthday
+                )
             ).doOnSubscribe {
                 _baseResponse.value = BaseResponse().loadingNoData()
             }.subscribe(

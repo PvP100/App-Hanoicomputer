@@ -48,7 +48,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 activity?.onBackPressed()
             }
             btnRegister.setOnClickListener {
-//                viewModel.register(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
+                viewModel.register(
+                    email.getText().trim(),
+                    password.getText().trim(),
+                    fullName = fullName.getText().trim(),
+                    birthday = birthday.getText().trim(),
+                    phoneNumber = phoneNumber.getText().trim(),
+                    address = address.getText().trim()
+                )
             }
         }
     }
