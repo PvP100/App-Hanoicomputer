@@ -2,12 +2,17 @@ package com.example.utt.hnccomputer.ui.fragment.register
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.customview.RegisterInputView
 import com.example.utt.hnccomputer.databinding.FragmentRegisterBinding
+import com.example.utt.hnccomputer.extension.changeStatusBarContrastStyle
+import com.example.utt.hnccomputer.extension.showDatePickerDialog
 import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_account_information.*
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -19,7 +24,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         container: ViewGroup?,
         binding: FragmentRegisterBinding
     ) {
-
+        (activity as AppCompatActivity).changeStatusBarContrastStyle(false)
     }
 
     override fun initData() {
@@ -34,10 +39,23 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
     override fun initListener() {
         binding.apply {
+            gender.setOnEdtClick(object : RegisterInputView.OnEdtClick {
+                override fun onClick() {
+
+                }
+            })
+            btnLogin.setOnClickListener {
+                activity?.onBackPressed()
+            }
             btnRegister.setOnClickListener {
 //                viewModel.register(edtEmail.text.toString().trim(), edtPassword.text.toString().trim())
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as AppCompatActivity).changeStatusBarContrastStyle(true)
     }
 
     override fun getFragmentBinding(

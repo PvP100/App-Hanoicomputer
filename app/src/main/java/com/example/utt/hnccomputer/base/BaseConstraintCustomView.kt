@@ -22,17 +22,20 @@ abstract class BaseConstraintCustomView<B : ViewBinding>(
 
     abstract val styleAble: IntArray?
 
-    val a = context.obtainStyledAttributes(attrs, styleAble!!)
+    val a = styleAble?.let { context.obtainStyledAttributes(attrs, it) }
 
     init {
         _binding = getCustomViewBinding(context)
         addView(_binding?.root)
 
-        try {
-            initStyAble(a)
-        } finally {
-            a.recycle()
+        a?.let {
+            try {
+                initStyAble(it)
+            } finally {
+                it.recycle()
+            }
         }
+
         initListener()
     }
 }

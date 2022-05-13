@@ -20,35 +20,41 @@
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/full_name_title"
             android:id="@+id/full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/birthday_title"
             android:layout_marginTop="4dp"
             android:id="@+id/birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/gender_title"
             android:layout_marginTop="4dp"
             android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/address_title"
             android:layout_marginTop="4dp"
             android:id="@+id/address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/phone_number_title"
             android:layout_marginTop="4dp"
             android:id="@+id/phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.DetailInformationView
+            app:header_title_information="@string/email_title"
             android:layout_marginTop="4dp"
             android:id="@+id/email"
             android:layout_width="match_parent"

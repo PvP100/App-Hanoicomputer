@@ -1,8 +1,10 @@
 package com.example.utt.hnccomputer.customview
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseConstraintCustomView
 import com.example.utt.hnccomputer.databinding.ViewDetailInformationBinding
 
@@ -19,10 +21,12 @@ class DetailInformationView(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
-    override fun initStyAble() {
-
-    }
-
     override val styleAble: IntArray?
-        get() = null
+        get() = R.styleable.DetailInformationView
+
+    override fun initStyAble(a: TypedArray) {
+        if (a.hasValue(R.styleable.DetailInformationView_header_title_information)) {
+            binding.tvTitle.text = a.getString(R.styleable.DetailInformationView_header_title_information)
+        }
+    }
 }

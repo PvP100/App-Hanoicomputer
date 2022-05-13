@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.extension
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +14,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
+import java.util.*
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -104,6 +106,35 @@ fun ImageView.loadImage(source : Any?){
     Glide.with(context)
         .load(source)
         .into(this)
+}
+
+fun Context.showDatePickerDialog(callBack: (String) -> Unit) {
+    val newCalendar: Calendar = Calendar.getInstance()
+    val startTime = DatePickerDialog(this,
+        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            val newDate: Calendar = Calendar.getInstance()
+            newDate.set(year, monthOfYear, dayOfMonth)
+            callBack("$dayOfMonth/${monthOfYear + 1}/$year")
+        },
+        newCalendar.get(Calendar.YEAR),
+        newCalendar.get(Calendar.MONTH),
+        newCalendar.get(Calendar.DAY_OF_MONTH)
+    )
+
+    startTime.show()
+}
+
+fun AppCompatActivity.changeStatusBarContrastStyle(blackBlackGround: Boolean) {
+    val decorView = window.decorView
+    if (blackBlackGround) {
+        // Draw light icons on a dark background color
+        decorView.systemUiVisibility =
+            decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+    } else {
+        // Draw dark icons on a light background color
+        decorView.systemUiVisibility =
+            decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
 }
 
 

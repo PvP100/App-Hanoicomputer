@@ -27,7 +27,15 @@
     <string name="account_information_title">Thông tin tài khoản</string>
     <string name="account_order_information_title">Đơn hàng của tôi</string>
     <string name="change_password_title">Đổi mật khẩu</string>
+    <string name="password_title">Mật khẩu</string>
+    <string name="re_password_title">Nhập lại mật khẩu</string>
     <string name="account_already_buy_information_title">Sản phẩm đã mua</string>
+    <string name="full_name_title">Họ và tên</string>
+    <string name="birthday_title">Ngày sinh</string>
+    <string name="gender_title">Giới tính</string>
+    <string name="address_title">Địa chỉ nhà</string>
+    <string name="phone_number_title">Số điện thoại</string>
+    <string name="email_title">Email</string>
 
     <!--Cart page-->
     <string name="cart_header_title">Giỏ hàng</string>

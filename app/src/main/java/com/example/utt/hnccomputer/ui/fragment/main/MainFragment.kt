@@ -46,7 +46,9 @@ class MainFragment : BaseFragment<MainFragmentBinding>(){
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.navigation.menu.getItem(position).isChecked = true
+                if (sharedPreferences.getBoolean("loginSave", false)) {
+                    binding.navigation.menu.getItem(position).isChecked = true
+                }
             }
         })
         binding.navigation.setOnItemSelectedListener(this::navigationItemSelected)
@@ -61,7 +63,7 @@ class MainFragment : BaseFragment<MainFragmentBinding>(){
                 binding.viewPager.setCurrentItem(PAGE_CATEGORY, false)
             }
             R.id.navigation_account -> {
-                if (!sharedPreferences.getBoolean("loginSave", false)) {
+                if (sharedPreferences.getBoolean("loginSave", false)) {
                     binding.viewPager.setCurrentItem(PAGE_ACCOUNT, false)
                 } else {
                     val loginDialog = LoginDialog()

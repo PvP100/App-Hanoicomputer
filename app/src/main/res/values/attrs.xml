@@ -29,10 +29,24 @@
     <declare-styleable name="RegisterInputView" >
         <attr name="header_title_input" format="string" />
         <attr name="input_type" format="enum" >
-            <enum name="gender" value="0"/>
-            <enum name="phoneNumber" value="1"/>
-            <enum name="password" value="2"/>
-            <enum name="email" value="2"/>
+            <enum name="gender" value="1"/>
+            <enum name="phoneNumber" value="2"/>
+            <enum name="password" value="3"/>
+            <enum name="email" value="4"/>
+            <enum name="birthday" value="5"/>
+            <enum name="rePassword" value="6"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="DetailInformationView" >
+        <attr name="header_title_information" format="string" />
+        <attr name="icon_information" format="integer" />
+        <attr name="information_type" format="enum" >
+            <enum name="birthday" value="0"/>
+            <enum name="gender" value="1"/>
+            <enum name="address" value="2"/>
+            <enum name="phone" value="3"/>
+            <enum name="email" value="4"/>
         </attr>
     </declare-styleable>
 

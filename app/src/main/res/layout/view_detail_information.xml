@@ -37,6 +37,7 @@
             android:text="Pham Viet Phong"
             style="@style/bold"
             android:layout_marginTop="5dp"
+            android:id="@+id/detail"
             android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="14dp"
