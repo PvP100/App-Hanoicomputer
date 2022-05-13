@@ -6,6 +6,7 @@ import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
 import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.entity.LoginResponse
 import com.example.utt.hnccomputer.entity.model.*
+import com.example.utt.hnccomputer.entity.request.ChangePasswordRequest
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import io.reactivex.Single
@@ -32,6 +33,12 @@ interface ApiInterface {
     @POST("${URL}/api/auths/customer/login")
     @Headers("Content-Type: application/json")
     fun login(@Body fcmToken: String = "", @Header("Authorization") auth: String) : Single<BaseObjectResponse<LoginResponse>>
+
+    @GET("${URL}/api/customers/profiles/{customerId}")
+    fun getCustomerInformation(@Path("customerId") customerId: String): Single<BaseObjectResponse<Customer>>
+
+    @POST("${URL}/api/auths/customer/{customerID}/newPassword")
+    fun changePassword(@Path("customerID") customerId: String, @Body changePasswordRequest: ChangePasswordRequest): Single<BaseResponse>
 
     @POST("${URL}/api/auths/customers/register")
     @Headers("Content-Type: application/json")

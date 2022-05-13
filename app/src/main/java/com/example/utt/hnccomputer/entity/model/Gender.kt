@@ -1,8 +1,16 @@
 package com.example.utt.hnccomputer.entity.model
 
-enum class Gender(val type: Int, val string: String) {
+import com.google.gson.annotations.SerializedName
 
-    MALE(1, "Nam"),
-    FEMALE(2, "Nữ")
+enum class Gender(val type: Int, val genderName: String) {
 
+    @SerializedName("1")
+    Nam(1, "Nam"),
+
+    @SerializedName("0")
+    Nữ(0, "Nữ");
+
+    override fun toString(): String {
+        return genderName
+    }
 }

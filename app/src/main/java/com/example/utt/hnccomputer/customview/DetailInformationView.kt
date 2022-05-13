@@ -28,5 +28,12 @@ class DetailInformationView(context: Context, attrs: AttributeSet? = null) :
         if (a.hasValue(R.styleable.DetailInformationView_header_title_information)) {
             binding.tvTitle.text = a.getString(R.styleable.DetailInformationView_header_title_information)
         }
+        if (a.hasValue(R.styleable.DetailInformationView_detail_left_drawable)) {
+            binding.icDrawable.setImageResource(a.getResourceId(R.styleable.DetailInformationView_detail_left_drawable, 0))
+        }
+    }
+
+    fun setDetailInformation(information: String?) {
+        binding.detail.text = information
     }
 }

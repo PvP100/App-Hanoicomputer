@@ -35,11 +35,13 @@
             <enum name="email" value="4"/>
             <enum name="birthday" value="5"/>
             <enum name="rePassword" value="6"/>
+            <enum name="address" value="7"/>
         </attr>
     </declare-styleable>
 
     <declare-styleable name="DetailInformationView" >
         <attr name="header_title_information" format="string" />
+        <attr name="detail_left_drawable" format="integer" />
         <attr name="icon_information" format="integer" />
         <attr name="information_type" format="enum" >
             <enum name="birthday" value="0"/>

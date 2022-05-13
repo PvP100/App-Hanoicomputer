@@ -24,9 +24,10 @@ class RegisterInputView(context: Context, attrs: AttributeSet? = null) :
         const val EMAIL = 4
         const val BIRTHDAY = 5
         const val RE_PASSWORD = 6
+        const val ADDRESS = 7
     }
 
-    private var spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, Gender.values().map { it.string })
+    private lateinit var spinnerAdapter: ArrayAdapter<Gender>
 
     private var listener: OnEdtClick? = null
 
@@ -52,13 +53,9 @@ class RegisterInputView(context: Context, attrs: AttributeSet? = null) :
         binding.apply {
             when (a.getInt(R.styleable.RegisterInputView_input_type, 0)) {
                 GENDER -> {
-//                    edtInput.hint = "Chọn"
-//                    edtInput.isFocusable = false
-//                    edtInput.isCursorVisible = false
-//                    edtInput.onAvoidDoubleClick {
-//                        listener?.onClick()
-//                    }
+                    spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, Gender.values())
                     spinnerGender.visible()
+                    icDropdown.visible()
                     edtInput.invisible()
                     spinnerGender.adapter = spinnerAdapter
                     spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -68,7 +65,8 @@ class RegisterInputView(context: Context, attrs: AttributeSet? = null) :
                             p2: Int,
                             p3: Long
                         ) {
-
+                            val result = p0?.getItemAtPosition(p2) as Gender
+                            binding.edtInput.setText(result.type.toString())
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -97,6 +95,9 @@ class RegisterInputView(context: Context, attrs: AttributeSet? = null) :
                 PASSWORD -> {
                     edtInput.hint = "Nhập mật khẩu"
                     edtInput.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
+                }
+                ADDRESS -> {
+                    edtInput.hint = "Nhập địa chỉ nhà"
                 }
                 RE_PASSWORD -> {
                     edtInput.hint = "Nhập lại mật khẩu"

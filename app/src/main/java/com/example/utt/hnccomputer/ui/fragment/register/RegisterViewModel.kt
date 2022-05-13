@@ -1,6 +1,7 @@
 package com.example.utt.hnccomputer.ui.fragment.register
 
 import android.util.Base64
+import android.util.Patterns
 import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(private val repository: Repository) : BaseViewModel() {
 
     fun register(
-        username: String, password: String, fullName: String, birthday: String, phoneNumber: String, address: String
+        username: String, password: String, fullName: String, birthday: String, phoneNumber: String, address: String, gender: Int
     ) {
 
         val base64 = "$username:$password"
@@ -23,7 +24,7 @@ class RegisterViewModel @Inject constructor(private val repository: Repository) 
                     address = address,
                     phone = phoneNumber,
                     fullName = fullName,
-                    gender = 1,
+                    gender = gender,
                     email = username,
                     birthday = birthday
                 )

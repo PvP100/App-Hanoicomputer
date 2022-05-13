@@ -5,14 +5,13 @@ import android.util.Base64
 import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.extension.setBoolean
+import com.example.utt.hnccomputer.extension.setString
 import com.example.utt.hnccomputer.network.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: Repository, private val sharedPreferences: SharedPreferences) : BaseViewModel() {
-
-    var isSave = false
 
     fun login(username: String, password: String) {
         val base64 = "$username:$password"
@@ -23,7 +22,12 @@ class LoginViewModel @Inject constructor(private val repository: Repository, pri
                 }
                 .subscribe(
                     {
-                        sharedPreferences.setBoolean("loginSave", isSave)
+                        sharedPreferences.setBoolean("loginSave", true)
+                        it.data?.customerId?.let { it1 ->
+                            sharedPreferences.setString("customerId",
+                                it1
+                            )
+                        }
                         _baseResponse.value = BaseResponse().successNoData()
                     },
                     {

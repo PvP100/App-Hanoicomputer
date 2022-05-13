@@ -7,10 +7,8 @@ import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
 import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.entity.LoginRequest
 import com.example.utt.hnccomputer.entity.LoginResponse
-import com.example.utt.hnccomputer.entity.model.Banner
-import com.example.utt.hnccomputer.entity.model.Brand
-import com.example.utt.hnccomputer.entity.model.Category
-import com.example.utt.hnccomputer.entity.model.HomeCategory
+import com.example.utt.hnccomputer.entity.model.*
+import com.example.utt.hnccomputer.entity.request.ChangePasswordRequest
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.backgroundThread
@@ -23,6 +21,14 @@ class Repository @Inject constructor(private val apiInterface: ApiInterface) {
 
     fun login(author: String): Single<BaseObjectResponse<LoginResponse>> {
         return apiInterface.login(auth = author).backgroundThread()
+    }
+
+    fun getCustomerInformation(customerId: String): Single<BaseObjectResponse<Customer>> {
+        return apiInterface.getCustomerInformation(customerId).backgroundThread()
+    }
+
+    fun changePassword(customerId: String, changePasswordRequest: ChangePasswordRequest): Single<BaseResponse> {
+        return apiInterface.changePassword(customerId, changePasswordRequest).backgroundThread()
     }
 
     fun register(author: String, registerRequest: RegisterRequest): Single<BaseResponse> {

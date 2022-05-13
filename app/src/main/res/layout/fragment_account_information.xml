@@ -3,103 +3,141 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="model"
+            type="com.example.utt.hnccomputer.entity.model.Customer" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:background="#EAEAEA"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.utt.hnccomputer.customview.HncHeaderView
-            app:left_drawable="@drawable/ic_arrow_left"
-            app:header_title="@string/account_information_title"
-            app:header_type="normal"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp" >
 
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/full_name_title"
-            android:id="@+id/full_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/birthday_title"
-            android:layout_marginTop="4dp"
-            android:id="@+id/birthday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/gender_title"
-            android:layout_marginTop="4dp"
-            android:id="@+id/gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/address_title"
-            android:layout_marginTop="4dp"
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/phone_number_title"
-            android:layout_marginTop="4dp"
-            android:id="@+id/phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.example.utt.hnccomputer.customview.DetailInformationView
-            app:header_title_information="@string/email_title"
-            android:layout_marginTop="4dp"
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_marginTop="4dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/change_password"
-                app:layout_constraintTop_toTopOf="@+id/change_password"
-                app:layout_constraintStart_toStartOf="parent"
-                android:src="@color/black"
-                android:id="@+id/ic_change_password"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginStart="10dp"
-                style="@style/medium"
-                android:textSize="14dp"
-                android:text="@string/change_password_title"
-                app:layout_constraintBottom_toBottomOf="@+id/ic_arrow"
-                app:layout_constraintTop_toTopOf="@+id/ic_arrow"
-                app:layout_constraintStart_toEndOf="@+id/ic_change_password"
-                android:id="@+id/change_password"
-                android:layout_width="wrap_content"
+            <com.example.utt.hnccomputer.customview.HncHeaderView
+                android:id="@+id/header"
+                app:left_drawable="@drawable/ic_arrow_left"
+                app:header_title="@string/account_information_title"
+                app:header_type="normal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ic_arrow"
-                android:src="@drawable/ic_arrow"
-                android:layout_marginVertical="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:detail_left_drawable="@drawable/ic_user"
+                app:header_title_information="@string/full_name_title"
+                app:detailInformation="@{model.fullName}"
+                android:id="@+id/full_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:header_title_information="@string/birthday_title"
+                app:detail_left_drawable="@drawable/ic_calendar"
+                app:detailInformation="@{model.birthday}"
+                android:layout_marginTop="4dp"
+                android:id="@+id/birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:header_title_information="@string/gender_title"
+                app:detail_left_drawable="@drawable/ic_gender"
+                app:detailInformation="@{model.gender.toString()}"
+                android:layout_marginTop="4dp"
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:header_title_information="@string/address_title"
+                app:detailInformation="@{model.address}"
+                app:detail_left_drawable="@drawable/ic_location"
+                android:layout_marginTop="4dp"
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:header_title_information="@string/phone_number_title"
+                app:detailInformation="@{model.phone}"
+                app:detail_left_drawable="@drawable/ic_phone"
+                android:layout_marginTop="4dp"
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:header_title_information="@string/email_title"
+                app:detailInformation="@{model.email}"
+                app:detail_left_drawable="@drawable/ic_mail"
+                android:layout_marginTop="4dp"
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_change_password"
+                android:layout_marginTop="4dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/change_password"
+                    app:layout_constraintTop_toTopOf="@+id/change_password"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_lock"
+                    android:id="@+id/ic_change_password"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginStart="10dp"
+                    style="@style/medium"
+                    android:textSize="14dp"
+                    android:text="@string/change_password_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_arrow"
+                    app:layout_constraintTop_toTopOf="@+id/ic_arrow"
+                    app:layout_constraintStart_toEndOf="@+id/ic_change_password"
+                    android:id="@+id/change_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_arrow"
+                    android:src="@drawable/ic_arrow"
+                    android:layout_marginVertical="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:background="@drawable/bg_loading_anim"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_width="75dp"
+            android:layout_height="75dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

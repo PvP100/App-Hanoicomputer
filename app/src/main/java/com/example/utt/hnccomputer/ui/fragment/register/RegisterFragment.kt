@@ -1,8 +1,10 @@
 package com.example.utt.hnccomputer.ui.fragment.register
 
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
@@ -10,6 +12,7 @@ import com.example.utt.hnccomputer.customview.RegisterInputView
 import com.example.utt.hnccomputer.databinding.FragmentRegisterBinding
 import com.example.utt.hnccomputer.extension.changeStatusBarContrastStyle
 import com.example.utt.hnccomputer.extension.showDatePickerDialog
+import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_account_information.*
@@ -31,7 +34,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         with(viewModel) {
             response.observe(this@RegisterFragment) {
                 handleNoDataResponse(it, binding.progressBar) {
-                    replaceFragment(LoginFragment(), R.id.parent_container)
+                    activity?.onBackPressed()
                 }
             }
         }
@@ -48,15 +51,50 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 activity?.onBackPressed()
             }
             btnRegister.setOnClickListener {
-                viewModel.register(
-                    email.getText().trim(),
-                    password.getText().trim(),
-                    fullName = fullName.getText().trim(),
-                    birthday = birthday.getText().trim(),
-                    phoneNumber = phoneNumber.getText().trim(),
-                    address = address.getText().trim()
-                )
+                if (isValid()) {
+                    viewModel.register(
+                        email.getText().trim(),
+                        password.getText().trim(),
+                        fullName = fullName.getText().trim(),
+                        birthday = birthday.getText().trim(),
+                        phoneNumber = phoneNumber.getText().trim(),
+                        address = address.getText().trim(),
+                        gender = gender.getText().trim().toInt()
+                    )
+                }
             }
+        }
+    }
+
+    private fun isValid(): Boolean {
+        binding.apply {
+            if (
+                email.getText().trim().isNotEmpty()
+                && password.getText().trim().isNotEmpty()
+                && fullName.getText().trim().isNotEmpty()
+                && birthday.getText().trim().isNotEmpty()
+                && phoneNumber.getText().trim().isNotEmpty()
+                && address.getText().trim().isNotEmpty()
+            ) {
+                if (email.getText().trim().isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(email.getText().trim()).matches()) {
+                    toast("Vui lòng nhập đúng định dạng email")
+                    return false
+                }
+                if (password.getText().trim().length < 8) {
+                    toast("Nhập mật nhiều hơn 8 kí tự")
+                    return false
+                } else {
+                    if (password.getText().trim() != rePassword.getText().trim()) {
+                        toast("Mật khẩu và mật khẩu nhập lại không khớp")
+                        return false
+                    }
+                }
+                return true
+            } else {
+                toast("Vui lòng nhập đầy đủ thông tin")
+                return false
+            }
+
         }
     }
 
