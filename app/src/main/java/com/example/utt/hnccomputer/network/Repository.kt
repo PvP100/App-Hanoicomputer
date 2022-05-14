@@ -31,6 +31,11 @@ class Repository @Inject constructor(private val apiInterface: ApiInterface) {
         return apiInterface.changePassword(customerId, changePasswordRequest).backgroundThread()
     }
 
+    fun editCustomer(id: String, updateType: Int, updateProfile: String): Single<BaseObjectResponse<Customer>> {
+        return apiInterface.editCustomer(id, updateType, updateProfile)
+            .backgroundThread()
+    }
+
     fun register(author: String, registerRequest: RegisterRequest): Single<BaseResponse> {
         return apiInterface.register(author, registerRequest).backgroundThread()
     }

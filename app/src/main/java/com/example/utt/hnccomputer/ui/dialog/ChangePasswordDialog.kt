@@ -1,6 +1,5 @@
 package com.example.utt.hnccomputer.ui.dialog
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.utt.hnccomputer.R
@@ -20,9 +19,11 @@ class ChangePasswordDialog : BaseCustomDialog<DialogChangePasswordBinding>() {
         this.listener = listener
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.FullScreenDialog)
+    override fun onStart() {
+        super.onStart()
+        val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_white_radius_12dp)
     }
 
     override fun initView(
@@ -39,8 +40,8 @@ class ChangePasswordDialog : BaseCustomDialog<DialogChangePasswordBinding>() {
                 dismiss()
             }
             btnChangePassword.setOnClickListener {
-                if (newPassword.getPassword() == rePassword.getPassword()) {
-                    listener?.onChangePassword(oldPassword.getPassword(), newPassword.getPassword())
+                if (newPassword.getInformation() == rePassword.getInformation()) {
+                    listener?.onChangePassword(oldPassword.getInformation(), newPassword.getInformation())
                 } else {
                     toast("Mật khẩu nhập lại không khớp")
                 }
