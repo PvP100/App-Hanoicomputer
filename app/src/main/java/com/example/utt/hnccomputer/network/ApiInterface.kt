@@ -46,4 +46,8 @@ interface ApiInterface {
 
     @GET("${URL}/api/products/getProduct")
     fun getProduct(@Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
+
+    @GET("${URL}/api/products/searchProduct/{productName}")
+    fun searchProduct(@Path("productName") productName: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
+
 }

@@ -77,6 +77,8 @@ class HncHeaderView @JvmOverloads constructor(
 
     }
 
+    fun getSearchView() = binding.searchView
+
     fun setHeaderTitle(title: String) {
         binding.headerTitle.text = title
     }
