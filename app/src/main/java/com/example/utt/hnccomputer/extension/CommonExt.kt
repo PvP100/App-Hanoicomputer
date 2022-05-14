@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import androidx.annotation.*
 
 import androidx.core.content.ContextCompat
+import java.text.NumberFormat
+import java.util.*
 
 fun Collection<*>?.isNullOrEmpty(): Boolean {
     return this == null || this.isEmpty()
@@ -64,6 +66,10 @@ fun <T> Context.openActivityForResult(it: Class<T>, extras: Bundle.() -> Unit = 
     intent.putExtras(Bundle().apply(extras))
 
     return intent
+}
+
+fun Long.convertToVnd(): String {
+    return NumberFormat.getCurrencyInstance(Locale("vi", "VN")).format(this)
 }
 
 

@@ -40,6 +40,9 @@ interface ApiInterface {
     @POST("${URL}/api/auths/customer/{customerID}/newPassword")
     fun changePassword(@Path("customerID") customerId: String, @Body changePasswordRequest: ChangePasswordRequest): Single<BaseResponse>
 
+    @PUT("${URL}/api/customers/updateProfile/{id}")
+    fun editCustomer(@Path("id") id: String, @Query("updateType") updateType: Int, @Query("updateProfile") updateProfile: String): Single<BaseObjectResponse<Customer>>
+
     @POST("${URL}/api/auths/customers/register")
     @Headers("Content-Type: application/json")
     fun register(@Header("Authorization") auth: String, @Body registerRequest: RegisterRequest) : Single<BaseResponse>

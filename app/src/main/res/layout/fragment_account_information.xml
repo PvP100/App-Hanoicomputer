@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content" />
 
             <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:information_type="full_name"
                 app:detail_left_drawable="@drawable/ic_user"
                 app:header_title_information="@string/full_name_title"
                 app:detailInformation="@{model.fullName}"
@@ -39,6 +40,7 @@
             <com.example.utt.hnccomputer.customview.DetailInformationView
                 app:header_title_information="@string/birthday_title"
                 app:detail_left_drawable="@drawable/ic_calendar"
+                app:information_type="birthday"
                 app:detailInformation="@{model.birthday}"
                 android:layout_marginTop="4dp"
                 android:id="@+id/birthday"
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content" />
 
             <com.example.utt.hnccomputer.customview.DetailInformationView
+                app:information_type="gender"
                 app:header_title_information="@string/gender_title"
                 app:detail_left_drawable="@drawable/ic_gender"
                 app:detailInformation="@{model.gender.toString()}"
@@ -66,6 +69,7 @@
             <com.example.utt.hnccomputer.customview.DetailInformationView
                 app:header_title_information="@string/phone_number_title"
                 app:detailInformation="@{model.phone}"
+                app:information_type="phone"
                 app:detail_left_drawable="@drawable/ic_phone"
                 android:layout_marginTop="4dp"
                 android:id="@+id/phone_number"
@@ -76,6 +80,7 @@
                 app:header_title_information="@string/email_title"
                 app:detailInformation="@{model.email}"
                 app:detail_left_drawable="@drawable/ic_mail"
+                app:information_type="email"
                 android:layout_marginTop="4dp"
                 android:id="@+id/email"
                 android:layout_width="match_parent"

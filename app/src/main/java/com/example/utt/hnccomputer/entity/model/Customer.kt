@@ -17,3 +17,16 @@ data class OrderView(
     val cancel: Int,
     val success: Int
 )
+
+enum class UpdateType(val type: Int) {
+    ADDRESS(0),
+    BIRTHDAY(1),
+    EMAIL(2),
+    FULLNAME(3),
+    GENDER(4),
+    PHONE(5);
+
+    companion object {
+        fun fromIntToEditType(type: Int) = values().first { it.type == type }
+    }
+}
