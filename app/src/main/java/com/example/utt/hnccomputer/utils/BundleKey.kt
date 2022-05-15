@@ -5,4 +5,5 @@ object BundleKey {
 
     const val KEY_DETAIL_CATEGORY = "KEY_DETAIL_CATEGORY"
     const val KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE"
+    const val KEY_PRODUCT_DETAIL = "KEY_PRODUCT_DETAIL"
 }

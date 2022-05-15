@@ -53,4 +53,7 @@ interface ApiInterface {
     @GET("${URL}/api/products/searchProduct/{productName}")
     fun searchProduct(@Path("productName") productName: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
 
+    @GET("${URL}/api/products/product/{id}")
+    fun getProductDetail(@Path("id") productId: String): Single<BaseObjectResponse<Product>>
+
 }

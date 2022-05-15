@@ -9,5 +9,6 @@ data class Brand(
     val imgUrl: String,
     @SerializedName("brandName")
     val brandName: String,
+    val brandTotalCount: Int,
     var isSelected: Boolean = false
 )

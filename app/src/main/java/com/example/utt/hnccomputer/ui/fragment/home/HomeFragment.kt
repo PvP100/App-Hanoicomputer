@@ -18,6 +18,7 @@ import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
+import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.ui.fragment.search.SearchFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,6 +84,15 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     override fun initListener() {
+        homeCategoryAdapter.onProductClick = {
+            transitFragment(
+                ProductDetailFragment(),
+                R.id.parent_container,
+                Bundle().apply {
+                    putString(BundleKey.KEY_PRODUCT_DETAIL, it)
+                }
+            )
+        }
         binding.apply {
             brandCategory.tvAll.onAvoidDoubleClick {
                 transitFragment(

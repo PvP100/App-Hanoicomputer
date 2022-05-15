@@ -73,6 +73,7 @@
                         android:layout_height="wrap_content" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="20dp"
                         android:nestedScrollingEnabled="false"
                         android:id="@+id/rcv_home_category"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
