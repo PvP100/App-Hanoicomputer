@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -8,6 +9,7 @@ import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.adapter.home.HomeBrandAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeCategoryAdapter
 import com.example.utt.hnccomputer.customview.HncHeaderView
+import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
 import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
@@ -16,6 +18,8 @@ import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
+import com.example.utt.hnccomputer.ui.fragment.search.SearchFragment
+import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -85,6 +89,17 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                     BrandFragment(),
                     R.id.parent_container
                 )
+            }
+            header.getSearchView().listener = object : HncSearchView.IOnSearchListener {
+                override fun onSearch(value: String) {
+                    transitFragment(
+                        SearchFragment(),
+                        R.id.parent_container,
+                        Bundle().apply {
+                            putString(BundleKey.KEY_SEARCH_VALUE, value)
+                        }
+                    )
+                }
             }
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {
