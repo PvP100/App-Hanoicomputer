@@ -7,6 +7,7 @@ import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.databinding.FragmentAccountBinding
 import com.example.utt.hnccomputer.ui.fragment.account_information.AccountInformationFragment
+import com.example.utt.hnccomputer.ui.fragment.my_order.MyOrderFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +34,9 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         binding.apply {
             btnProfile.layout.setOnClickListener {
                 transitFragment(AccountInformationFragment(), R.id.parent_container)
+            }
+            btnOrder.layout.setOnClickListener {
+                transitFragment(MyOrderFragment(), R.id.parent_container)
             }
         }
     }

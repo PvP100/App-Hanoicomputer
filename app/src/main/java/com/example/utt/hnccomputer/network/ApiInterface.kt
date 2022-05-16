@@ -56,4 +56,7 @@ interface ApiInterface {
     @GET("${URL}/api/products/product/{id}")
     fun getProductDetail(@Path("id") productId: String): Single<BaseObjectResponse<Product>>
 
+    @GET("${URL}/api/order/customerorder/{customerId}")
+    fun getOrder(@Path("customerId") customerId: String, type: Int): Single<BaseObjectLoadMoreResponse<OrderView>>
+
 }
