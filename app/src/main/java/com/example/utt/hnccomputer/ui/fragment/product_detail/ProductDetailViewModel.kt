@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
+import com.example.utt.hnccomputer.database.entity.MyOrderInformation
+import com.example.utt.hnccomputer.database.repository.MyOrderRepository
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.network.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailViewModel @Inject constructor(private val productRepository: ProductRepository) : BaseViewModel() {
+class ProductDetailViewModel @Inject constructor(private val productRepository: ProductRepository, private val myOrderRepository: MyOrderRepository) : BaseViewModel() {
 
     private val _product: MutableLiveData<BaseObjectResponse<Product>> = MutableLiveData()
     val product: LiveData<BaseObjectResponse<Product>> = _product
@@ -30,6 +32,20 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
                 }
             )
         )
+    }
+
+    fun addToCart() {
+        _product.value?.data?.let {
+            mDisposable.add(
+                myOrderRepository.insertProduct(
+                    MyOrderInformation(
+                        it.price,
+                        it.id,
+                        it.quantity
+                    )
+                ).subscribe()
+            )
+        }
     }
 
 }

@@ -13,6 +13,8 @@ class MyOrderRepository @Inject constructor(private val myOrderDao: MyOrderDao) 
 
     fun getOrder() = myOrderDao.getAll().backgroundThread()
 
+    fun isExists(productId: String) = myOrderDao.isProductExists(productId = productId).backgroundThread()
+
     fun deleteAll() = myOrderDao.deleteAll().backgroundThread()
 
 }

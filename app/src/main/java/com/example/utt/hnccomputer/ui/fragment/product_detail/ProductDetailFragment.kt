@@ -12,6 +12,7 @@ import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.extension.changeStatusBarContrastStyle
 import com.example.utt.hnccomputer.extension.convertToVnd
 import com.example.utt.hnccomputer.extension.loadImage
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,6 +71,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
             }
             icCart.setOnClickListener {
                 transitFragment(CartFragment(), R.id.parent_container)
+            }
+            bottom.btnAddToCart.onAvoidDoubleClick {
+                viewModel.addToCart()
             }
         }
     }
