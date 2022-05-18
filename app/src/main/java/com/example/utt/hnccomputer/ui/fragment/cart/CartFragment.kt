@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.cart
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -46,7 +47,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
 
     override fun initData() {
         with(cartViewModel) {
-
+            getCart()
+            myOrder.observe(this@CartFragment) {
+                
+            }
         }
     }
 }

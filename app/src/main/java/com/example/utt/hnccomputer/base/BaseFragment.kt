@@ -14,10 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
 import com.airbnb.lottie.LottieAnimationView
 import com.example.utt.hnccomputer.R
-import com.example.utt.hnccomputer.base.entity.BaseListResponse
-import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
-import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
-import com.example.utt.hnccomputer.base.entity.BaseResponse
+import com.example.utt.hnccomputer.base.entity.*
 import com.example.utt.hnccomputer.extension.*
 import com.example.utt.hnccomputer.utils.Define
 import com.google.android.material.appbar.AppBarLayout
@@ -255,6 +252,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
                 hideAnimationProgress(progressBar)
             }
             Define.ResponseStatus.ERROR -> {
+                if (data.errorNoResponse is BaseError) {
+                    handleValidateError(data.errorNoResponse)
+                }
                 hideAnimationProgress(progressBar)
             }
         }
@@ -315,4 +315,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         data: U?, isRefresh: Boolean, canLoadMore: Boolean
     ) {
     }
+
+    protected open fun handleValidateError(throwable: BaseError?) {}
 }

@@ -19,6 +19,7 @@
             android:layout_marginVertical="20dp"
             android:id="@+id/btn_add_to_cart"
             android:textSize="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/bg_button_add_to_cart"
             android:paddingVertical="10dp"
             android:textColor="@color/white"

@@ -7,12 +7,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.databinding.FragmentProductDetailBinding
 import com.example.utt.hnccomputer.entity.model.Product
-import com.example.utt.hnccomputer.extension.changeStatusBarContrastStyle
-import com.example.utt.hnccomputer.extension.convertToVnd
-import com.example.utt.hnccomputer.extension.loadImage
-import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
+import com.example.utt.hnccomputer.extension.*
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +38,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         with(viewModel) {
             product.observe(this@ProductDetailFragment) {
                 handleObjResponse(it, binding.progressBar)
+            }
+            response.observe(this@ProductDetailFragment) {
+                handleNoDataResponse(it, binding.progressBar) {
+                    toast("Thêm thành công")
+                }
             }
         }
     }
@@ -75,6 +78,12 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
             bottom.btnAddToCart.onAvoidDoubleClick {
                 viewModel.addToCart()
             }
+        }
+    }
+
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            toast(it)
         }
     }
 

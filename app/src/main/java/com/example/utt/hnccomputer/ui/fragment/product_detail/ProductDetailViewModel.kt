@@ -3,12 +3,15 @@ package com.example.utt.hnccomputer.ui.fragment.product_detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
+import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.database.repository.MyOrderRepository
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.network.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,17 +38,32 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
     }
 
     fun addToCart() {
-        _product.value?.data?.let {
-            mDisposable.add(
-                myOrderRepository.insertProduct(
-                    MyOrderInformation(
-                        it.price,
-                        it.id,
-                        it.quantity
-                    )
-                ).subscribe()
-            )
-        }
+        mDisposable.add(
+            myOrderRepository.isExists(_product.value?.data?.id).flatMap {
+                if (!it) {
+                    _product.value?.data?.let { product ->
+                        myOrderRepository.insertProduct(
+                            MyOrderInformation(
+                                product.price,
+                                product.id,
+                                product.quantity
+                            )
+                        ).doOnSubscribe {
+                            _baseResponse.value = BaseResponse().loadingNoData()
+                        }.subscribe(
+                            {
+                                _baseResponse.value = BaseResponse().successNoData()
+                            },
+                            {
+                                _baseResponse.value = BaseResponse().errorNoData(it)
+                            }
+                        )
+                    }
+                } else {
+                    _baseResponse.value = BaseResponse().errorNoData(BaseError("Sản phẩm này đã có trong giỏ hàng"))
+                }
+                Single.just(BaseResponse())
+            }.subscribe()
+        )
     }
-
 }
