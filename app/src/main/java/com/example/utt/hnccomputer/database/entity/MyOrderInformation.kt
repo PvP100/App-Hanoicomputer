@@ -14,5 +14,11 @@ data class MyOrderInformation(
     val productId: String,
 
     @ColumnInfo(name = "quantity")
-    val quantity: Int
+    val quantity: Int,
+
+    @ColumnInfo(name = "product_name")
+    val productName: String,
+
+    @ColumnInfo(name = "img_url")
+    val imgUrl: String
 )

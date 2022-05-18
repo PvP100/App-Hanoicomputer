@@ -11,6 +11,7 @@ import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.network.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,21 +23,16 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Ba
 
     fun getHomeBrand() {
         mDisposable.add(
-            repository.getBrand().doOnSubscribe {
+            Single.merge(repository.getBanner(), repository.getBrand(), repository.getCategory())
+                .doOnSubscribe {
 
-            }
-                .subscribe(
-                    {
-                        brand.value = it.data?.let { it1 ->
-                            BaseObjectLoadMoreResponse<ResultResponse<Brand>>().success(
-                                it1, isRefresh = false, isLoadmore = false
-                            )
-                        }
-                    },
-                    {
+                }.subscribe(
+                {
 
-                    }
-                )
+                }, {
+
+                }
+            )
         )
     }
 

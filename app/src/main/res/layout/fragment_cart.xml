@@ -24,6 +24,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginBottom="8dp"
             tools:itemCount="10"
+            android:id="@+id/rcv_cart"
             tools:listitem="@layout/item_cell_cart"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/tv_total_cart"
@@ -71,6 +72,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:background="@drawable/bg_loading_anim"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_width="75dp"
+            android:layout_height="75dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

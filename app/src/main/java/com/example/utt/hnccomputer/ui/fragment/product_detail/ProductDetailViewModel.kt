@@ -46,7 +46,9 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
                             MyOrderInformation(
                                 product.price,
                                 product.id,
-                                product.quantity
+                                product.quantity,
+                                productName = product.name,
+                                imgUrl = product.logoUrl
                             )
                         ).doOnSubscribe {
                             _baseResponse.value = BaseResponse().loadingNoData()

@@ -3,6 +3,7 @@ package com.example.utt.hnccomputer.ui.fragment.cart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
+import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.database.repository.MyOrderRepository
 import com.example.utt.hnccomputer.extension.ListResponse
@@ -16,11 +17,26 @@ class CartViewModel @Inject constructor(private val repository: Repository, priv
     private val _myOrder: MutableLiveData<List<MyOrderInformation>> = MutableLiveData()
     val myOrder: LiveData<List<MyOrderInformation>> = _myOrder
 
+    var position = 0
+
     fun getCart() {
         mDisposable.add(
             myOrderRepository.getOrder().subscribe(
                 {
                     _myOrder.value = it
+                },
+                {
+
+                }
+            )
+        )
+    }
+
+    fun removeCart(productId: String) {
+        mDisposable.add(
+            myOrderRepository.removeProduct(productId).subscribe(
+                {
+                    _baseResponse.value = BaseResponse().successNoData()
                 },
                 {
 
