@@ -15,6 +15,8 @@ class MyOrderRepository @Inject constructor(private val myOrderDao: MyOrderDao) 
 
     fun isExists(productId: String?) = myOrderDao.isProductExists(productId = productId).backgroundThread()
 
+    fun updateQuantity(productId: String, quantity: Int) = myOrderDao.updateQuantity(productId = productId, quantity = quantity).backgroundThread()
+
     fun deleteAll() = myOrderDao.deleteAll().backgroundThread()
 
 }

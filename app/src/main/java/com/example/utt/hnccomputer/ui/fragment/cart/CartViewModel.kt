@@ -32,8 +32,17 @@ class CartViewModel @Inject constructor(private val repository: Repository, priv
         )
     }
 
-    fun updateCart(quantity: Long) {
-
+    fun updateCart(quantity: Int, productId: String) {
+        mDisposable.add(
+            myOrderRepository.updateQuantity(productId, quantity).subscribe(
+                {
+                    _baseResponse.value = BaseResponse().successNoData()
+                },
+                {
+                    _baseResponse.value = BaseResponse().errorNoData(it)
+                }
+            )
+        )
     }
 
     fun removeCart(productId: String) {

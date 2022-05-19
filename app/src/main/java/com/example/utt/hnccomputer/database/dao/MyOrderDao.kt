@@ -18,6 +18,9 @@ interface MyOrderDao {
     @Query("delete from my_order")
     fun deleteAll(): Completable
 
+    @Query("update my_order set quantity = :quantity where product_id = :productId")
+    fun updateQuantity(quantity: Int, productId: String): Single<Int>
+
     @Query("select exists (select 1 from my_order where product_id = :productId)")
     fun isProductExists(productId: String?): Single<Boolean>
 

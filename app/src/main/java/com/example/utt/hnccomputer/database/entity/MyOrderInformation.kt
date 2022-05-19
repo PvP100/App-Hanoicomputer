@@ -14,7 +14,7 @@ data class MyOrderInformation(
     val productId: String,
 
     @ColumnInfo(name = "quantity")
-    val quantity: Int,
+    var quantity: Int,
 
     @ColumnInfo(name = "product_name")
     val productName: String,

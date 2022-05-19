@@ -17,6 +17,8 @@ class CountOrderView(context: Context, attrs: AttributeSet? = null) :
         return ViewCountOrderBinding.inflate(LayoutInflater.from(context), this, false)
     }
 
+    var onCountListener: (Int) -> Unit =  {}
+
     override fun initListener() {
         binding.apply {
             minus.setOnClickListener {
@@ -25,9 +27,11 @@ class CountOrderView(context: Context, attrs: AttributeSet? = null) :
                 } else {
                     setCount(count.minus(1))
                 }
+                onCountListener(count)
             }
             plus.setOnClickListener {
                 setCount(count.plus(1))
+                onCountListener(count)
             }
         }
     }
