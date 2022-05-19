@@ -13,6 +13,10 @@ import com.example.utt.hnccomputer.extension.loadImage
 class CartAdapter(context: Context?, enableSelectedMode: Boolean = false) :
     RecyclerViewAdapter(context, enableSelectedMode) {
 
+    fun getQuantityChange() {
+
+    }
+
     var onRemoveCart: (productId: String?, position: Int) -> Unit = { _, _ -> }
 
     override fun initNormalViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? {
@@ -25,6 +29,7 @@ class CartAdapter(context: Context?, enableSelectedMode: Boolean = false) :
             tvProductNameCart.text = model?.productName
             tvPrice.text = model?.price?.convertToVnd()
             imgProductCart.loadImage(model?.imgUrl)
+            layoutMinusPlus.setCount(model?.quantity ?: 1)
             btnRemove.setOnClickListener {
                 onRemoveCart(model?.productId, position)
             }

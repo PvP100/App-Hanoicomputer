@@ -8,6 +8,7 @@ import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.adapter.home.HomeBrandAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeCategoryAdapter
+import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
@@ -43,42 +44,27 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
         binding.rcvBrand.adapter = homeBrandAdapter
         binding.rcvHomeCategory.adapter = homeCategoryAdapter
-
-        initData()
-        initListener()
     }
 
     override fun initData() {
         with(viewModel) {
-            getBanner()
             getHomeBrand()
-            getHomeCategory()
             banner.observe(this@HomeFragment) {
                 handleListResponse(it, binding.progressBar)
             }
-            brand.observe(this@HomeFragment) {
-                handleObjectLoadMoreResponse(it, binding.progressBar)
+            response.observe(this@HomeFragment) {
+                handleNoDataResponse(it, binding.progressBar) {
+                    brand.value?.data?.results?.let { it1 ->
+                        homeBrandAdapter.refresh(
+                            it1
+                        )
+                    }
+                    homeCategory.value?.data?.let { it1 -> homeCategoryAdapter.refresh(it1) }
+                    banner.value?.data?.let { it1 -> binding.banner.setBanner(it1) }
+                }
             }
             homeCategory.observe(this@HomeFragment) {
                 handleListResponse(it, binding.progressBar)
-            }
-        }
-    }
-
-    override fun <U> getListResponse(data: List<U>?) {
-        super.getListResponse(data)
-        if (data?.first() is HomeCategory) {
-            homeCategoryAdapter.refresh(data as List<HomeCategory>)
-        } else if (data?.first() is Banner) {
-            binding.banner.setBanner(data as List<Banner>)
-        }
-    }
-
-    override fun <U> getListLoadMoreResponse(data: U?, isRefresh: Boolean, canLoadMore: Boolean) {
-        super.getListLoadMoreResponse(data, isRefresh, canLoadMore)
-        if (data is ResultResponse<*>) {
-            if (data.results.first() is Brand) {
-                homeBrandAdapter.refresh(data.results as List<Brand>)
             }
         }
     }

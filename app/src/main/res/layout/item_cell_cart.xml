@@ -37,13 +37,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
-        <include
-            layout="@layout/include_plus_minus_layout"
+        <com.example.utt.hnccomputer.customview.CountOrderView
+            layout="@layout/view_count_order"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/tv_product_name_cart"
-            android:layout_width="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_name_cart"
             android:id="@+id/layout_minus_plus"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -1,10 +1,10 @@
 package com.example.utt.hnccomputer.ui.fragment.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.base.entity.BaseListResponse
 import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
+import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
 import com.example.utt.hnccomputer.entity.model.HomeCategory
@@ -23,48 +23,30 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Ba
 
     fun getHomeBrand() {
         mDisposable.add(
-            Single.merge(repository.getBanner(), repository.getBrand(), repository.getCategory())
-                .doOnSubscribe {
-
-                }.subscribe(
-                {
-
-                }, {
-
-                }
-            )
-        )
-    }
-
-    fun getHomeCategory() {
-        mDisposable.add(
-            repository.getHomeCategory().doOnSubscribe {
-
-            }
-                .doOnSubscribe {
-                    homeCategory.value = BaseListResponse<HomeCategory>().loading()
-                }
-                .subscribe(
-                    {
-                        homeCategory.value = BaseListResponse<HomeCategory>().success(it.data)
-                    },
-                    {
-                        homeCategory.value = BaseListResponse<HomeCategory>().error(it)
-                    }
-                )
-        )
-    }
-
-    fun getBanner() {
-        mDisposable.add(
-            repository.getBanner().doOnSubscribe {
-                banner.value = BaseListResponse<Banner>().loading()
+            Single.merge(repository.getBanner(), repository.getBrand(), repository.getHomeCategory()).doOnSubscribe {
+                _baseResponse.value = BaseResponse().loadingNoData()
+            }.doOnComplete {
+                _baseResponse.value = BaseResponse().successNoData()
             }.subscribe(
                 {
-                    banner.value = BaseListResponse<Banner>().success(it.data)
+                    if (it is BaseListResponse<*>) {
+                        if (it.data is List<*>) {
+                            if (it.data.first() is HomeCategory) {
+                                homeCategory.value = it as BaseListResponse<HomeCategory>
+                            } else if (it.data.first() is Banner) {
+                                banner.value = it as BaseListResponse<Banner>
+                            }
+                        }
+                    } else if (it is BaseObjectLoadMoreResponse<*>) {
+                        if (it.data is ResultResponse<*>) {
+                            if (it.data.results.first() is Brand) {
+                                brand.value = it as BaseObjectLoadMoreResponse<ResultResponse<Brand>>
+                            }
+                        }
+                    }
                 },
                 {
-                    banner.value = BaseListResponse<Banner>().error(it)
+                    _baseResponse.value = BaseResponse().errorNoData(it)
                 }
             )
         )

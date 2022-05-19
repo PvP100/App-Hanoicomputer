@@ -46,7 +46,7 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
                             MyOrderInformation(
                                 product.price,
                                 product.id,
-                                product.quantity,
+                                1,
                                 productName = product.name,
                                 imgUrl = product.logoUrl
                             )

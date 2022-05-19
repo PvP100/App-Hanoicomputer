@@ -32,6 +32,10 @@ class CartViewModel @Inject constructor(private val repository: Repository, priv
         )
     }
 
+    fun updateCart(quantity: Long) {
+
+    }
+
     fun removeCart(productId: String) {
         mDisposable.add(
             myOrderRepository.removeProduct(productId).subscribe(
