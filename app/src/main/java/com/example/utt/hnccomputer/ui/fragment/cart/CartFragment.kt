@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.cart
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.databinding.FragmentCartBinding
 import com.example.utt.hnccomputer.extension.convertToVnd
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.confirm_order.ConfirmOrderFragment
+import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,10 +50,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
 
                 }
             }
-            btnBuy.setOnClickListener {
+            btnBuy.onAvoidDoubleClick {
                 transitFragment(
                     ConfirmOrderFragment(),
-                    R.id.parent_container
+                    R.id.parent_container,
+                    Bundle().apply {
+                        putLong(BundleKey.KEY_TOTAL_PRICE, cartAdapter.getTotal())
+                    }
                 )
             }
             cartAdapter.onRemoveCart = { id, position ->

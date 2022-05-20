@@ -1,6 +1,7 @@
 package com.example.utt.hnccomputer.ui.fragment.confirm_order
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
@@ -38,6 +39,7 @@ class ConfirmOrderViewModel @Inject constructor(private val repository: Reposito
                 }
                 .subscribe(
                     {
+                        Log.v("phongpv", it.toString())
                         if (it is List<*>) {
                             if (it.first() is MyOrderInformation) {
                                 _myOrder.value = it as List<MyOrderInformation>

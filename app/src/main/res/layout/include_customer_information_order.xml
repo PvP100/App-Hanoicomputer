@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.utt.hnccomputer.entity.model.Customer" />
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/include_detail_customer_order"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            app:detail="@{model.fullName}"
+            app:informationTitle='@{"Người nhận: "}'
+            android:layout_height="wrap_content"
+            android:id="@+id/name"/>
+
+        <include layout="@layout/include_detail_customer_order"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            app:detail="@{model.phone}"
+            app:informationTitle='@{"Số điện thoại: "}'
+            android:layout_height="wrap_content"
+            android:id="@+id/phone_number"/>
+
+        <include layout="@layout/include_detail_customer_order"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            app:detail="@{model.address}"
+            app:informationTitle='@{"Địa chỉ nhận hàng: "}'
+            android:layout_height="wrap_content"
+            android:id="@+id/address"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

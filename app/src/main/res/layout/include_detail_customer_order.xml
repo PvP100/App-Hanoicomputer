@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="informationTitle"
+            type="java.lang.String" />
+        <variable
+            name="detail"
+            type="java.lang.String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/medium"
+            android:textColor="#898989"
+            android:text="@{informationTitle}"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tv_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textSize="14dp"
+            style="@style/bold"
+            android:text="@{detail}"
+            app:layout_constraintTop_toTopOf="@+id/tv_receiver"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_receiver"
+            app:layout_constraintStart_toEndOf="@+id/tv_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
