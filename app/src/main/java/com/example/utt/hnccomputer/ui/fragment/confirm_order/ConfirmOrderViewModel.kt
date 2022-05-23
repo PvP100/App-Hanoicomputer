@@ -10,6 +10,8 @@ import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.database.repository.MyOrderRepository
 import com.example.utt.hnccomputer.entity.model.Customer
+import com.example.utt.hnccomputer.entity.request.OrderBody
+import com.example.utt.hnccomputer.entity.request.OrderItem
 import com.example.utt.hnccomputer.extension.getString
 import com.example.utt.hnccomputer.network.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +41,6 @@ class ConfirmOrderViewModel @Inject constructor(private val repository: Reposito
                 }
                 .subscribe(
                     {
-                        Log.v("phongpv", it.toString())
                         if (it is List<*>) {
                             if (it.first() is MyOrderInformation) {
                                 _myOrder.value = it as List<MyOrderInformation>
@@ -53,6 +54,33 @@ class ConfirmOrderViewModel @Inject constructor(private val repository: Reposito
                     {
                     }
                 )
+        )
+    }
+
+    fun clearLocalDatabase() {
+        mDisposable.add(
+            myOrderRepository.deleteAll().subscribe()
+        )
+    }
+
+    fun createOrder() {
+        mDisposable.add(
+            repository.createOrder(
+                OrderBody(
+                    sharedPreferences.getString("customerId"),
+                    _myOrder.value?.map { OrderItem(it.price, it.productId, it.quantity) } ?: listOf()
+                )
+            )
+                .doOnSubscribe {
+                    _baseResponse.value = BaseResponse().loadingNoData()
+                }.subscribe(
+                {
+                    _baseResponse.value = BaseResponse().successNoData()
+                },
+                {
+                    _baseResponse.value = BaseResponse().errorNoData(it)
+                }
+            )
         )
     }
 

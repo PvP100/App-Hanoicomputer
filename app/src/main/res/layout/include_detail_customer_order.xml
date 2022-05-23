@@ -21,19 +21,21 @@
             android:text="@{informationTitle}"
             android:textSize="14dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/detail"
             android:id="@+id/tv_receiver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:textSize="14dp"
+            android:id="@+id/detail"
             style="@style/bold"
             android:text="@{detail}"
-            app:layout_constraintTop_toTopOf="@+id/tv_receiver"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_receiver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_receiver"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

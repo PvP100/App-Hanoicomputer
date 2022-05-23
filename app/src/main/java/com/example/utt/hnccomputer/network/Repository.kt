@@ -5,10 +5,12 @@ import com.example.utt.hnccomputer.base.entity.BaseListResponse
 import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
 import com.example.utt.hnccomputer.base.entity.BaseObjectResponse
 import com.example.utt.hnccomputer.base.entity.BaseResponse
+import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.entity.LoginRequest
 import com.example.utt.hnccomputer.entity.LoginResponse
 import com.example.utt.hnccomputer.entity.model.*
 import com.example.utt.hnccomputer.entity.request.ChangePasswordRequest
+import com.example.utt.hnccomputer.entity.request.OrderBody
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.backgroundThread
@@ -54,5 +56,9 @@ class Repository @Inject constructor(private val apiInterface: ApiInterface) {
 
     fun getBanner(): Single<BaseListResponse<Banner>> {
         return apiInterface.getBanner().backgroundThread()
+    }
+
+    fun createOrder(orderBody: OrderBody): Single<BaseResponse> {
+        return apiInterface.createOrder(orderBody).backgroundThread()
     }
 }
