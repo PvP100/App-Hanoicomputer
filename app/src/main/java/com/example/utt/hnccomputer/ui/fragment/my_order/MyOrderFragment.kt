@@ -8,7 +8,7 @@ import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.base.BaseFragmentStatePagerAdapter
 import com.example.utt.hnccomputer.base.entity.BaseFragmentPagerModel
 import com.example.utt.hnccomputer.databinding.FragmentMyOrderBinding
-import com.example.utt.hnccomputer.entity.model.OrderType
+import com.example.utt.hnccomputer.entity.model.OrderStatus
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,19 +21,19 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding>() {
         super.onViewCreated(view, savedInstanceState)
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderType.CHECK),
+                OrderByTypeFragment(OrderStatus.CHECK),
                 "Đã xử lý"
             )
         )
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderType.UNCHECK),
+                OrderByTypeFragment(OrderStatus.UNCHECK),
                 "Chưa xử lý"
             )
         )
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderType.CANCEL),
+                OrderByTypeFragment(OrderStatus.CANCEL),
                 "Đã hủy"
             )
         )

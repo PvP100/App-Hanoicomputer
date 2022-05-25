@@ -1,12 +1,25 @@
 package com.example.utt.hnccomputer.entity.model
 
-class Order {
-}
+import com.google.gson.annotations.SerializedName
 
-enum class OrderType(val type: Int) {
-    CHECK(0),
-    UNCHECK(1),
-    CANCEL(2);
+data class Order(
+    val id: Int,
+    val isCheck: OrderStatus,
+    val createdDate: Long,
+    val updateDate: Long,
+    val totalProduct: Int
+)
+
+enum class OrderStatus(val type: Int, status: String) {
+
+    @SerializedName("1")
+    CHECK(1, "Đã xử lý"),
+
+    @SerializedName("-1")
+    UNCHECK(0, "Chưa xử lý"),
+
+    @SerializedName("0")
+    CANCEL(-1, "Đã hủy");
 
     companion object {
         fun fromIntToOrderType(value: Int) = values().first { it.type == value}
