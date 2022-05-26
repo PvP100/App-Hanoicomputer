@@ -12,6 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import java.util.*
@@ -135,6 +137,10 @@ fun AppCompatActivity.changeStatusBarContrastStyle(blackBlackGround: Boolean) {
         decorView.systemUiVisibility =
             decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
+}
+
+fun AppCompatTextView.setColor(color: Int) {
+    setTextColor(ContextCompat.getColor(context, color))
 }
 
 

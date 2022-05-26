@@ -15,12 +15,10 @@ import javax.inject.Inject
 @HiltViewModel
 class OrderByTypeViewModel @Inject constructor(private val orderRepository: OrderRepository, private val sharedPreferences: SharedPreferences) : BaseViewModel() {
 
-    var type = OrderStatus.CHECK
-
     private val _order: MutableLiveData<BaseObjectLoadMoreResponse<ResultResponse<Order>>> = MutableLiveData()
     val order: LiveData<BaseObjectLoadMoreResponse<ResultResponse<Order>>> = _order
 
-    fun getOrder() {
+    fun getOrder(type: OrderStatus) {
         mDisposable.add(
             orderRepository.getOrder(type.type, sharedPreferences.getString("customerId", "") ?: "")
                 .doOnSubscribe {

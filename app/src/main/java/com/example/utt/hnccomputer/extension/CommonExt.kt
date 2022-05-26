@@ -12,6 +12,7 @@ import androidx.annotation.*
 
 import androidx.core.content.ContextCompat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun Collection<*>?.isNullOrEmpty(): Boolean {
@@ -70,6 +71,13 @@ fun <T> Context.openActivityForResult(it: Class<T>, extras: Bundle.() -> Unit = 
 
 fun Long.convertToVnd(): String {
     return NumberFormat.getCurrencyInstance(Locale("vi", "VN")).format(this)
+}
+
+fun Long.convertToDate(): String {
+    val dateFormat = SimpleDateFormat("HH:mm:ss, dd/MM/yyyy")
+    val date = Date(this)
+
+    return dateFormat.format(date)
 }
 
 

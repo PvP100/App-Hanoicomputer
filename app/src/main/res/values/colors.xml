@@ -19,4 +19,7 @@
     <color name="default_ranking_color">#80000000</color>
     <color name="base_red_01">#DD273D</color>
     <color name="base_green">#02D917</color>
+    <color name="base_order_unchecked">#E17A00</color>
+    <color name="base_order_checked">#03A700</color>
+    <color name="base_order_canceled">#E70000</color>
 </resources>

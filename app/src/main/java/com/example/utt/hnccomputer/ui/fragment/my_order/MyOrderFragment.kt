@@ -38,6 +38,8 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding>() {
             )
         )
 
+        binding.pager.isUserInputEnabled = false
+
         binding.pager.adapter = context?.let {
             BaseFragmentStatePagerAdapter(
                 it, informationFragments, this
