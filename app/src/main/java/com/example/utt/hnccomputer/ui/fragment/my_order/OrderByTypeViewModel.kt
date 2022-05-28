@@ -18,9 +18,11 @@ class OrderByTypeViewModel @Inject constructor(private val orderRepository: Orde
     private val _order: MutableLiveData<BaseObjectLoadMoreResponse<ResultResponse<Order>>> = MutableLiveData()
     val order: LiveData<BaseObjectLoadMoreResponse<ResultResponse<Order>>> = _order
 
-    fun getOrder(type: OrderStatus) {
+    var orderType = 0
+
+    fun getOrder(isRefresh: Boolean) {
         mDisposable.add(
-            orderRepository.getOrder(type.type, sharedPreferences.getString("customerId", "") ?: "")
+            orderRepository.getOrder(orderType, sharedPreferences.getString("customerId", "") ?: "")
                 .doOnSubscribe {
                     _order.value = BaseObjectLoadMoreResponse<ResultResponse<Order>>().loading()
                 }
@@ -28,7 +30,7 @@ class OrderByTypeViewModel @Inject constructor(private val orderRepository: Orde
                     {
                         _order.value = it.data?.let { it1 ->
                             BaseObjectLoadMoreResponse<ResultResponse<Order>>().success(
-                                it1, isRefresh = false, isLoadmore = false)
+                                it1, isRefresh = isRefresh, isLoadmore = false)
                         }
                     },
                     {

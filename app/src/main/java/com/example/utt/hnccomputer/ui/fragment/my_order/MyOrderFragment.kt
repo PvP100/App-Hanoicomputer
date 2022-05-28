@@ -9,6 +9,8 @@ import com.example.utt.hnccomputer.base.BaseFragmentStatePagerAdapter
 import com.example.utt.hnccomputer.base.entity.BaseFragmentPagerModel
 import com.example.utt.hnccomputer.databinding.FragmentMyOrderBinding
 import com.example.utt.hnccomputer.entity.model.OrderStatus
+import com.example.utt.hnccomputer.ui.fragment.category.CategoryFragment
+import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,23 +19,26 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding>() {
 
     private val informationFragments = mutableListOf<BaseFragmentPagerModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        binding: FragmentMyOrderBinding
+    ) {
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderStatus.CHECK),
+                OrderByTypeFragment.newInstance(OrderStatus.CHECK),
                 "Đã xử lý"
             )
         )
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderStatus.UNCHECK),
+                OrderByTypeFragment.newInstance(OrderStatus.UNCHECK),
                 "Chưa xử lý"
             )
         )
         informationFragments.add(
             BaseFragmentPagerModel(
-                OrderByTypeFragment(OrderStatus.CANCEL),
+                OrderByTypeFragment.newInstance(OrderStatus.CANCEL),
                 "Đã hủy"
             )
         )
@@ -46,17 +51,9 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding>() {
             )
         }
 
-        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.pager, false, false) { tab, position ->
             tab.text = informationFragments[position].title
         }.attach()
-    }
-
-    override fun initView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        binding: FragmentMyOrderBinding
-    ) {
-
     }
 
     override fun initData() {

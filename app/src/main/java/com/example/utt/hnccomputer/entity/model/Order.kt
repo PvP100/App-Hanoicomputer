@@ -15,10 +15,10 @@ enum class OrderStatus(val type: Int, status: String) {
     @SerializedName("1")
     CHECK(1, "Đã xử lý"),
 
-    @SerializedName("-1")
+    @SerializedName("0")
     UNCHECK(0, "Chưa xử lý"),
 
-    @SerializedName("0")
+    @SerializedName("-1")
     CANCEL(-1, "Đã hủy");
 
     companion object {

@@ -18,7 +18,7 @@ import com.example.utt.hnccomputer.entity.response.ResultResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderByTypeFragment(private val orderType: OrderStatus) : BaseViewStubFragment<FragmentOrderByTypeBinding>() {
+class OrderByTypeFragment : BaseViewStubFragment<FragmentOrderByTypeBinding>() {
 
     private val viewModel: OrderByTypeViewModel by viewModels()
 
@@ -26,9 +26,25 @@ class OrderByTypeFragment(private val orderType: OrderStatus) : BaseViewStubFrag
         OrderAdapter(requireContext(), false)
     }
 
+    companion object {
+        fun newInstance(type: OrderStatus) =
+            OrderByTypeFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARGS_ORDER_TYPE, type.type)
+                }
+            }
+
+        private const val ARGS_ORDER_TYPE = "ARGS_ORDER_TYPE"
+    }
+
     override fun initData() {
         with(viewModel) {
-            getOrder(orderType)
+            arguments?.let {
+                if (it.containsKey(ARGS_ORDER_TYPE)) {
+                    viewModel.orderType = it.getInt(ARGS_ORDER_TYPE, OrderStatus.CHECK.type)
+                }
+            }
+            getOrder(true)
             order.observe(this@OrderByTypeFragment) {
                 handleObjectLoadMoreResponse(it, binding.progressBar)
             }
@@ -48,7 +64,9 @@ class OrderByTypeFragment(private val orderType: OrderStatus) : BaseViewStubFrag
 
     override fun initListener() {
         binding.apply {
-
+            rcvOrder.setOnRefreshListener {
+                viewModel.getOrder(true)
+            }
         }
     }
 
