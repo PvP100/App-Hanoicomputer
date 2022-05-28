@@ -8,5 +8,6 @@ data class Category(
     val title: String,
     val quantity: Int,
     val imgUrl: String,
-    val categoryType: String
+    val categoryType: String,
+    var isSelected: Boolean = false
 ) : Serializable

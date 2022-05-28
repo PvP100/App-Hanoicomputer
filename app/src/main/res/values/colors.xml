@@ -22,4 +22,13 @@
     <color name="base_order_unchecked">#E17A00</color>
     <color name="base_order_checked">#03A700</color>
     <color name="base_order_canceled">#E70000</color>
+    <color name="bg_app_01">#E7E8EA</color>
+    <color name="base_02">#D5D8DE</color>
+    <color name="base_03">#9DA2AA</color>
+    <color name="base_04">#4A4C55</color>
+    <color name="base_05">#243A76</color>
+    <color name="base_06">#B7B9C6</color>
+    <color name="base_07">#696969</color>
+    <color name="base_08">#2948FF</color>
+    <color name="base_09">#D7D7D7</color>
 </resources>

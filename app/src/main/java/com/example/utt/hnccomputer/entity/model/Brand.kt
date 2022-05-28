@@ -1,6 +1,7 @@
 package com.example.utt.hnccomputer.entity.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Brand(
     @SerializedName("id")
@@ -11,4 +12,4 @@ data class Brand(
     val brandName: String,
     val brandTotalCount: Int,
     var isSelected: Boolean = false
-)
+) : Serializable

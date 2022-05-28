@@ -10,9 +10,11 @@ import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentCategoryDetailBinding
+import com.example.utt.hnccomputer.entity.model.Brand
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.dialog.FilterProductDialog
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.SpacesItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,8 @@ import javax.inject.Inject
 class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
 
     private val categoryDetailViewModel: CategoryDetailViewModel by viewModels()
+
+    private val dialogFilter = FilterProductDialog()
 
     @Inject
     lateinit var productAdapter: HomeProductAdapter
@@ -37,8 +41,13 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
         binding.rcvProduct.getRecyclerView().addItemDecoration(SpacesItemDecoration(spacingInPixels))
         arguments?.let {
             if (it.containsKey(BundleKey.KEY_DETAIL_CATEGORY)) {
-                categoryDetailViewModel.categoryId = (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).id
-                binding.header.setHeaderTitle((it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).title)
+                if (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) is Category) {
+                    categoryDetailViewModel.categoryId = (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).id
+                    binding.header.setHeaderTitle((it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Category).title)
+                } else {
+                    categoryDetailViewModel.brandId = (it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Brand).id
+                    binding.header.setHeaderTitle((it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Brand).brandName)
+                }
             }
         }
     }
@@ -67,7 +76,7 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
                 }
 
                 override fun onRightClick() {
-                    //TODO filter
+                    dialogFilter.show(childFragmentManager, dialogFilter.tag)
                 }
             }
         }

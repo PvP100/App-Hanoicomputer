@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/default_ranking_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/medium"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/header_title"
+                android:text="Lọc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:textColor="@color/base_05"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintTop_toTopOf="@+id/header_title"
+                app:layout_constraintBottom_toBottomOf="@+id/header_title"
+                style="@style/medium"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/cancel_button"
+                android:text="Hủy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_category"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="@+id/header_title"
+                app:layout_constraintEnd_toEndOf="@+id/header_title"
+                app:layout_constraintTop_toBottomOf="@+id/header_title"
+                style="@style/regular"
+                android:textColor="@color/base_07"
+                android:textSize="20dp"
+                android:text="Danh mục"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:clipToPadding="false"
+                android:paddingStart="10dp"
+                tools:listitem="@layout/item_cell_product_category_filter"
+                android:id="@+id/rcv_category"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_category"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@+id/tv_category"
+                app:layout_constraintEnd_toEndOf="@+id/tv_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_brand"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="@+id/header_title"
+                app:layout_constraintEnd_toEndOf="@+id/header_title"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_category"
+                style="@style/regular"
+                android:textColor="@color/base_07"
+                android:textSize="20dp"
+                android:text="Thương hiệu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:clipToPadding="false"
+                android:paddingStart="10dp"
+                tools:listitem="@layout/item_cell_product_category_filter"
+                android:id="@+id/rcv_brand"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_brand"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@+id/tv_brand"
+                app:layout_constraintEnd_toEndOf="@+id/tv_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:paddingVertical="8dp"
+                android:gravity="center"
+                android:id="@+id/btn_filter"
+                android:textColor="@color/white"
+                style="@style/medium"
+                android:textSize="16dp"
+                android:text="Lọc"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/rcv_brand"
+                android:background="@drawable/bg_header_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

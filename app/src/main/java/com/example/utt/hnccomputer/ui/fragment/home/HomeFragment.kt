@@ -4,21 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.adapter.home.HomeBrandAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeCategoryAdapter
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
 import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
+import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
+import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.ui.fragment.search.SearchFragment
 import com.example.utt.hnccomputer.utils.BundleKey
@@ -70,6 +74,19 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     override fun initListener() {
+        homeBrandAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(
+                adapter: RecyclerView.Adapter<*>,
+                viewHolder: RecyclerView.ViewHolder?,
+                viewType: Int,
+                position: Int
+            ) {
+                transitFragment(CategoryDetailFragment(), R.id.parent_container, Bundle().apply {
+                    putSerializable(BundleKey.KEY_DETAIL_CATEGORY, homeBrandAdapter.getItem(position, Brand::class.java))
+                })
+            }
+
+        })
         homeCategoryAdapter.onProductClick = {
             transitFragment(
                 ProductDetailFragment(),
