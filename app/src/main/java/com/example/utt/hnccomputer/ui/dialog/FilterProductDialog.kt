@@ -12,6 +12,7 @@ import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.databinding.DialogFilterProductBinding
 import com.example.utt.hnccomputer.entity.model.Brand
 import com.example.utt.hnccomputer.entity.model.Category
+import com.example.utt.hnccomputer.extension.gone
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 
 
@@ -35,15 +36,23 @@ class FilterProductDialog : BaseCustomDialog<DialogFilterProductBinding>() {
 
     private var brandId: Int? = null
 
-    private var listCategory: List<Category>? = null
+    private var listCategory: List<Category> = emptyList()
 
-    private var listBrand: List<Brand>? = null
+    private var listBrand: List<Brand> = emptyList()
 
     override fun initView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         binding: DialogFilterProductBinding
     ) {
+        if (listBrand.isEmpty()) {
+            binding.rcvBrand.gone()
+            binding.tvBrand.gone()
+        }
+        if (listCategory.isEmpty()) {
+            binding.rcvCategory.gone()
+            binding.tvCategory.gone()
+        }
         oldBrandPosition = null
         oldCategoryPostion = null
         categoryId = null
@@ -59,11 +68,11 @@ class FilterProductDialog : BaseCustomDialog<DialogFilterProductBinding>() {
         listBrand?.let { brandAdapter.refresh(it) }
     }
 
-    fun setListCategory(listCategory: List<Category>?) {
+    fun setListCategory(listCategory: List<Category>) {
         this.listCategory = listCategory
     }
 
-    fun setListBrand(listBrand: List<Brand>?) {
+    fun setListBrand(listBrand: List<Brand>) {
         this.listBrand = listBrand
     }
 
@@ -136,7 +145,7 @@ class FilterProductDialog : BaseCustomDialog<DialogFilterProductBinding>() {
                     }
 
                     brandAdapter.notifyItemChanged(position)
-                    oldBrandPosition?.let { categoryAdapter.notifyItemChanged(it) }
+                    oldBrandPosition?.let { brandAdapter.notifyItemChanged(it) }
 
                     oldBrandPosition = position
                     brandId = item?.id

@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(private val apiInterface: ApiInterface) {
 
-    fun getProduct(categoryId: Int? = null, brandId: Int? = null) : Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>> {
-        return apiInterface.getProduct(categoryId, brandId).backgroundThread()
+    fun getProduct(categoryId: Int? = null, brandId: Int? = null, sortBy: String = "createdDate", sortType: String = "desc", isSale: Int = 0) : Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>> {
+        return apiInterface.getProduct(categoryId, brandId, sortBy, sortType, isSale).backgroundThread()
     }
 
     fun getSearch(value: String): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>> {

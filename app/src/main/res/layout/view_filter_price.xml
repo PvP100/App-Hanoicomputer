@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <HorizontalScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_sale"
+                android:background="@drawable/bg_unselected_product_filter"
+                android:textColor="#747474"
+                style="@style/medium"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="12dp"
+                android:text="Đang giảm giá"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_asc"
+                android:layout_marginHorizontal="12dp"
+                android:background="@drawable/bg_unselected_product_filter"
+                android:textColor="#747474"
+                style="@style/medium"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="12dp"
+                android:text="Giá tăng dần"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btn_desc"
+                android:background="@drawable/bg_unselected_product_filter"
+                android:textColor="#747474"
+                style="@style/medium"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="12dp"
+                android:text="Giá giảm dần"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </HorizontalScrollView>
+</layout>

@@ -50,7 +50,7 @@ interface ApiInterface {
     fun register(@Header("Authorization") auth: String, @Body registerRequest: RegisterRequest) : Single<BaseResponse>
 
     @GET("${URL}/api/products/getProduct")
-    fun getProduct(@Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
+    fun getProduct(@Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?, @Query("sortBy") sort: String, @Query("sortType") type: String, @Query("isSale") sale: Int): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
 
     @GET("${URL}/api/products/searchProduct/{productName}")
     fun searchProduct(@Path("productName") productName: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
