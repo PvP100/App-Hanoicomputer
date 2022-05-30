@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
+import com.example.utt.hnccomputer.adapter.home.CategoryProductAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.databinding.FragmentSearchBinding
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
     @Inject
-    lateinit var productAdapter: HomeProductAdapter
+    lateinit var productAdapter: CategoryProductAdapter
 
     private val viewModel: SearchViewModel by viewModels()
 

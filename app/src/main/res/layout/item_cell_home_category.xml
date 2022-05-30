@@ -8,6 +8,7 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/item_cell_home_adapter"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -114,16 +114,31 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
             rcvProduct.setOnRefreshListener {
                 categoryDetailViewModel.getProduct(isRefresh = true)
             }
+            dialogFilter.onReturnFilter = { categoryId, brandId ->
+                if (categoryId == null && brandId == null) {
+                    if (categoryDetailViewModel.categoryId != 0) {
+                        categoryDetailViewModel.brandId = 0
+                    }
+                    if (categoryDetailViewModel.brandId != 0) {
+                        categoryDetailViewModel.categoryId = 0
+                    }
+                }
+                categoryId?.let { categoryDetailViewModel.categoryId = it }
+                brandId?.let { categoryDetailViewModel.brandId = it }
+                categoryDetailViewModel.getProduct(true)
+            }
             filterPrice.onReturnSelected = {
                 when(it) {
                     1 -> {
                         categoryDetailViewModel.isSale = 1
                     }
                     2 -> {
+                        categoryDetailViewModel.isSale = 0
                         categoryDetailViewModel.sortBy = "price"
                         categoryDetailViewModel.sortType = "asc"
                     }
                     3 -> {
+                        categoryDetailViewModel.isSale = 0
                         categoryDetailViewModel.sortBy = "price"
                         categoryDetailViewModel.sortType = "desc"
                     }
