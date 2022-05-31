@@ -61,6 +61,9 @@ interface ApiInterface {
     @GET("${URL}/api/order/customerorder/{customerId}")
     fun getOrder(@Path("customerId") customerId: String, @Query("type") type: Int): Single<BaseObjectLoadMoreResponse<ResultResponse<Order>>>
 
+    @GET("${URL}/api/order/getdetail/{id}")
+    fun getOrderDetail(@Path("id") orderId: Int): Single<BaseObjectResponse<OrderDetail>>
+
     @POST("${URL}/api/order/addorder")
     fun createOrder(@Body myOrderInformation: OrderBody): Single<BaseResponse>
 

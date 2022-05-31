@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.example.utt.hnccomputer.entity.model.OrderDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.example.utt.hnccomputer.customview.HncHeaderView
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/header"
+            app:header_type="normal"
+            app:header_title="@string/order_detail_header_title"
+            app:left_drawable="@drawable/ic_arrow_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    style="@style/bold"
+                    android:textSize="16dp"
+                    android:id="@+id/order_id"
+                    android:text='@{"Mã đơn hàng: " + model.order.id}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/created_date"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <include layout="@layout/include_order_status"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"/>
+
+                <View
+                    style="@style/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:text="Thông tin người mua"
+                    android:textSize="16dp"
+                    style="@style/bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/customer_name"
+                    style="@style/bold"
+                    android:textColor="#323232"
+                    android:textSize="14dp"
+                    android:text="@{model.customerName}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/bold"
+                    android:id="@+id/phone_number"
+                    android:textColor="#A0A0A0"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp"
+                    android:text="@{model.phone}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginBottom="15dp"
+                    style="@style/bold"
+                    android:id="@+id/address"
+                    android:textColor="#A0A0A0"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="15dp"
+                    android:text="@{model.address}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:clipToPadding="false"
+                    android:paddingVertical="15dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:id="@+id/rcv_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    style="@style/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <include
+                    android:id="@+id/total"
+                    layout="@layout/include_total_order" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:background="@drawable/bg_loading_anim"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:id="@+id/progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_width="75dp"
+            android:layout_height="75dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

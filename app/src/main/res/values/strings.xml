@@ -43,6 +43,9 @@
     <!--Brand page-->
     <string name="brand_header_title">Thương hiệu</string>
 
+    <!--Order detail page-->
+    <string name="order_detail_header_title">Chi tiết đơn hàng</string>
+
     <string-array name="gender">
         <item>Nam</item>
         <item>Nữ</item>

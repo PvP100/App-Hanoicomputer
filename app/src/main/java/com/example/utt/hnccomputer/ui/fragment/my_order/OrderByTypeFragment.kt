@@ -6,15 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.adapter.order.OrderAdapter
 import com.example.utt.hnccomputer.base.BaseViewStubFragment
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
 import com.example.utt.hnccomputer.databinding.FragmentOrderByTypeBinding
 import com.example.utt.hnccomputer.entity.model.Order
 import com.example.utt.hnccomputer.entity.model.OrderStatus
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.fragment.order_detail.OrderDetailFragment
+import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,6 +68,27 @@ class OrderByTypeFragment : BaseViewStubFragment<FragmentOrderByTypeBinding>() {
 
     override fun initListener() {
         binding.apply {
+            orderAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+                override fun onItemClick(
+                    adapter: RecyclerView.Adapter<*>,
+                    viewHolder: RecyclerView.ViewHolder?,
+                    viewType: Int,
+                    position: Int
+                ) {
+                    transitFragment(
+                        OrderDetailFragment(),
+                        R.id.parent_container,
+                        Bundle().apply {
+                            orderAdapter.getItem(position, Order::class.java)?.id?.let {
+                                putInt(BundleKey.KEY_ORDER_ID,
+                                    it
+                                )
+                            }
+                        }
+                    )
+                }
+
+            })
             rcvOrder.setOnRefreshListener {
                 viewModel.getOrder(true)
             }
