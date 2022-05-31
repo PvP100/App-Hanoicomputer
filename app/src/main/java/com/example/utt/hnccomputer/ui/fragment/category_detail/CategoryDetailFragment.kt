@@ -1,14 +1,18 @@
 package com.example.utt.hnccomputer.ui.fragment.category_detail
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.adapter.home.CategoryProductAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentCategoryDetailBinding
 import com.example.utt.hnccomputer.entity.model.Brand
@@ -19,6 +23,7 @@ import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.dialog.FilterProductDialog
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandViewModel
 import com.example.utt.hnccomputer.ui.fragment.category.CategoryViewModel
+import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.SpacesItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +65,12 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
                     binding.header.setHeaderTitle((it.getSerializable(BundleKey.KEY_DETAIL_CATEGORY) as Brand).brandName)
                 }
             }
+        }
+    }
+
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            toast(it)
         }
     }
 
@@ -111,6 +122,23 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
             productAdapter.addToCart = {
                 categoryDetailViewModel.addToCart(it)
             }
+            productAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+                override fun onItemClick(
+                    adapter: RecyclerView.Adapter<*>,
+                    viewHolder: RecyclerView.ViewHolder?,
+                    viewType: Int,
+                    position: Int
+                ) {
+                    transitFragment(
+                        ProductDetailFragment(),
+                        R.id.parent_container,
+                        Bundle().apply {
+                            putString(BundleKey.KEY_PRODUCT_DETAIL, productAdapter.getItem(position, Product::class.java)?.id)
+                        }
+                    )
+                }
+
+            })
             rcvProduct.setOnRefreshListener {
                 categoryDetailViewModel.getProduct(isRefresh = true)
             }

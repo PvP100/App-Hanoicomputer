@@ -10,16 +10,13 @@ import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.adapter.home.HomeBrandAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeCategoryAdapter
 import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
-import com.example.utt.hnccomputer.base.entity.BaseObjectLoadMoreResponse
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
-import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
-import com.example.utt.hnccomputer.entity.model.Category
-import com.example.utt.hnccomputer.entity.model.HomeCategory
-import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
+import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
@@ -34,6 +31,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     private val viewModel: HomeViewModel by viewModels()
 
     private lateinit var homeBrandAdapter: HomeBrandAdapter
+
+    private var isAdd = false
 
     private lateinit var homeCategoryAdapter: HomeCategoryAdapter
 
@@ -50,6 +49,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         binding.rcvHomeCategory.adapter = homeCategoryAdapter
     }
 
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            toast(it)
+        }
+    }
+
     override fun initData() {
         with(viewModel) {
             getHomeBrand()
@@ -58,13 +63,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             }
             response.observe(this@HomeFragment) {
                 handleNoDataResponse(it, binding.progressBar) {
-                    brand.value?.data?.results?.let { it1 ->
-                        homeBrandAdapter.refresh(
-                            it1
-                        )
+                    if (!isAdd) {
+                        brand.value?.data?.results?.let { it1 ->
+                            homeBrandAdapter.refresh(
+                                it1
+                            )
+                        }
+                        homeCategory.value?.data?.let { it1 -> homeCategoryAdapter.refresh(it1) }
+                        banner.value?.data?.let { it1 -> binding.banner.setBanner(it1) }
+                    } else {
+                        toast("Thêm thành công")
                     }
-                    homeCategory.value?.data?.let { it1 -> homeCategoryAdapter.refresh(it1) }
-                    banner.value?.data?.let { it1 -> binding.banner.setBanner(it1) }
+                    isAdd = false
                 }
             }
             homeCategory.observe(this@HomeFragment) {
@@ -74,6 +84,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     override fun initListener() {
+        homeCategoryAdapter.onAddToCart = {
+            isAdd = true
+            viewModel.addToCart(it)
+        }
         homeBrandAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(
                 adapter: RecyclerView.Adapter<*>,

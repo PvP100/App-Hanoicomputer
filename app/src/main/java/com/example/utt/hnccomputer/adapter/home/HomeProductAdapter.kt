@@ -14,6 +14,9 @@ import com.example.utt.hnccomputer.extension.loadImage
 import kotlinx.android.synthetic.main.item_cell_home_product.view.*
 
 class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(context, false) {
+
+    var addToCart: (Product) -> Unit = {}
+
     override fun initLoadingViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return LoadingViewHolder(parent.inflate(R.layout.layout_load_more))
     }
@@ -27,6 +30,9 @@ class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(c
     override fun bindNormalViewHolder(holder: NormalViewHolder, position: Int) {
         val product = getItem(position, Product::class.java)
         (holder as HomeCategoryViewHolder).itemView.apply {
+            btn_add_to_cart.setOnClickListener {
+                product?.let { it1 -> addToCart(it1) }
+            }
             img_product.loadImage(product?.logoUrl)
             tv_home_product_name.text = product?.name
             tv_home_product_price.text = product?.price?.convertToVnd()

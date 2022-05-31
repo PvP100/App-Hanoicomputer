@@ -1,15 +1,19 @@
 package com.example.utt.hnccomputer.ui.fragment.search
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.adapter.home.CategoryProductAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.databinding.FragmentSearchBinding
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.SpacesItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +60,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     override fun initListener() {
-
+        productAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(
+                adapter: RecyclerView.Adapter<*>,
+                viewHolder: RecyclerView.ViewHolder?,
+                viewType: Int,
+                position: Int
+            ) {
+                transitFragment(
+                    ProductDetailFragment(),
+                    R.id.parent_container,
+                    Bundle().apply {
+                        putString(BundleKey.KEY_PRODUCT_DETAIL, productAdapter.getItem(position, Product::class.java)?.id)
+                    }
+                )
+            }
+        })
     }
 
     override fun getFragmentBinding(
