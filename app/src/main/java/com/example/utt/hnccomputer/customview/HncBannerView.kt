@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.utt.hnccomputer.adapter.banner.BannerPagerAdapter
 import com.example.utt.hnccomputer.adapter.banner.DotAdapter
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.databinding.ViewHncBannerBinding
 import com.example.utt.hnccomputer.entity.model.Banner
+import com.example.utt.hnccomputer.ui.dialog.WebViewBottomSheetDialog
 import com.example.utt.hnccomputer.utils.DeviceUtil
 import kotlin.math.abs
 
@@ -24,9 +26,9 @@ class HncBannerView @JvmOverloads constructor(
     private var dotAdapter: DotAdapter = DotAdapter(context)
     private var bannerAdapter: BannerPagerAdapter = BannerPagerAdapter(context)
 
-    private val temp = emptyList<Int>()
-
     private val sliderHandler = Handler()
+
+    var onClickBanner: (linkUrl: String?) -> Unit = {}
 
     private val paddingHorizontal = DeviceUtil.convertToDp(context, 20)
 
@@ -52,8 +54,6 @@ class HncBannerView @JvmOverloads constructor(
         binding.bannerPager.adapter = bannerAdapter
         binding.rcvDot.adapter = dotAdapter
 
-        dotAdapter.setSelectedItem(0,true)
-
         binding.bannerPager.apply {
             clipToPadding = false
             clipChildren = false
@@ -72,6 +72,17 @@ class HncBannerView @JvmOverloads constructor(
             }
         }
 
+        bannerAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+            override fun onItemClick(
+                adapter: RecyclerView.Adapter<*>,
+                viewHolder: RecyclerView.ViewHolder?,
+                viewType: Int,
+                position: Int
+            ) {
+                onClickBanner(bannerAdapter.getItem(position, Banner::class.java)?.linkUrl)
+            }
+        })
+
         binding.bannerPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 sliderHandler.removeCallbacks(sliderRunnable)
@@ -85,5 +96,6 @@ class HncBannerView @JvmOverloads constructor(
         bannerAdapter.refresh(banner)
         binding.rcvDot.layoutManager = GridLayoutManager(context, bannerAdapter.itemCount)
         dotAdapter.refresh(List(banner.size) { 0 })
+        dotAdapter.setSelectedItem(0,true)
     }
 }

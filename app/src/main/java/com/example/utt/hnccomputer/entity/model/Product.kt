@@ -13,6 +13,4 @@ data class Product(
     val salePercent: Int,
     val salePrice: Long,
     val warranty: String
-) {
-    val saleCheck = isSale == 1
-}
+)

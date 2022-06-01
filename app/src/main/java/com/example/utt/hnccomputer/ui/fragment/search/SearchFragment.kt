@@ -14,6 +14,8 @@ import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentSearchBinding
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.dialog.LoginDialog
+import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.SpacesItemDecoration
@@ -61,6 +63,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     override fun initListener() {
+        productAdapter.addToCart = {
+            if (viewModel.checkLogin()) {
+                viewModel.addToCart(it)
+            } else {
+                val loginDialog = LoginDialog()
+                loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                    override fun onLogin() {
+                        transitFragment(LoginFragment(), R.id.parent_container)
+                        loginDialog.dismiss()
+                    }
+                })
+                loginDialog.show(childFragmentManager, loginDialog.tag)
+            }
+        }
         binding.apply {
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {

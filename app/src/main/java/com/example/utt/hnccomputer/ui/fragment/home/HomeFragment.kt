@@ -14,12 +14,14 @@ import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
+import com.example.utt.hnccomputer.entity.model.Banner
 import com.example.utt.hnccomputer.entity.model.Brand
 import com.example.utt.hnccomputer.entity.model.Category
 import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.dialog.LoginDialog
+import com.example.utt.hnccomputer.ui.dialog.WebViewBottomSheetDialog
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
@@ -135,6 +137,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             )
         }
         binding.apply {
+            banner.onClickBanner = {
+                val dialog = it?.let { it1 -> WebViewBottomSheetDialog.newInstance(it1) }
+                dialog?.show(childFragmentManager, dialog.tag)
+            }
             refreshLayout.setOnRefreshListener {
                 viewModel.getHome()
             }

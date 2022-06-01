@@ -47,6 +47,7 @@ class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(c
                 imgProduct.loadImage(product.logoUrl)
                 tvSalePrice.text = product.price.convertToVnd()
                 tvHomeProductPrice.text = product.salePrice.convertToVnd()
+                model = product
             }
         }
     }
