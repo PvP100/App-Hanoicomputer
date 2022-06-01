@@ -10,6 +10,7 @@ import com.example.utt.hnccomputer.adapter.home.CategoryProductAdapter
 import com.example.utt.hnccomputer.adapter.home.HomeProductAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
+import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentSearchBinding
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
@@ -60,6 +61,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     override fun initListener() {
+        binding.apply {
+            header.listener = object : HncHeaderView.IOnClickHeader {
+                override fun onLeftClick() {
+                    activity?.onBackPressed()
+                }
+
+                override fun onRightClick() {
+
+                }
+
+            }
+        }
         productAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(
                 adapter: RecyclerView.Adapter<*>,

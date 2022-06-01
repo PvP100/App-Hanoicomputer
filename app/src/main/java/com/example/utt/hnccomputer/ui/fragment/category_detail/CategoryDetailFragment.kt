@@ -21,8 +21,10 @@ import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.dialog.FilterProductDialog
+import com.example.utt.hnccomputer.ui.dialog.LoginDialog
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandViewModel
 import com.example.utt.hnccomputer.ui.fragment.category.CategoryViewModel
+import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.SpacesItemDecoration
@@ -120,7 +122,18 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
     override fun initListener() {
         binding.apply {
             productAdapter.addToCart = {
-                categoryDetailViewModel.addToCart(it)
+                if (categoryDetailViewModel.checkLogin()) {
+                    categoryDetailViewModel.addToCart(it)
+                } else {
+                    val loginDialog = LoginDialog()
+                    loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                        override fun onLogin() {
+                            transitFragment(LoginFragment(), R.id.parent_container)
+                            loginDialog.dismiss()
+                        }
+                    })
+                    loginDialog.show(childFragmentManager, loginDialog.tag)
+                }
             }
             productAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
                 override fun onItemClick(

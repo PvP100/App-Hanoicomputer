@@ -19,6 +19,8 @@ class HomeCategoryAdapter(context: Context) : RecyclerViewAdapter(context, false
 
     var onAddToCart: (Product) -> Unit = {}
 
+    var onClickToCategoryDetail: (position: Int) -> Unit = {}
+
     override fun initNormalViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return HomeCategoryViewHolder(parent.inflate(R.layout.item_cell_home_category))
     }
@@ -26,6 +28,9 @@ class HomeCategoryAdapter(context: Context) : RecyclerViewAdapter(context, false
     override fun bindNormalViewHolder(holder: NormalViewHolder, position: Int) {
         val homeCategory = getItem(position, HomeCategory::class.java)
         (holder as HomeCategoryViewHolder).itemView.apply {
+            header_home_category.tv_all.setOnClickListener {
+                onClickToCategoryDetail(position)
+            }
             homeCategory?.product?.let {
                 if (it.isNotEmpty()) {
                     val productAdapter = HomeProductAdapter(this.context)
@@ -33,7 +38,7 @@ class HomeCategoryAdapter(context: Context) : RecyclerViewAdapter(context, false
                     productAdapter.addToCart = { product ->
                         onAddToCart(product)
                     }
-                    productAdapter.addModels(it, false)
+                    productAdapter.refresh(it)
                     header_home_category.tv_category.text = homeCategory.categoryTitle
                     productAdapter.addOnItemClickListener(object : OnItemClickListener {
                         override fun onItemClick(

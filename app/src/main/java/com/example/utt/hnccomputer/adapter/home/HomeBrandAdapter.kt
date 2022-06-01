@@ -21,8 +21,6 @@ class HomeBrandAdapter(context: Context) : RecyclerViewAdapter(context, false) {
         (holder as BrandViewHolder).itemView.apply {
             ic_logo.loadImage(brand?.imgUrl)
         }
-
-
     }
 
     inner class BrandViewHolder(view: View) : NormalViewHolder(view)

@@ -28,7 +28,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_all"
-            android:textSize="12sp"
+            android:textSize="14dp"
             android:textStyle="bold"
             android:textColor="@color/text_color_02"
             android:text="@string/home_see_all_title"

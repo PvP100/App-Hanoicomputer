@@ -24,7 +24,7 @@ class HncBannerView @JvmOverloads constructor(
     private var dotAdapter: DotAdapter = DotAdapter(context)
     private var bannerAdapter: BannerPagerAdapter = BannerPagerAdapter(context)
 
-    private val temp = arrayListOf(1, 2, 3, 4, 5)
+    private val temp = emptyList<Int>()
 
     private val sliderHandler = Handler()
 
@@ -51,9 +51,7 @@ class HncBannerView @JvmOverloads constructor(
 
         binding.bannerPager.adapter = bannerAdapter
         binding.rcvDot.adapter = dotAdapter
-        binding.rcvDot.layoutManager = GridLayoutManager(context, temp.size)
 
-        dotAdapter.refresh(temp)
         dotAdapter.setSelectedItem(0,true)
 
         binding.bannerPager.apply {
@@ -85,5 +83,7 @@ class HncBannerView @JvmOverloads constructor(
 
     fun setBanner(banner: List<Banner>) {
         bannerAdapter.refresh(banner)
+        binding.rcvDot.layoutManager = GridLayoutManager(context, bannerAdapter.itemCount)
+        dotAdapter.refresh(List(banner.size) { 0 })
     }
 }

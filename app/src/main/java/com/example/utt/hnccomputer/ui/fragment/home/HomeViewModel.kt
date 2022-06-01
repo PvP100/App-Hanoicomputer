@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.home
 
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.base.entity.BaseError
@@ -19,7 +20,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: Repository, private val myOrderRepository: MyOrderRepository) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: Repository,
+    private val myOrderRepository: MyOrderRepository,
+    private val sharedPreferences: SharedPreferences
+) : BaseViewModel() {
 
     val brand = MutableLiveData<BaseObjectLoadMoreResponse<ResultResponse<Brand>>>()
     val homeCategory = MutableLiveData<BaseListResponse<HomeCategory>>()
@@ -55,7 +60,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository, priv
         )
     }
 
-    fun getHomeBrand() {
+    fun checkLogin(): Boolean {
+        return sharedPreferences.getBoolean("loginSave", false)
+    }
+
+    fun getHome() {
         mDisposable.add(
             Single.merge(repository.getBanner(), repository.getBrand(), repository.getHomeCategory()).doOnSubscribe {
                 _baseResponse.value = BaseResponse().loadingNoData()

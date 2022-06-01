@@ -11,6 +11,8 @@ data class Product(
     val quantity: Int,
     val isSale: Int,
     val salePercent: Int,
-    val salePrice: Int,
+    val salePrice: Long,
     val warranty: String
-)
+) {
+    val saleCheck = isSale == 1
+}

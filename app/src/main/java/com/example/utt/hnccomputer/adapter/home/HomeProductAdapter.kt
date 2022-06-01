@@ -1,17 +1,16 @@
 package com.example.utt.hnccomputer.adapter.home
 
 import android.content.Context
-import android.view.View
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.adapter.EndlessLoadingRecyclerViewAdapter
 import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
+import com.example.utt.hnccomputer.databinding.ItemCellHomeProductBinding
 import com.example.utt.hnccomputer.entity.model.Product
-import com.example.utt.hnccomputer.extension.convertToVnd
-import com.example.utt.hnccomputer.extension.inflate
-import com.example.utt.hnccomputer.extension.loadImage
-import kotlinx.android.synthetic.main.item_cell_home_product.view.*
+import com.example.utt.hnccomputer.extension.*
 
 class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(context, false) {
 
@@ -24,21 +23,32 @@ class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(c
     override fun bindLoadingViewHolder(loadingViewHolder: LoadingViewHolder, position: Int) {}
 
     override fun initNormalViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return HomeCategoryViewHolder(parent.inflate(R.layout.item_cell_home_product))
+        return HomeCategoryViewHolder(ItemCellHomeProductBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun bindNormalViewHolder(holder: NormalViewHolder, position: Int) {
         val product = getItem(position, Product::class.java)
-        (holder as HomeCategoryViewHolder).itemView.apply {
-            btn_add_to_cart.setOnClickListener {
-                product?.let { it1 -> addToCart(it1) }
-            }
-            img_product.loadImage(product?.logoUrl)
-            tv_home_product_name.text = product?.name
-            tv_home_product_price.text = product?.price?.convertToVnd()
-        }
+        product?.let { (holder as HomeCategoryViewHolder).bind(it) }
     }
 
-    inner class HomeCategoryViewHolder(view: View) : RecyclerViewAdapter.NormalViewHolder(view)
+    inner class HomeCategoryViewHolder(private val binding: ItemCellHomeProductBinding) : RecyclerViewAdapter.NormalViewHolder(binding.root) {
+        fun bind(product: Product) {
+            binding.apply {
+                btnAddToCart.setOnClickListener {
+                    addToCart(product)
+                }
+                if (product.isSale == 1) {
+                    dividerSale.visible()
+                    tvHomeProductPrice.visible()
+                } else {
+                    dividerSale.gone()
+                    tvHomeProductPrice.gone()
+                }
+                imgProduct.loadImage(product.logoUrl)
+                tvSalePrice.text = product.price.convertToVnd()
+                tvHomeProductPrice.text = product.salePrice.convertToVnd()
+            }
+        }
+    }
 
 }

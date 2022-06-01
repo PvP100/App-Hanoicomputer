@@ -15,11 +15,15 @@ import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.customview.HncSearchView
 import com.example.utt.hnccomputer.databinding.HomeFragmentBinding
 import com.example.utt.hnccomputer.entity.model.Brand
+import com.example.utt.hnccomputer.entity.model.Category
+import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.toast
+import com.example.utt.hnccomputer.ui.dialog.LoginDialog
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandFragment
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
+import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.ui.fragment.search.SearchFragment
 import com.example.utt.hnccomputer.utils.BundleKey
@@ -57,19 +61,23 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun initData() {
         with(viewModel) {
-            getHomeBrand()
+            getHome()
             banner.observe(this@HomeFragment) {
                 handleListResponse(it, binding.progressBar)
             }
             response.observe(this@HomeFragment) {
                 handleNoDataResponse(it, binding.progressBar) {
                     if (!isAdd) {
+                        binding.refreshLayout.isRefreshing = false
+                        binding.rcvHomeCategory.adapter = homeCategoryAdapter
                         brand.value?.data?.results?.let { it1 ->
                             homeBrandAdapter.refresh(
                                 it1
                             )
                         }
-                        homeCategory.value?.data?.let { it1 -> homeCategoryAdapter.refresh(it1) }
+                        homeCategory.value?.data?.let { it1 ->
+                            homeCategoryAdapter.refresh(it1)
+                        }
                         banner.value?.data?.let { it1 -> binding.banner.setBanner(it1) }
                     } else {
                         toast("Thêm thành công")
@@ -84,9 +92,25 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     }
 
     override fun initListener() {
+        homeCategoryAdapter.onClickToCategoryDetail = {
+            transitFragment(CategoryDetailFragment(), R.id.parent_container, Bundle().apply {
+                putSerializable(BundleKey.KEY_DETAIL_CATEGORY, homeCategoryAdapter.getItem(it, HomeCategory::class.java)?.product?.first()?.category)
+            })
+        }
         homeCategoryAdapter.onAddToCart = {
-            isAdd = true
-            viewModel.addToCart(it)
+            if (viewModel.checkLogin()) {
+                isAdd = true
+                viewModel.addToCart(it)
+            } else {
+                val loginDialog = LoginDialog()
+                loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                    override fun onLogin() {
+                        transitFragment(LoginFragment(), R.id.parent_container)
+                        loginDialog.dismiss()
+                    }
+                })
+                loginDialog.show(childFragmentManager, loginDialog.tag)
+            }
         }
         homeBrandAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
             override fun onItemClick(
@@ -111,6 +135,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             )
         }
         binding.apply {
+            refreshLayout.setOnRefreshListener {
+                viewModel.getHome()
+            }
             brandCategory.tvAll.onAvoidDoubleClick {
                 transitFragment(
                     BrandFragment(),
@@ -133,7 +160,18 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 }
 
                 override fun onRightClick() {
-                   transitFragment(CartFragment(), R.id.parent_container)
+                    if (viewModel.checkLogin()) {
+                        transitFragment(CartFragment(), R.id.parent_container)
+                    } else {
+                        val loginDialog = LoginDialog()
+                        loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                            override fun onLogin() {
+                                transitFragment(LoginFragment(), R.id.parent_container)
+                                loginDialog.dismiss()
+                            }
+                        })
+                        loginDialog.show(childFragmentManager, loginDialog.tag)
+                    }
                 }
             }
         }

@@ -10,7 +10,7 @@ data class Order(
     val totalProduct: Int
 )
 
-enum class OrderStatus(val type: Int, status: String) {
+enum class OrderStatus(val type: Int, val status: String) {
 
     @SerializedName("1")
     CHECK(1, "Đã xử lý"),

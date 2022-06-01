@@ -1,15 +1,24 @@
 package com.example.utt.hnccomputer.ui.fragment.order_detail
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.adapter.order.OrderDetailAdapter
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.adapter.RecyclerViewAdapter
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentOrderDetailBinding
 import com.example.utt.hnccomputer.entity.model.OrderDetail
+import com.example.utt.hnccomputer.entity.model.OrderStatus
+import com.example.utt.hnccomputer.entity.model.Product
+import com.example.utt.hnccomputer.entity.model.ProductOrder
 import com.example.utt.hnccomputer.extension.convertToDate
 import com.example.utt.hnccomputer.extension.convertToVnd
+import com.example.utt.hnccomputer.extension.gone
+import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,14 +29,14 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
     private val viewModel: OrderDetailViewModel by viewModels()
 
     @Inject
-    lateinit var adapter: OrderDetailAdapter
+    lateinit var orderAdapter: OrderDetailAdapter
 
     override fun initView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         binding: FragmentOrderDetailBinding
     ) {
-        binding.rcvOrder.adapter = adapter
+        binding.rcvOrder.adapter = orderAdapter
     }
 
     override fun initData() {
@@ -46,10 +55,31 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
     override fun <U> getObjectResponse(data: U) {
         super.getObjectResponse(data)
         if (data is OrderDetail) {
+            setOrderStatus(data)
             binding.model = data
             binding.createdDate.text = "Ngày đặt hàng: ${data.order.createdDate.convertToDate()}"
             binding.total.totalPrice.text = data.totalPrice.convertToVnd()
-            adapter.refresh(data.listProduct)
+            orderAdapter.refresh(data.listProduct)
+        }
+    }
+
+    private fun setOrderStatus(data: OrderDetail) {
+        when (data.order.isCheck) {
+            OrderStatus.CHECK -> {
+                binding.orderStatus.tvOrderStatus.text = OrderStatus.CHECK.status
+                binding.orderStatus.orderStatusDate.text = "${data.order.updateDate.convertToDate()}"
+                binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status)
+            }
+            OrderStatus.UNCHECK -> {
+                binding.orderStatus.tvOrderStatus.text = OrderStatus.UNCHECK.status
+                binding.orderStatus.orderStatusDate.gone()
+                binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status_yellow)
+            }
+            OrderStatus.CANCEL -> {
+                binding.orderStatus.tvOrderStatus.text = OrderStatus.CANCEL.status
+                binding.orderStatus.orderStatusDate.text = "${data.order.updateDate.convertToDate()}"
+                binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status_red)
+            }
         }
     }
 
@@ -63,6 +93,24 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
                 override fun onRightClick() {}
 
             }
+
+            orderAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
+                override fun onItemClick(
+                    adapter: RecyclerView.Adapter<*>,
+                    viewHolder: RecyclerView.ViewHolder?,
+                    viewType: Int,
+                    position: Int
+                ) {
+                    transitFragment(
+                        ProductDetailFragment(),
+                        R.id.parent_container,
+                        Bundle().apply {
+                            putString(BundleKey.KEY_PRODUCT_DETAIL, orderAdapter.getItem(position, ProductOrder::class.java)?.productId)
+                        }
+                    )
+                }
+
+            })
         }
     }
 

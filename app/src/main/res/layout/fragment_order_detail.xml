@@ -57,6 +57,7 @@
                     android:layout_height="1dp" />
 
                 <include layout="@layout/include_order_status"
+                    android:id="@+id/order_status"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"/>
 
@@ -129,6 +130,11 @@
                 <include
                     android:id="@+id/total"
                     layout="@layout/include_total_order" />
+
+                <View
+                    style="@style/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

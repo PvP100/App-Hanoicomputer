@@ -9,8 +9,6 @@ import com.example.utt.hnccomputer.base.BaseFragmentStatePagerAdapter
 import com.example.utt.hnccomputer.base.entity.BaseFragmentPagerModel
 import com.example.utt.hnccomputer.databinding.FragmentMyOrderBinding
 import com.example.utt.hnccomputer.entity.model.OrderStatus
-import com.example.utt.hnccomputer.ui.fragment.category.CategoryFragment
-import com.example.utt.hnccomputer.ui.fragment.category_detail.CategoryDetailFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
