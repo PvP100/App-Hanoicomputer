@@ -63,12 +63,15 @@ class ConfirmOrderViewModel @Inject constructor(private val repository: Reposito
         )
     }
 
-    fun createOrder() {
+    fun createOrder(address: String, customerName: String, phoneNumber: String) {
         mDisposable.add(
             repository.createOrder(
                 OrderBody(
-                    sharedPreferences.getString("customerId"),
-                    _myOrder.value?.map { OrderItem(it.price, it.productId, it.quantity) } ?: listOf()
+                    address = address,
+                    customerName = customerName,
+                    phoneNumber = phoneNumber,
+                    customerID = sharedPreferences.getString("customerId"),
+                    details = _myOrder.value?.map { OrderItem(it.price, it.productId, it.quantity) } ?: listOf()
                 )
             )
                 .doOnSubscribe {

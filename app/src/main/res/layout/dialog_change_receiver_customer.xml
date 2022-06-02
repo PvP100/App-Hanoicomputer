@@ -35,7 +35,7 @@
                 style="@style/bold"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="Đổi mật khẩu"
+                android:text="Đổi thông tin người nhận"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -48,12 +48,11 @@
             style="@style/medium"
             android:textSize="14dp"
             android:layout_marginTop="15dp"
-            android:text="Mật khẩu cũ"
+            android:text="Tên người nhận"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.EditInformationView
-            app:passwordType="@{true}"
             android:id="@+id/old_password"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
@@ -65,12 +64,11 @@
             style="@style/medium"
             android:layout_marginTop="15dp"
             android:textSize="14dp"
-            android:text="Mật khẩu mới"
+            android:text="Số điện thoại"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.EditInformationView
-            app:passwordType="@{true}"
             android:id="@+id/new_password"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
@@ -82,12 +80,11 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:textSize="14dp"
-            android:text="Nhập lại mật khẩu mới"
+            android:text="Địa chỉ nhận hàng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.EditInformationView
-            app:passwordType="@{true}"
             android:id="@+id/re_password"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
@@ -95,7 +92,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:background="@drawable/bg_btn_change_password"
-            android:text="@string/change_password_title"
+            android:text="Lưu"
             style="@style/bold"
             android:textColor="@color/white"
             android:textSize="14dp"

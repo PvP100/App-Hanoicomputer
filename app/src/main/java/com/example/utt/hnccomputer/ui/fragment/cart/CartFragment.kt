@@ -12,8 +12,7 @@ import com.example.utt.hnccomputer.base.BaseViewModel
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.database.entity.MyOrderInformation
 import com.example.utt.hnccomputer.databinding.FragmentCartBinding
-import com.example.utt.hnccomputer.extension.convertToVnd
-import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
+import com.example.utt.hnccomputer.extension.*
 import com.example.utt.hnccomputer.ui.fragment.confirm_order.ConfirmOrderFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +72,17 @@ class CartFragment : BaseFragment<FragmentCartBinding>() {
     }
 
     private fun setTotalPrice() {
+        if (cartAdapter.getTotal() == 0L) {
+            binding.tvNoResult.visible()
+            binding.btnBuy.gone()
+            binding.tvTotalCart.gone()
+            binding.tvTitle.gone()
+        } else {
+            binding.tvNoResult.gone()
+            binding.btnBuy.visible()
+            binding.tvTotalCart.visible()
+            binding.tvTitle.visible()
+        }
         binding.tvTotalCart.text = cartAdapter.getTotal().convertToVnd()
     }
 

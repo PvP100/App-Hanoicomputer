@@ -60,7 +60,7 @@
                 android:textSize="14dp"
                 android:textColor="@color/md_black_1000"
                 style="@style/medium"
-                app:layout_constraintStart_toStartOf="@+id/tv_home_product_price"
+                app:layout_constraintStart_toStartOf="@+id/tv_home_product_name"
                 app:layout_constraintBottom_toTopOf="@+id/tv_home_product_price"
                 app:layout_constraintTop_toBottomOf="@+id/tv_home_product_name"
                 android:id="@+id/tv_sale_price"

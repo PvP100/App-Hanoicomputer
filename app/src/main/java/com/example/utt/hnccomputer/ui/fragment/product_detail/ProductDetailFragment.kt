@@ -78,20 +78,28 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
                 if (viewModel.checkLogin()) {
                     transitFragment(CartFragment(), R.id.parent_container)
                 } else {
-                    val loginDialog = LoginDialog()
-                    loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
-                        override fun onLogin() {
-                            transitFragment(LoginFragment(), R.id.parent_container)
-                            loginDialog.dismiss()
-                        }
-                    })
-                    loginDialog.show(childFragmentManager, loginDialog.tag)
+                    showLoginDialog()
                 }
             }
             bottom.btnAddToCart.onAvoidDoubleClick {
-                viewModel.addToCart()
+                if (viewModel.checkLogin()) {
+                    viewModel.addToCart()
+                } else {
+                    showLoginDialog()
+                }
             }
         }
+    }
+
+    private fun showLoginDialog() {
+        val loginDialog = LoginDialog()
+        loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+            override fun onLogin() {
+                transitFragment(LoginFragment(), R.id.parent_container)
+                loginDialog.dismiss()
+            }
+        })
+        loginDialog.show(childFragmentManager, loginDialog.tag)
     }
 
     override fun handleValidateError(throwable: BaseError?) {

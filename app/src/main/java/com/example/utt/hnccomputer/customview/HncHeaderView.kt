@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.databinding.ViewHncHeaderBinding
 import com.example.utt.hnccomputer.extension.gone
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.statusBarHeight
 import com.example.utt.hnccomputer.extension.visible
 import kotlinx.android.synthetic.main.item_cell_brand_home.view.*
@@ -65,10 +66,10 @@ class HncHeaderView @JvmOverloads constructor(
                 binding.rightIcon.setImageResource(a.getResourceId(R.styleable.HncHeaderView_right_drawable, 0))
             }
 
-            binding.rightIcon.setOnClickListener {
+            binding.rightIcon.onAvoidDoubleClick {
                 listener?.onRightClick()
             }
-            binding.leftIcon.setOnClickListener {
+            binding.leftIcon.onAvoidDoubleClick {
                 listener?.onLeftClick()
             }
         } finally {

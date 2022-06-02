@@ -13,6 +13,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.extension.ProjectColors
 import com.example.utt.hnccomputer.extension.color
+import com.example.utt.hnccomputer.extension.gone
+import com.example.utt.hnccomputer.extension.visible
 import kotlinx.android.synthetic.main.layout_base_recyclerview.view.*
 
 class BaseRecyclerView : RelativeLayout {
@@ -104,8 +106,10 @@ class BaseRecyclerView : RelativeLayout {
     fun refresh(data: List<Any>) {
         if (data.isNullOrEmpty()) {
             layout_no_result.visibility = View.VISIBLE
+            rcv_data.gone()
         } else {
             layout_no_result.visibility = View.GONE
+            rcv_data.visible()
             mAdapter?.refresh(data)
         }
         swipeRefresh.isRefreshing = false

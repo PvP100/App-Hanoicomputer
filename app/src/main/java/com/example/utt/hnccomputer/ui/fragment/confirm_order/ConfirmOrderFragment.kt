@@ -10,6 +10,8 @@ import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentConfirmOrderBinding
 import com.example.utt.hnccomputer.extension.convertToVnd
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
+import com.example.utt.hnccomputer.extension.toast
+import com.example.utt.hnccomputer.ui.dialog.ChangeReceiverCustomerDialog
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
 
     private val viewModel: ConfirmOrderViewModel by viewModels()
+
+    private val dialog = ChangeReceiverCustomerDialog()
 
     private val adapter: ConfirmOrderAdapter by lazy {
         ConfirmOrderAdapter(requireContext())
@@ -48,6 +52,7 @@ class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
                     if (isCreate) {
                          viewModel.clearLocalDatabase()
                         isCreate = false
+                        toast("Đặt hàng thành công")
                         replaceFragment(MainFragment(), R.id.parent_container)
                     } else {
                         customerResponse.value?.data?.let { customer ->
@@ -63,9 +68,24 @@ class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
 
     override fun initListener() {
         binding.apply {
+
+            dialog.setOnChangePasswordListener(object : ChangeReceiverCustomerDialog.OnChangeCustomerListener {
+                override fun onChangeCustomer(name: String, phoneNumber: String, address: String) {
+                    orderInformation.address.detail.text = address
+                    orderInformation.phoneNumber.detail.text = phoneNumber
+                    orderInformation.name.detail.text = name
+                }
+            })
+            cardViewInformation.setOnClickListener {
+                dialog.show(childFragmentManager, dialog.tag)
+            }
             bottom.btnPlaceOrder.onAvoidDoubleClick {
                 isCreate = true
-                viewModel.createOrder()
+                viewModel.createOrder(
+                    address = orderInformation.address.detail.text.toString().trim(),
+                    phoneNumber = orderInformation.phoneNumber.detail.text.toString().trim(),
+                    customerName = orderInformation.name.detail.text.toString().trim()
+                )
             }
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {
