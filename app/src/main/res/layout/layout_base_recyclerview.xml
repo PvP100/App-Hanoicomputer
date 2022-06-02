@@ -22,7 +22,6 @@
         android:id="@+id/layout_no_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:gravity="center"
         android:visibility="gone">
 
@@ -33,7 +32,7 @@
             android:gravity="center"
             android:textColor="#000000"
             android:textSize="16sp"
-            tools:text="Khong co ket qua" />
+            tools:text="Không có sản phâm" />
     </RelativeLayout>
 
 </RelativeLayout>

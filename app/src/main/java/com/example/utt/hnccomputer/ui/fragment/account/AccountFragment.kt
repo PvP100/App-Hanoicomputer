@@ -7,6 +7,7 @@ import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.databinding.FragmentAccountBinding
 import com.example.utt.hnccomputer.ui.fragment.account_information.AccountInformationFragment
+import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.ui.fragment.my_order.MyOrderFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +38,10 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             }
             btnOrder.layout.setOnClickListener {
                 transitFragment(MyOrderFragment(), R.id.parent_container)
+            }
+            btnLogout.setOnClickListener {
+                viewModel.logout()
+                replaceFragment(MainFragment(), R.id.parent_container)
             }
         }
     }

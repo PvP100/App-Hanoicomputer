@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/medium"
+            android:textSize="16dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_checked"
+            app:layout_constraintEnd_toEndOf="@+id/tv_checked"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_checked"
+            android:id="@+id/check_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/medium"
+            android:textSize="16dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_cancel"
+            app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_cancel"
+            android:id="@+id/cancel_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/medium"
+            android:textSize="16dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_uncheck"
+            app:layout_constraintEnd_toEndOf="@+id/tv_uncheck"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_uncheck"
+            android:id="@+id/uncheck_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            app:layout_constraintTop_toBottomOf="@+id/check_count"
+            style="@style/regular"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:text="Đã xử lý"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/tv_checked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_uncheck"
+            android:text="Đã hủy"
+            android:id="@+id/tv_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_checked"
+            app:layout_constraintTop_toTopOf="@+id/tv_checked"
+            app:layout_constraintStart_toEndOf="@+id/tv_checked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/regular"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            app:layout_constraintTop_toTopOf="@+id/tv_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_cancel"
+            android:text="Chưa xử lý"
+            app:layout_constraintStart_toEndOf="@+id/tv_cancel"
+            android:id="@+id/tv_uncheck"
+            android:layout_width="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

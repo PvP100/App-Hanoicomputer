@@ -27,6 +27,8 @@
     <string name="account_information_title">Thông tin tài khoản</string>
     <string name="account_order_information_title">Đơn hàng của tôi</string>
     <string name="change_password_title">Đổi mật khẩu</string>
+    <string name="no_result">Không có sản phẩm</string>
+    <string name="count_order_title">Thống kê đơn</string>
     <string name="password_title">Mật khẩu</string>
     <string name="re_password_title">Nhập lại mật khẩu</string>
     <string name="account_already_buy_information_title">Sản phẩm đã mua</string>
