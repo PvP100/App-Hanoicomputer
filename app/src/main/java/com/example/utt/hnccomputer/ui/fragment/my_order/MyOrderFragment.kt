@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.utt.hnccomputer.base.BaseFragment
 import com.example.utt.hnccomputer.base.BaseFragmentStatePagerAdapter
 import com.example.utt.hnccomputer.base.entity.BaseFragmentPagerModel
+import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentMyOrderBinding
 import com.example.utt.hnccomputer.entity.model.OrderStatus
 import com.google.android.material.tabs.TabLayoutMediator
@@ -59,7 +60,15 @@ class MyOrderFragment : BaseFragment<FragmentMyOrderBinding>() {
 
     override fun initListener() {
         binding.apply {
+            header.listener = object : HncHeaderView.IOnClickHeader {
+                override fun onLeftClick() {
+                    activity?.onBackPressed()
+                }
 
+                override fun onRightClick() {
+
+                }
+            }
         }
     }
 

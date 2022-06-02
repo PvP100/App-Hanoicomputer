@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.product_detail
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.utt.hnccomputer.base.BaseViewModel
@@ -15,7 +16,10 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailViewModel @Inject constructor(private val productRepository: ProductRepository, private val myOrderRepository: MyOrderRepository) : BaseViewModel() {
+class ProductDetailViewModel @Inject constructor(private val productRepository: ProductRepository,
+                                                 private val myOrderRepository: MyOrderRepository,
+                                                 private val sharedPreferences: SharedPreferences
+) : BaseViewModel() {
 
     private val _product: MutableLiveData<BaseObjectResponse<Product>> = MutableLiveData()
     val product: LiveData<BaseObjectResponse<Product>> = _product
@@ -35,6 +39,10 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
                 }
             )
         )
+    }
+
+    fun checkLogin(): Boolean {
+        return sharedPreferences.getBoolean("loginSave", false)
     }
 
     fun addToCart() {

@@ -16,6 +16,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.entity.*
 import com.example.utt.hnccomputer.extension.*
+import com.example.utt.hnccomputer.ui.dialog.ErrorResponseDialog
 import com.example.utt.hnccomputer.utils.Define
 import com.google.android.material.appbar.AppBarLayout
 import kotlin.math.abs
@@ -29,6 +30,8 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     private var offset = 0F
     private var offsetRcv = 0
     var isExecuting = false
+
+    val errorDialog = ErrorResponseDialog()
 
     protected var mSavedInstanceState: Bundle? = null
 
@@ -254,6 +257,10 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
             Define.ResponseStatus.ERROR -> {
                 if (data.errorNoResponse is BaseError) {
                     handleValidateError(data.errorNoResponse)
+                } else {
+                    with(data.errorNoResponse?.getErrorBody()) {
+                        handleValidateError(this?.msg?.let { BaseError(it) })
+                    }
                 }
                 hideAnimationProgress(progressBar)
             }

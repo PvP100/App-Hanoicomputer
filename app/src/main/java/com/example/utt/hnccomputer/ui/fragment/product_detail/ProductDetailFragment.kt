@@ -11,7 +11,9 @@ import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.databinding.FragmentProductDetailBinding
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.extension.*
+import com.example.utt.hnccomputer.ui.dialog.LoginDialog
 import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
+import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -73,7 +75,18 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
                 activity?.onBackPressed()
             }
             icCart.setOnClickListener {
-                transitFragment(CartFragment(), R.id.parent_container)
+                if (viewModel.checkLogin()) {
+                    transitFragment(CartFragment(), R.id.parent_container)
+                } else {
+                    val loginDialog = LoginDialog()
+                    loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                        override fun onLogin() {
+                            transitFragment(LoginFragment(), R.id.parent_container)
+                            loginDialog.dismiss()
+                        }
+                    })
+                    loginDialog.show(childFragmentManager, loginDialog.tag)
+                }
             }
             bottom.btnAddToCart.onAvoidDoubleClick {
                 viewModel.addToCart()

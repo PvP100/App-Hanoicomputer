@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginVertical="30dp"
+            android:layout_gravity="center_horizontal"
+            style="@style/medium"
+            android:textSize="20sp"
+            android:id="@+id/tv_error_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View style="@style/divider"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textColor="@color/base_05"
+            android:id="@+id/btn_ok_dialog"
+            style="@style/bold"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:textSize="20sp"
+            android:text="OK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

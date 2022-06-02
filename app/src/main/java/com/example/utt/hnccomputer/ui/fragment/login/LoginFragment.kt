@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.databinding.FragmentLoginBinding
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.openActivityWithoutAddtoBackstack
+import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.activity.main.MainActivity
+import com.example.utt.hnccomputer.ui.dialog.ErrorResponseDialog
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.ui.fragment.register.RegisterFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +36,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     replaceFragment(MainFragment(), R.id.parent_container)
                 }
             }
+        }
+    }
+
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            errorDialog.setErrorMessage(it)
+            errorDialog.show(childFragmentManager, errorDialog.tag)
         }
     }
 

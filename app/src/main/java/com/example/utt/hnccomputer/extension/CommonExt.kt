@@ -11,6 +11,10 @@ import android.view.ViewGroup
 import androidx.annotation.*
 
 import androidx.core.content.ContextCompat
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -78,6 +82,13 @@ fun Long.convertToDate(): String {
     val date = Date(this)
 
     return dateFormat.format(date)
+}
+
+fun String.convertToMultipartBody(name: String): MultipartBody.Part {
+    val file = File(this)
+
+    val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+    return MultipartBody.Part.createFormData(name, file.name, requestBody)
 }
 
 

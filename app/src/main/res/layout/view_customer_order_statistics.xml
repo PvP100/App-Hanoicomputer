@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="order"
+            type="com.example.utt.hnccomputer.entity.model.OrderView" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +15,8 @@
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/medium"
             android:textSize="16dp"
+            android:textColor="@color/white"
+            android:text="@{String.valueOf(order.success)}"
             android:layout_marginBottom="5dp"
             app:layout_constraintStart_toStartOf="@+id/tv_checked"
             app:layout_constraintEnd_toEndOf="@+id/tv_checked"
@@ -24,8 +28,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/medium"
+            android:textColor="@color/white"
             android:textSize="16dp"
             android:layout_marginBottom="5dp"
+            android:text="@{String.valueOf(order.cancel)}"
             app:layout_constraintStart_toStartOf="@+id/tv_cancel"
             app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +43,9 @@
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/medium"
             android:textSize="16dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="5dp"
+            android:text="@{String.valueOf(order.uncheck)}"
             app:layout_constraintStart_toStartOf="@+id/tv_uncheck"
             app:layout_constraintEnd_toEndOf="@+id/tv_uncheck"
             app:layout_constraintTop_toTopOf="parent"

@@ -1,6 +1,7 @@
 package com.example.utt.hnccomputer.adapter.home
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -38,11 +39,15 @@ class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(c
                     addToCart(product)
                 }
                 if (product.isSale == 1) {
+                    tvSalePrice.setTextColor(Color.parseColor("#A8A8A8"))
+                    tvSalePercent.text = "${product.salePercent}%"
+                    tvSalePrice.textSize = 12f
                     dividerSale.visible()
                     tvHomeProductPrice.visible()
                 } else {
                     dividerSale.gone()
                     tvHomeProductPrice.gone()
+                    tvSalePercent.gone()
                 }
                 imgProduct.loadImage(product.logoUrl)
                 tvSalePrice.text = product.price.convertToVnd()

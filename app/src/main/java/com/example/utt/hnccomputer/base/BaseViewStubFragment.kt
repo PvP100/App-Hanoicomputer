@@ -30,6 +30,7 @@ abstract class BaseViewStubFragment<T: ViewBinding> : BaseFragment<T>() {
     override fun initData() {
 
     }
+
     protected abstract fun onCreateViewAfterViewStubInflated(
         inflatedView: View,
         savedInstanceState: Bundle?

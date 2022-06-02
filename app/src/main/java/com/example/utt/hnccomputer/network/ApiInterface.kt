@@ -12,6 +12,7 @@ import com.example.utt.hnccomputer.entity.request.OrderBody
 import com.example.utt.hnccomputer.entity.request.RegisterRequest
 import com.example.utt.hnccomputer.entity.response.ResultResponse
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface ApiInterface {
@@ -66,5 +67,9 @@ interface ApiInterface {
 
     @POST("${URL}/api/order/addorder")
     fun createOrder(@Body myOrderInformation: OrderBody): Single<BaseResponse>
+
+    @Multipart
+    @POST("${URL}/api/customers/uploadavatar/{customerId}")
+    fun uploadAvatar(@Path("customerId") customerId: String, @Part customerAvatar: MultipartBody.Part): Single<BaseResponse>
 
 }

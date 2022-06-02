@@ -1,27 +1,39 @@
 package com.example.utt.hnccomputer.ui.fragment.account
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.BaseViewStubFragment
+import com.example.utt.hnccomputer.base.entity.BaseError
+import com.example.utt.hnccomputer.base.permission.PermissionHelper
 import com.example.utt.hnccomputer.databinding.FragmentAccountBinding
+import com.example.utt.hnccomputer.entity.model.Customer
+import com.example.utt.hnccomputer.extension.goToGallery
+import com.example.utt.hnccomputer.extension.loadImage
+import com.example.utt.hnccomputer.extension.openGallery
+import com.example.utt.hnccomputer.ui.dialog.PickUpAvatarDialog
 import com.example.utt.hnccomputer.ui.fragment.account_information.AccountInformationFragment
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.ui.fragment.my_order.MyOrderFragment
+import com.example.utt.hnccomputer.utils.BundleKey
+import com.example.utt.hnccomputer.utils.RealPathUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AccountFragment : BaseFragment<FragmentAccountBinding>() {
+class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
 
     private val viewModel: AccountViewModel by viewModels()
 
-    override fun initView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        binding: FragmentAccountBinding
-    ) {
+    val dialog = PickUpAvatarDialog()
 
+    private val permissionHelper: PermissionHelper by lazy {
+        PermissionHelper()
     }
 
     override fun getFragmentBinding(
@@ -33,6 +45,25 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun initListener() {
         binding.apply {
+            refreshLayout.setOnRefreshListener {
+                viewModel.getCustomerInformation()
+            }
+            dialog.setListener(object : PickUpAvatarDialog.OnSelectImageListener {
+                override fun onTakePhoto() {
+                    dialog.dismiss()
+                }
+
+                override fun onChooseFromGallery() {
+                    goToGallery {
+                        openGallery(BundleKey.REQUEST_CODE_IMAGE_STORAGE)
+                    }
+                    dialog.dismiss()
+                }
+            })
+
+            cardView.setOnClickListener {
+                dialog.show(childFragmentManager, dialog.tag)
+            }
             btnProfile.layout.setOnClickListener {
                 transitFragment(AccountInformationFragment(), R.id.parent_container)
             }
@@ -46,9 +77,66 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         }
     }
 
-    override fun initData() {
-        with(viewModel) {
-
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            errorDialog.setErrorMessage(it)
+            errorDialog.show(childFragmentManager, errorDialog.tag)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            BundleKey.REQUEST_CODE_IMAGE_STORAGE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val listUri = data?.data ?: return
+                    viewModel.avatarPath = RealPathUtil.getRealPath(requireContext(), listUri)
+                    viewModel.uploadAvatar()
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun onCreateViewAfterViewStubInflated(
+        inflatedView: View,
+        savedInstanceState: Bundle?
+    ) {
+        with(viewModel) {
+            getCustomerInformation()
+            customerResponse.observe(this@AccountFragment) {
+                handleObjResponse(it, binding.progressBar)
+            }
+            response.observe(this@AccountFragment) {
+                handleNoDataResponse(it, binding.progressBar) {
+                    binding.imgAvaProfile.loadImage(viewModel.avatarPath)
+                }
+            }
+        }
+    }
+
+    override fun <U> getObjectResponse(data: U) {
+        if (data is Customer) {
+            binding.refreshLayout.isRefreshing = false
+            binding.model = data
+            if (data.avatarUrl.isNotEmpty()) {
+                binding.imgAvaProfile.loadImage(data.avatarUrl)
+            }
+        }
+    }
+
+    override fun getViewStubLayoutResource(): Int {
+        return R.layout.fragment_account
     }
 }

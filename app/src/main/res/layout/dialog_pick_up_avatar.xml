@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_pick_image"
+            app:layout_constraintTop_toTopOf="@+id/btn_close"
+            app:layout_constraintBottom_toBottomOf="@id/btn_close"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="18dp"
+            style="@style/medium"
+            android:text="Chọn ảnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:src="@drawable/ic_close_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:id="@+id/btn_take_photo"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/bg_pick_image"
+            app:layout_constraintEnd_toStartOf="@+id/btn_choose_from_gallery"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pick_image"
+            app:layout_constraintStart_toStartOf="@+id/tv_pick_image"
+            android:layout_width="0dp"
+            android:layout_height="120dp" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_camera"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                style="@style/medium"
+                android:textSize="14dp"
+                android:text="Chụp ảnh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginStart="5dp"
+            android:id="@+id/btn_choose_from_gallery"
+            app:layout_constraintStart_toEndOf="@+id/btn_take_photo"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/bg_pick_image"
+            app:layout_constraintTop_toTopOf="@+id/btn_take_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="120dp" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14dp"
+                style="@style/medium"
+                android:text="Chọn từ thư viện"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

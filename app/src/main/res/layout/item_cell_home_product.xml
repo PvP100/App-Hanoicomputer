@@ -25,7 +25,7 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="0dp"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="270dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
@@ -69,6 +69,18 @@
                 android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:textColor="@color/white"
+                style="@style/regular"
+                android:gravity="center"
+                android:background="@drawable/bg_sale_percent"
+                android:id="@+id/tv_sale_percent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:textColor="@color/base_red_01"
                 android:textSize="14dp"
                 style="@style/bold"
@@ -90,7 +102,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_sale_price"
                 app:layout_constraintEnd_toEndOf="@+id/tv_sale_price"
                 app:layout_constraintStart_toStartOf="@+id/tv_sale_price"
-                android:background="@color/black"
+                android:background="#A8A8A8"
                 android:layout_width="0dp"
                 android:layout_height="1dp" />
 

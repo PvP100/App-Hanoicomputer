@@ -17,6 +17,7 @@ import com.example.utt.hnccomputer.extension.backgroundThread
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val apiInterface: ApiInterface) {
@@ -60,5 +61,9 @@ class Repository @Inject constructor(private val apiInterface: ApiInterface) {
 
     fun createOrder(orderBody: OrderBody): Single<BaseResponse> {
         return apiInterface.createOrder(orderBody).backgroundThread()
+    }
+
+    fun uploadAvatar(customerId: String, avatar: MultipartBody.Part): Single<BaseResponse> {
+        return apiInterface.uploadAvatar(customerId, avatar).backgroundThread()
     }
 }

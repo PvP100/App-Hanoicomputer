@@ -3,6 +3,7 @@ package com.example.utt.hnccomputer.ui.fragment.login
 import android.content.SharedPreferences
 import android.util.Base64
 import com.example.utt.hnccomputer.base.BaseViewModel
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.base.entity.BaseResponse
 import com.example.utt.hnccomputer.extension.setBoolean
 import com.example.utt.hnccomputer.extension.setString
@@ -15,6 +16,16 @@ class LoginViewModel @Inject constructor(private val repository: Repository, pri
 
     fun login(username: String, password: String) {
         val base64 = "$username:$password"
+
+        if (username.isEmpty()) {
+            _baseResponse.value = BaseResponse().errorNoData(BaseError("Vui lòng nhập tên đăng nhập"))
+            return
+        }
+        if (password.isEmpty()) {
+            _baseResponse.value = BaseResponse().errorNoData(BaseError("Vui lòng nhập mật khẩu"))
+            return
+        }
+
         mDisposable.add(
             repository.login("Basic ${Base64.encodeToString(base64.toByteArray(), Base64.NO_WRAP)}")
                 .doOnSubscribe {
