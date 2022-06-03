@@ -40,6 +40,7 @@ class CartAdapter(context: Context?, enableSelectedMode: Boolean = false) :
                 tvProductNameCart.text = model?.productName
                 tvPrice.text = model?.price?.convertToVnd()
                 imgProductCart.loadImage(model?.imgUrl)
+                layoutMinusPlus.setQuantity(model?.totalQuantity)
                 layoutMinusPlus.setCount(model?.quantity ?: 1)
                 layoutMinusPlus.onCountListener = {
                     model?.quantity = it

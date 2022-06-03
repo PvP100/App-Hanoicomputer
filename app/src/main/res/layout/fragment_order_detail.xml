@@ -137,6 +137,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="20dp"
+                    android:text="Hủy"
+                    android:id="@+id/btn_cancel_order"
+                    style="@style/medium"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_btn_cancel_order"
+                    android:gravity="center"
+                    android:layout_marginHorizontal="12dp"
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.core.widget.NestedScrollView>

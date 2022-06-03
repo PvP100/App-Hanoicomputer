@@ -13,6 +13,8 @@ class CountOrderView(context: Context, attrs: AttributeSet? = null) :
 
     private var count = 1
 
+    private var quantity: Int? = 0
+
     override fun getCustomViewBinding(context: Context): ViewCountOrderBinding {
         return ViewCountOrderBinding.inflate(LayoutInflater.from(context), this, false)
     }
@@ -30,10 +32,18 @@ class CountOrderView(context: Context, attrs: AttributeSet? = null) :
                 onCountListener(count)
             }
             plus.setOnClickListener {
-                setCount(count.plus(1))
+                if (count == quantity) {
+                    context.toast("Không thể mua quá số lượng hàng còn trong kho")
+                } else {
+                    setCount(count.plus(1))
+                }
                 onCountListener(count)
             }
         }
+    }
+
+    fun setQuantity(max: Int?) {
+        this.quantity = max
     }
 
     fun setCount(count: Int) {

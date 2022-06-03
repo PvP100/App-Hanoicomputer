@@ -15,9 +15,14 @@ class OrderDetailViewModel @Inject constructor(private val orderRepository: Orde
     private val _orderDetail: MutableLiveData<BaseObjectResponse<OrderDetail>> = MutableLiveData()
     val orderDetail: LiveData<BaseObjectResponse<OrderDetail>> = _orderDetail
 
-    fun getOrderDetail(id: Int) {
+    private val _cancelDate: MutableLiveData<BaseObjectResponse<Long>> = MutableLiveData()
+    val cancelDate: LiveData<BaseObjectResponse<Long>> = _cancelDate
+
+    var orderId = 0
+
+    fun getOrderDetail() {
         mDisposable.add(
-            orderRepository.getOrderDetail(id)
+            orderRepository.getOrderDetail(orderId)
                 .doOnSubscribe {
                     _orderDetail.value = BaseObjectResponse<OrderDetail>().loading()
                 }
@@ -31,6 +36,26 @@ class OrderDetailViewModel @Inject constructor(private val orderRepository: Orde
                     },
                     {
                         _orderDetail.value = BaseObjectResponse<OrderDetail>().error(it)
+                    }
+                )
+        )
+    }
+
+    fun cancelOrder() {
+        mDisposable.add(
+            orderRepository.cancelOrder(orderId)
+                .doOnSubscribe {
+                    _cancelDate.value = BaseObjectResponse<Long>().loading()
+                }.subscribe(
+                    {
+                        _cancelDate.value = it.data?.let { it1 ->
+                            BaseObjectResponse<Long>().success(
+                                it1
+                            )
+                        }
+                    },
+                    {
+                        _cancelDate.value = BaseObjectResponse<Long>().error(it)
                     }
                 )
         )

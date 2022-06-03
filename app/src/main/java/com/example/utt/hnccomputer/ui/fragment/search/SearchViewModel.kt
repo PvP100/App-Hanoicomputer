@@ -40,7 +40,8 @@ class SearchViewModel @Inject constructor(
                             product.id,
                             1,
                             productName = product.name,
-                            imgUrl = product.logoUrl
+                            imgUrl = product.logoUrl,
+                            totalQuantity = product.quantity
                         )
                     ).doOnSubscribe {
                         _baseResponse.value = BaseResponse().loadingNoData()

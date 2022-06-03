@@ -21,4 +21,8 @@ class OrderRepository @Inject constructor(private val apiInterface: ApiInterface
         return apiInterface.getOrderDetail(orderId).backgroundThread()
     }
 
+    fun cancelOrder(orderId: Int): Single<BaseObjectResponse<Long>> {
+        return apiInterface.cancelOrder(orderId).backgroundThread()
+    }
+
 }

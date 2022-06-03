@@ -31,6 +31,10 @@ class HomeViewModel @Inject constructor(
     val banner = MutableLiveData<BaseListResponse<Banner>>()
 
     fun addToCart(product: Product) {
+        if (product.quantity <= 0) {
+            _baseResponse.value = BaseResponse().errorNoData(BaseError("Sản phẩm này hiện tại đang hết hàng"))
+            return
+        }
         mDisposable.add(
             myOrderRepository.isExists(product.id).flatMap {
                 if (!it) {
@@ -40,7 +44,8 @@ class HomeViewModel @Inject constructor(
                             product.id,
                             1,
                             productName = product.name,
-                            imgUrl = product.logoUrl
+                            imgUrl = product.logoUrl,
+                            totalQuantity = product.quantity
                         )
                     ).doOnSubscribe {
                         _baseResponse.value = BaseResponse().loadingNoData()
@@ -64,10 +69,10 @@ class HomeViewModel @Inject constructor(
         return sharedPreferences.getBoolean("loginSave", false)
     }
 
-    fun getHome() {
+    fun getHome(isRefresh: Boolean = false) {
         mDisposable.add(
             Single.merge(repository.getBanner(), repository.getBrand(), repository.getHomeCategory()).doOnSubscribe {
-                _baseResponse.value = BaseResponse().loadingNoData()
+                _baseResponse.value = BaseResponse().loadingNoData().apply { this.isRefreshNoResponse =  isRefresh }
             }.doOnComplete {
                 _baseResponse.value = BaseResponse().successNoData()
             }.subscribe(

@@ -34,10 +34,6 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
 
     val dialog = PickUpAvatarDialog()
 
-    private val permissionHelper: PermissionHelper by lazy {
-        PermissionHelper()
-    }
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -48,23 +44,12 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
     override fun initListener() {
         binding.apply {
             refreshLayout.setOnRefreshListener {
-                viewModel.getCustomerInformation()
+                viewModel.getCustomerInformation(true)
             }
-            dialog.setListener(object : PickUpAvatarDialog.OnSelectImageListener {
-                override fun onTakePhoto() {
-                    dialog.dismiss()
-                }
-
-                override fun onChooseFromGallery() {
-                    goToGallery {
-                        openGallery(BundleKey.REQUEST_CODE_IMAGE_STORAGE)
-                    }
-                    dialog.dismiss()
-                }
-            })
-
             cardView.setOnClickListener {
-                dialog.show(childFragmentManager, dialog.tag)
+                goToGallery {
+                    openGallery(BundleKey.REQUEST_CODE_IMAGE_STORAGE)
+                }
             }
             btnProfile.layout.setOnClickListener {
                 transitFragment(AccountInformationFragment(), R.id.parent_container)
@@ -96,15 +81,6 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
                 }
             }
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun initData() {

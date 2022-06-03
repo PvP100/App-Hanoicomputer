@@ -248,7 +248,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     ) {
         when (data.typeBase) {
             Define.ResponseStatus.LOADING -> {
-                showAnimationProgress(progressBar)
+                if (!data.isRefreshNoResponse) {
+                    showAnimationProgress(progressBar)
+                }
             }
             Define.ResponseStatus.SUCCESS -> {
                 listener()

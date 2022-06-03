@@ -31,10 +31,10 @@ class AccountViewModel @Inject constructor(
         sharedPreferences.clearAll()
     }
 
-    fun getCustomerInformation() {
+    fun getCustomerInformation(isRefresh: Boolean = false) {
         mDisposable.add(repository.getCustomerInformation(sharedPreferences.getString("customerId"))
             .doOnSubscribe {
-                _customerResponse.value = BaseObjectResponse<Customer>().loading()
+                _customerResponse.value = BaseObjectResponse<Customer>().loading().apply { this?.isRefreshNoResponse = isRefresh }
             }
             .subscribe(
                 {

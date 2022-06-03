@@ -14,16 +14,18 @@ class CategoryViewModel @Inject constructor(private val repository: Repository) 
 
     val category = MutableLiveData<BaseObjectLoadMoreResponse<ResultResponse<Category>>>()
 
-    fun getCategory() {
+    fun getCategory(isRefresh: Boolean = false) {
         mDisposable.add(
             repository.getCategory().doOnSubscribe {
-                category.value = BaseObjectLoadMoreResponse<ResultResponse<Category>>().loading()
+                category.value = BaseObjectLoadMoreResponse<ResultResponse<Category>>().loading().apply {
+                    this.isRefresh = isRefresh
+                }
             }
                 .subscribe(
                     {
                         category.value = it.data?.let { it1 ->
                             BaseObjectLoadMoreResponse<ResultResponse<Category>>().success(
-                                it1, isRefresh = false, isLoadmore = false
+                                it1, isRefresh = isRefresh, isLoadmore = false
                             )
                         }
                     },

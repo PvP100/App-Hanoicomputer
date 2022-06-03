@@ -20,11 +20,13 @@ class OrderByTypeViewModel @Inject constructor(private val orderRepository: Orde
 
     var orderType = 0
 
-    fun getOrder(isRefresh: Boolean) {
+    fun getOrder(isRefresh: Boolean = false) {
         mDisposable.add(
             orderRepository.getOrder(orderType, sharedPreferences.getString("customerId", "") ?: "")
                 .doOnSubscribe {
-                    _order.value = BaseObjectLoadMoreResponse<ResultResponse<Order>>().loading()
+                    _order.value = BaseObjectLoadMoreResponse<ResultResponse<Order>>().loading().apply {
+                        this.isRefresh = isRefresh
+                    }
                 }
                 .subscribe(
                     {

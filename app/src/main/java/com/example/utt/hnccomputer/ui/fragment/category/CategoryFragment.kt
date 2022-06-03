@@ -31,7 +31,7 @@ class CategoryFragment : BaseViewStubFragment<FragmentCategoryBinding>() {
     override fun initListener() {
         binding.apply {
             rcvCategory.setOnRefreshListener {
-                viewModel.getCategory()
+                viewModel.getCategory(true)
             }
             categoryAdapter.addOnItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
                 override fun onItemClick(

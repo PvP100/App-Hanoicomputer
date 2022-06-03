@@ -57,7 +57,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun handleValidateError(throwable: BaseError?) {
         throwable?.error?.let {
-            toast(it)
+            errorDialog.setErrorMessage(it)
+            errorDialog.show(childFragmentManager, errorDialog.tag)
         }
     }
 
@@ -142,7 +143,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 dialog?.show(childFragmentManager, dialog.tag)
             }
             refreshLayout.setOnRefreshListener {
-                viewModel.getHome()
+                viewModel.getHome(true)
             }
             brandCategory.tvAll.onAvoidDoubleClick {
                 transitFragment(

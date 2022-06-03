@@ -65,6 +65,9 @@ interface ApiInterface {
     @GET("${URL}/api/order/getdetail/{id}")
     fun getOrderDetail(@Path("id") orderId: Int): Single<BaseObjectResponse<OrderDetail>>
 
+    @POST("${URL}/api/order/cancelorder")
+    fun cancelOrder(@Query("id") orderId: Int): Single<BaseObjectResponse<Long>>
+
     @POST("${URL}/api/order/addorder")
     fun createOrder(@Body myOrderInformation: OrderBody): Single<BaseResponse>
 

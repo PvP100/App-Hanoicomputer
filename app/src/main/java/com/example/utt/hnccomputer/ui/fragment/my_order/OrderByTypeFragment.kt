@@ -48,7 +48,7 @@ class OrderByTypeFragment : BaseViewStubFragment<FragmentOrderByTypeBinding>() {
                     viewModel.orderType = it.getInt(ARGS_ORDER_TYPE, OrderStatus.CHECK.type)
                 }
             }
-            getOrder(true)
+            getOrder()
             order.observe(this@OrderByTypeFragment) {
                 handleObjectLoadMoreResponse(it, binding.progressBar)
             }

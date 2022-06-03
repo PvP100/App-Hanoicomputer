@@ -16,6 +16,9 @@ data class MyOrderInformation(
     @ColumnInfo(name = "quantity")
     var quantity: Int,
 
+    @ColumnInfo(name = "totalQuantity")
+    var totalQuantity: Int,
+
     @ColumnInfo(name = "product_name")
     val productName: String,
 

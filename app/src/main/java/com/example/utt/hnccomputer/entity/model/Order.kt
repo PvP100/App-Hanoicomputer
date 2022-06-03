@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Order(
     val id: Int,
-    val isCheck: OrderStatus,
+    var isCheck: OrderStatus,
     val createdDate: Long,
-    val updateDate: Long,
+    var updateDate: Long,
     val totalProduct: Int
 )
 

@@ -15,7 +15,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         const val DATABASE_NAME = "myorder.db"
-        const val VERSION = 1
+        const val VERSION = 2
 
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()

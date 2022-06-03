@@ -15,9 +15,7 @@ import com.example.utt.hnccomputer.entity.model.OrderDetail
 import com.example.utt.hnccomputer.entity.model.OrderStatus
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.model.ProductOrder
-import com.example.utt.hnccomputer.extension.convertToDate
-import com.example.utt.hnccomputer.extension.convertToVnd
-import com.example.utt.hnccomputer.extension.gone
+import com.example.utt.hnccomputer.extension.*
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,8 +41,12 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
         with(viewModel) {
             arguments?.let {
                 if (it.containsKey(BundleKey.KEY_ORDER_ID)) {
-                    getOrderDetail(it.getInt(BundleKey.KEY_ORDER_ID))
+                    orderId = it.getInt(BundleKey.KEY_ORDER_ID)
+                    getOrderDetail()
                 }
+            }
+            cancelDate.observe(this@OrderDetailFragment) {
+                handleObjResponse(it, binding.progressBar)
             }
             orderDetail.observe(this@OrderDetailFragment) {
                 handleObjResponse(it, binding.progressBar)
@@ -60,12 +62,20 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
             binding.createdDate.text = "Ngày đặt hàng: ${data.order.createdDate.convertToDate()}"
             binding.total.totalPrice.text = data.totalPrice.convertToVnd()
             orderAdapter.refresh(data.listProduct)
+        } else if (data is Long) {
+            viewModel.orderDetail.value?.data?.let {
+                it.order.isCheck = OrderStatus.CANCEL
+                it.order.updateDate = data
+                setOrderStatus(it)
+                binding.btnCancelOrder.gone()
+            }
         }
     }
 
     private fun setOrderStatus(data: OrderDetail) {
         when (data.order.isCheck) {
             OrderStatus.CHECK -> {
+                binding.btnCancelOrder.gone()
                 binding.orderStatus.tvOrderStatus.text = OrderStatus.CHECK.status
                 binding.orderStatus.orderStatusDate.text = "${data.order.updateDate.convertToDate()}"
                 binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status)
@@ -76,7 +86,9 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
                 binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status_yellow)
             }
             OrderStatus.CANCEL -> {
+                binding.btnCancelOrder.gone()
                 binding.orderStatus.tvOrderStatus.text = OrderStatus.CANCEL.status
+                binding.orderStatus.orderStatusDate.visible()
                 binding.orderStatus.orderStatusDate.text = "${data.order.updateDate.convertToDate()}"
                 binding.orderStatus.icOrderStatus.setImageResource(R.drawable.ic_order_status_red)
             }
@@ -85,6 +97,9 @@ class OrderDetailFragment : BaseFragment<FragmentOrderDetailBinding>() {
 
     override fun initListener() {
         binding.apply {
+            btnCancelOrder.onAvoidDoubleClick {
+                viewModel.cancelOrder()
+            }
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {
                     activity?.onBackPressed()

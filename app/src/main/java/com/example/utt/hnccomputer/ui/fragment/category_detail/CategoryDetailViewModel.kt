@@ -57,6 +57,10 @@ class CategoryDetailViewModel @Inject constructor(private val sharedPreferences:
     }
 
     fun addToCart(product: Product) {
+        if (product.quantity <= 0) {
+            _baseResponse.value = BaseResponse().errorNoData(BaseError("Sản phẩm này hiện tại đang hết hàng"))
+            return
+        }
         mDisposable.add(
             myOrderRepository.isExists(product.id).flatMap {
                 if (!it) {
@@ -66,7 +70,8 @@ class CategoryDetailViewModel @Inject constructor(private val sharedPreferences:
                             product.id,
                             1,
                             productName = product.name,
-                            imgUrl = product.logoUrl
+                            imgUrl = product.logoUrl,
+                            totalQuantity = product.quantity
                         )
                     ).doOnSubscribe {
                         _baseResponse.value = BaseResponse().loadingNoData()
