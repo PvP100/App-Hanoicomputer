@@ -3,6 +3,7 @@ package com.example.utt.hnccomputer.ui.fragment.account
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.example.utt.hnccomputer.ui.fragment.my_order.MyOrderFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import com.example.utt.hnccomputer.utils.RealPathUtil
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
@@ -130,9 +132,7 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
         if (data is Customer) {
             binding.refreshLayout.isRefreshing = false
             binding.model = data
-            if (data.avatarUrl.isNotEmpty()) {
-                binding.imgAvaProfile.loadImage(data.avatarUrl)
-            }
+            binding.imgAvaProfile.loadImage("${data.avatarUrl}?${Random().nextInt(100)}")
         }
     }
 
