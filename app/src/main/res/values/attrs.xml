@@ -53,4 +53,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="EditInformationView">
+        <attr name="edit_type" format="enum">
+            <enum name="password" value="1" />
+            <enum name="number" value="2" />
+        </attr>
+    </declare-styleable>
+
 </resources>
