@@ -69,6 +69,7 @@
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.customview.EditInformationView
+            app:edit_type="number"
             android:id="@+id/new_password"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"

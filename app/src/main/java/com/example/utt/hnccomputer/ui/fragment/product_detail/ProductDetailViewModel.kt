@@ -56,7 +56,7 @@ class ProductDetailViewModel @Inject constructor(private val productRepository: 
                     _product.value?.data?.let { product ->
                         myOrderRepository.insertProduct(
                             MyOrderInformation(
-                                product.price,
+                                if (product.isSale == 1) product.salePrice else product.price,
                                 product.id,
                                 1,
                                 productName = product.name,

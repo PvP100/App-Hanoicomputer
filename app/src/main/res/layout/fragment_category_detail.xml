@@ -26,6 +26,7 @@
             android:layout_height="wrap_content" />
 
         <com.example.utt.hnccomputer.base.adapter.BaseRecyclerView
+            app:brv_padding_start="10dp"
             app:brv_text_no_result="@string/no_result"
             android:id="@+id/rcv_product"
             app:layout_constraintTop_toBottomOf="@+id/filter_price"

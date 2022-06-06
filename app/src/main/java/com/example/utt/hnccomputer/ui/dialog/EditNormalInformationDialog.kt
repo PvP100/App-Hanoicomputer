@@ -12,6 +12,8 @@ class EditNormalInformationDialog : BaseCustomDialog<DialogEditNormalInformation
 
     private var information: String? = null
 
+    private var isNumber: Boolean = false
+
     private var listener: OnUpdateListener? = null
 
     interface OnUpdateListener {
@@ -36,12 +38,16 @@ class EditNormalInformationDialog : BaseCustomDialog<DialogEditNormalInformation
     ) {
         binding.tvHeader.text = headerTitle
         binding.editInformation.setInformation(information)
+        if (isNumber) {
+            binding.editInformation.setNumberType()
+        }
         initListener()
     }
 
-    fun setDetail(headerTitle: String, information: String) {
+    fun setDetail(headerTitle: String, information: String, isNumber: Boolean = false) {
         this.headerTitle = headerTitle
         this.information = information
+        this.isNumber = isNumber
     }
 
     private fun initListener() {

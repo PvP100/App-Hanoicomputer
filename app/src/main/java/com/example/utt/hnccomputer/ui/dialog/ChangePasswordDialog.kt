@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseCustomDialog
 import com.example.utt.hnccomputer.databinding.DialogChangePasswordBinding
+import com.example.utt.hnccomputer.extension.isValidPassword
 import com.example.utt.hnccomputer.extension.toast
 
 class ChangePasswordDialog : BaseCustomDialog<DialogChangePasswordBinding>() {
@@ -40,6 +41,10 @@ class ChangePasswordDialog : BaseCustomDialog<DialogChangePasswordBinding>() {
                 dismiss()
             }
             btnChangePassword.setOnClickListener {
+                if (!newPassword.getInformation().isValidPassword()) {
+                    toast("Mật khẩu mới cần có chữ hoa thường và số")
+                    return@setOnClickListener
+                }
                 if (newPassword.getInformation() == rePassword.getInformation()) {
                     listener?.onChangePassword(oldPassword.getInformation(), newPassword.getInformation())
                 } else {

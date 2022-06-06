@@ -58,6 +58,10 @@ class EditInformationView(context: Context, attrs: AttributeSet? = null) :
     fun setPasswordType(boolean: Boolean) {
         binding.edtInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
     }
+    fun setNumberType() {
+        binding.edtInput.inputType = InputType.TYPE_CLASS_NUMBER
+    }
+
 
     fun getInformation() = binding.edtInput.text.toString().trim()
 }

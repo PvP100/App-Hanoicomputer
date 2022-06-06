@@ -91,4 +91,10 @@ fun String.convertToMultipartBody(name: String): MultipartBody.Part {
     return MultipartBody.Part.createFormData(name, file.name, requestBody)
 }
 
+fun String.isValidPassword() : Boolean {
+    val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$"
+    val passwordMatcher = Regex(passwordPattern)
+
+    return passwordMatcher.find(this) != null
+}
 

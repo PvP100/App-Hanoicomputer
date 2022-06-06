@@ -124,7 +124,7 @@ class AccountInformationFragment : BaseFragment<FragmentAccountInformationBindin
             phoneNumber.setListener(object : DetailInformationView.OnDetailClick {
                 override fun onClick() {
                     viewModel.editType = phoneNumber.getUpdateType()
-                    phoneDialog.setDetail("Số điện thoại", phoneNumber.getInformation())
+                    phoneDialog.setDetail("Số điện thoại", phoneNumber.getInformation(), true)
                     phoneDialog.show(childFragmentManager, fullNameDialog.tag)
                 }
             })

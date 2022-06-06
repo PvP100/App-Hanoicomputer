@@ -36,7 +36,7 @@ class SearchViewModel @Inject constructor(
                 if (!it) {
                     myOrderRepository.insertProduct(
                         MyOrderInformation(
-                            product.price,
+                            if (product.isSale == 1) product.salePrice else product.price,
                             product.id,
                             1,
                             productName = product.name,
