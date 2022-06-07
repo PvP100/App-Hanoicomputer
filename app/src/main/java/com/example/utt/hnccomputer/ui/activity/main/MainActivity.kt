@@ -14,7 +14,7 @@ class MainActivity : BaseDataBindingActivity<ActivityMainBinding, MainViewModel>
     override val layoutResourceId: Int
         get() = R.layout.activity_main
 
-    private val permissionHelper: PermissionHelper by lazy {
+    val permissionHelper: PermissionHelper by lazy {
         PermissionHelper()
     }
 

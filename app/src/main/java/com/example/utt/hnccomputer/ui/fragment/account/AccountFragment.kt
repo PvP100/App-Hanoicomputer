@@ -18,11 +18,13 @@ import com.example.utt.hnccomputer.entity.model.Customer
 import com.example.utt.hnccomputer.extension.goToGallery
 import com.example.utt.hnccomputer.extension.loadImage
 import com.example.utt.hnccomputer.extension.openGallery
+import com.example.utt.hnccomputer.ui.activity.main.MainActivity
 import com.example.utt.hnccomputer.ui.dialog.PickUpAvatarDialog
 import com.example.utt.hnccomputer.ui.fragment.account_information.AccountInformationFragment
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.ui.fragment.my_order.MyOrderFragment
 import com.example.utt.hnccomputer.utils.BundleKey
+import com.example.utt.hnccomputer.utils.BundleKey.REQUEST_CODE_IMAGE_STORAGE
 import com.example.utt.hnccomputer.utils.RealPathUtil
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -47,9 +49,9 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
                 viewModel.getCustomerInformation(true)
             }
             cardView.setOnClickListener {
-                goToGallery {
-                    openGallery(BundleKey.REQUEST_CODE_IMAGE_STORAGE)
-                }
+                goToGallery(permissionHelper = (requireActivity() as MainActivity).permissionHelper, listener = {
+                    openGallery(REQUEST_CODE_IMAGE_STORAGE)
+                })
             }
             btnProfile.layout.setOnClickListener {
                 transitFragment(AccountInformationFragment(), R.id.parent_container)

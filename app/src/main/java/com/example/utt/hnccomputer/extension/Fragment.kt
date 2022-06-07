@@ -11,8 +11,8 @@ fun Fragment.openGallery(requestCode : Int){
     startActivityForResult(intent,requestCode)
 }
 
-fun Fragment.goToGallery(listener:() -> Unit){
-    PermissionHelper().withFragment(this)
+fun Fragment.goToGallery(listener:() -> Unit, permissionHelper: PermissionHelper){
+    permissionHelper.withFragment(this)
         .check(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         .onSuccess(Runnable {
             listener()
