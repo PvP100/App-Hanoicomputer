@@ -8,6 +8,7 @@ import com.example.utt.hnccomputer.customview.DetailInformationView
 import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentAccountInformationBinding
 import com.example.utt.hnccomputer.entity.model.Customer
+import com.example.utt.hnccomputer.entity.model.Gender
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.showDatePickerDialog
 import com.example.utt.hnccomputer.ui.dialog.ChangePasswordDialog
@@ -59,6 +60,11 @@ class AccountInformationFragment : BaseFragment<FragmentAccountInformationBindin
     override fun <U> getObjectResponse(data: U) {
         super.getObjectResponse(data)
         if (data is Customer) {
+            if (data.gender == Gender.Nam) {
+                filterDialog.setSelectedPosition(0)
+            } else {
+                filterDialog.setSelectedPosition(1)
+            }
             binding.model = data
         }
     }

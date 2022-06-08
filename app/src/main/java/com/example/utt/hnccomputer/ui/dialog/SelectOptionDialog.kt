@@ -34,6 +34,7 @@ class SelectOptionDialog : BaseCustomDialog<DialogSelectOptionBinding>() {
         filterAdapter = FilterOptionAdapter(requireContext(), false)
         binding.rcvFilter.adapter = filterAdapter
         filter?.let {
+            it.mapIndexed { index, filterOption -> if (index == selectedPosition) filterOption.isChecked = true }
             filterAdapter.refresh(it)
         }
         initListener()
@@ -41,6 +42,12 @@ class SelectOptionDialog : BaseCustomDialog<DialogSelectOptionBinding>() {
 
     fun setFilter(filter: List<FilterOption>) {
         this.filter = filter
+    }
+
+    fun setSelectedPosition(selected: Int?) {
+        selected?.let {
+            selectedPosition = it
+        }
     }
 
     private fun initListener() {

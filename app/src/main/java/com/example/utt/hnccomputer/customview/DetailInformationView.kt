@@ -8,6 +8,7 @@ import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseConstraintCustomView
 import com.example.utt.hnccomputer.databinding.ViewDetailInformationBinding
 import com.example.utt.hnccomputer.entity.model.UpdateType
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.showDatePickerDialog
 
 class DetailInformationView(context: Context, attrs: AttributeSet? = null) :
@@ -31,7 +32,7 @@ class DetailInformationView(context: Context, attrs: AttributeSet? = null) :
 
     override fun initListener() {
         binding.apply {
-            root.setOnClickListener {
+            root.onAvoidDoubleClick {
                 listener?.onClick()
             }
         }

@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             android:id="@+id/edt_input"
             tools:text="Phạm Việt Phong"
-            android:textColor="#C0C4C6"
+            android:textColor="#393939"
             android:layout_marginTop="10dp"
             android:paddingVertical="12dp"
             android:paddingHorizontal="15dp"

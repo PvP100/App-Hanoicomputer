@@ -24,11 +24,8 @@ class CountOrderView(context: Context, attrs: AttributeSet? = null) :
     override fun initListener() {
         binding.apply {
             minus.setOnClickListener {
-                if (count == 1) {
-                    context.toast("Tối thiểu một sản phẩm")
-                } else {
-                    setCount(count.minus(1))
-                }
+                setCount(count.minus(1))
+                count = count.minus(1)
                 onCountListener(count)
             }
             plus.setOnClickListener {

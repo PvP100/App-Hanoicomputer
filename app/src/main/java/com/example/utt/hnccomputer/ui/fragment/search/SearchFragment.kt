@@ -14,6 +14,7 @@ import com.example.utt.hnccomputer.customview.HncHeaderView
 import com.example.utt.hnccomputer.databinding.FragmentSearchBinding
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.entity.response.ResultResponse
+import com.example.utt.hnccomputer.ui.dialog.FilterProductDialog
 import com.example.utt.hnccomputer.ui.dialog.LoginDialog
 import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
@@ -28,6 +29,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     @Inject
     lateinit var productAdapter: CategoryProductAdapter
 
+    private val dialogFilter = FilterProductDialog()
+
     private val viewModel: SearchViewModel by viewModels()
 
     override fun initView(
@@ -37,16 +40,36 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     ) {
         arguments?.let {
             if (it.containsKey(BundleKey.KEY_SEARCH_VALUE)) {
-                it.getString(BundleKey.KEY_SEARCH_VALUE)?.let { it1 -> viewModel.getSearch(it1) }
+                it.getString(BundleKey.KEY_SEARCH_VALUE)?.let { keySearch ->
+                    viewModel.productName = keySearch
+                    viewModel.getSearch()
+                }
             }
         }
-        binding.rcvSearchProduct.adapter = productAdapter
+        binding.rcvSearchProduct.setAdapter(productAdapter)
+        binding.rcvSearchProduct.setEnableRefresh(false)
         val spacingInPixels = resources.getDimensionPixelOffset(R.dimen.spacing_brand_rcv)
-        binding.rcvSearchProduct.addItemDecoration(SpacesItemDecoration(spacingInPixels))
+        binding.rcvSearchProduct.getRecyclerView().addItemDecoration(SpacesItemDecoration(spacingInPixels))
+        binding.rcvSearchProduct.setGridLayoutManager(2)
     }
 
     override fun initData() {
         with(viewModel) {
+            response.observe(this@SearchFragment) {
+                handleNoDataResponse(it, binding.progressBar) {
+                    dialogFilter.show(childFragmentManager, dialogFilter.tag)
+                    viewModel.listCategory.value?.data?.results?.let {
+                        dialogFilter.setListCategory(
+                            it
+                        )
+                    }
+                    viewModel.listBrand.value?.data?.results?.let {
+                        dialogFilter.setListBrand(
+                            it
+                        )
+                    }
+                }
+            }
             product.observe(this@SearchFragment) {
                 handleObjectLoadMoreResponse(it, binding.progressBar)
             }
@@ -56,13 +79,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun <U> getListLoadMoreResponse(data: U?, isRefresh: Boolean, canLoadMore: Boolean) {
         super.getListLoadMoreResponse(data, isRefresh, canLoadMore)
         if (data is ResultResponse<*>) {
-            if (data.results.isNotEmpty()) {
-                productAdapter.refresh(data.results as List<Product>)
-            }
+            binding.rcvSearchProduct.refresh(data.results as List<Product>)
         }
     }
 
     override fun initListener() {
+        dialogFilter.onReturnFilter = { categoryId, brandId ->
+            viewModel.categoryId = categoryId
+            viewModel.brandId = brandId
+            viewModel.getSearch()
+        }
         productAdapter.addToCart = {
             if (viewModel.checkLogin()) {
                 viewModel.addToCart(it)
@@ -78,6 +104,32 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             }
         }
         binding.apply {
+            filterPrice.onFilterClick = {
+                viewModel.getCategoryAndBrand()
+            }
+            filterPrice.onReturnSelected = {
+                when(it) {
+                    1 -> {
+                        viewModel.isSale = 1
+                    }
+                    2 -> {
+                        viewModel.isSale = 0
+                        viewModel.sortBy = "price"
+                        viewModel.sortType = "asc"
+                    }
+                    3 -> {
+                        viewModel.isSale = 0
+                        viewModel.sortBy = "price"
+                        viewModel.sortType = "desc"
+                    }
+                    else -> {
+                        viewModel.isSale = 0
+                        viewModel.sortBy = "createdDate"
+                        viewModel.sortType = "desc"
+                    }
+                }
+                viewModel.getSearch()
+            }
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {
                     activity?.onBackPressed()

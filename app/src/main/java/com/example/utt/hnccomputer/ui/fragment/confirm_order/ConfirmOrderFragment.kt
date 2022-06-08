@@ -11,6 +11,7 @@ import com.example.utt.hnccomputer.databinding.FragmentConfirmOrderBinding
 import com.example.utt.hnccomputer.extension.convertToVnd
 import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.toast
+import com.example.utt.hnccomputer.extension.visible
 import com.example.utt.hnccomputer.ui.dialog.ChangeReceiverCustomerDialog
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.utils.BundleKey
@@ -59,6 +60,7 @@ class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
                             binding.model = customer
                         }
                         myOrder.value?.let { it1 -> adapter.refresh(it1) }
+                        binding.bottom.tvTitle.visible()
                         binding.bottom.totalPrice = totalPrice.convertToVnd()
                     }
                 }
@@ -76,7 +78,7 @@ class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
                     orderInformation.name.detail.text = name
                 }
             })
-            cardViewInformation.setOnClickListener {
+            cardViewInformation.onAvoidDoubleClick {
                 dialog.show(childFragmentManager, dialog.tag)
             }
             bottom.btnPlaceOrder.onAvoidDoubleClick {

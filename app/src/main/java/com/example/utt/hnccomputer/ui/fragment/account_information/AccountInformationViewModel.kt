@@ -28,7 +28,7 @@ class AccountInformationViewModel @Inject constructor(private val sharedPreferen
 
     init {
         _listFilter.value = listOf(
-            FilterOption(1, Gender.Nam.genderName, true),
+            FilterOption(1, Gender.Nam.genderName),
             FilterOption(0, Gender.Nữ.genderName)
         )
     }

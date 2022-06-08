@@ -9,7 +9,7 @@
 
         <com.example.utt.hnccomputer.customview.HncHeaderView
             app:header_title=""
-            app:right_drawable="@drawable/ic_filter"
+            app:right_drawable="@drawable/ic_shopping_cart"
             app:left_drawable="@drawable/ic_arrow_left"
             android:id="@+id/header"
             app:layout_constraintTop_toTopOf="parent"

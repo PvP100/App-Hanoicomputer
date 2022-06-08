@@ -54,7 +54,7 @@ interface ApiInterface {
     fun getProduct(@Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?, @Query("sortBy") sort: String, @Query("sortType") type: String, @Query("isSale") sale: Int): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
 
     @GET("${URL}/api/products/searchProduct/{productName}")
-    fun searchProduct(@Path("productName") productName: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
+    fun searchProduct(@Path("productName") productName: String?, @Query("categoryId") categoryId: Int?, @Query("brandId") brandId: Int?, @Query("isSale") isSale: Int?, @Query("sortBy") sort: String?, @Query("sortType") type: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>>
 
     @GET("${URL}/api/products/product/{id}")
     fun getProductDetail(@Path("id") productId: String): Single<BaseObjectResponse<Product>>

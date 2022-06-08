@@ -15,8 +15,8 @@ class ProductRepository @Inject constructor(private val apiInterface: ApiInterfa
         return apiInterface.getProduct(categoryId, brandId, sortBy, sortType, isSale).backgroundThread()
     }
 
-    fun getSearch(value: String): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>> {
-        return apiInterface.searchProduct(value).backgroundThread()
+    fun getSearch(value: String, isSale: Int, categoryId: Int?, brandId: Int?, sortBy: String, sortType: String?): Single<BaseObjectLoadMoreResponse<ResultResponse<Product>>> {
+        return apiInterface.searchProduct(value, isSale = isSale, categoryId = categoryId, brandId = brandId, sort = sortBy, type = sortType).backgroundThread()
     }
 
     fun getDetail(productId: String): Single<BaseObjectResponse<Product>> {

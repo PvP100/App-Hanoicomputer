@@ -8,6 +8,7 @@ import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseFragment
+import com.example.utt.hnccomputer.base.entity.BaseError
 import com.example.utt.hnccomputer.customview.RegisterInputView
 import com.example.utt.hnccomputer.databinding.FragmentRegisterBinding
 import com.example.utt.hnccomputer.extension.changeStatusBarContrastStyle
@@ -37,6 +38,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                     activity?.onBackPressed()
                 }
             }
+        }
+    }
+
+    override fun handleValidateError(throwable: BaseError?) {
+        throwable?.error?.let {
+            toast(it)
         }
     }
 

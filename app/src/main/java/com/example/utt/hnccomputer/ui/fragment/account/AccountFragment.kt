@@ -17,6 +17,7 @@ import com.example.utt.hnccomputer.databinding.FragmentAccountBinding
 import com.example.utt.hnccomputer.entity.model.Customer
 import com.example.utt.hnccomputer.extension.goToGallery
 import com.example.utt.hnccomputer.extension.loadImage
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.openGallery
 import com.example.utt.hnccomputer.ui.activity.main.MainActivity
 import com.example.utt.hnccomputer.ui.dialog.PickUpAvatarDialog
@@ -48,18 +49,18 @@ class AccountFragment : BaseViewStubFragment<FragmentAccountBinding>() {
             refreshLayout.setOnRefreshListener {
                 viewModel.getCustomerInformation(true)
             }
-            cardView.setOnClickListener {
+            cardView.onAvoidDoubleClick {
                 goToGallery(permissionHelper = (requireActivity() as MainActivity).permissionHelper, listener = {
                     openGallery(REQUEST_CODE_IMAGE_STORAGE)
                 })
             }
-            btnProfile.layout.setOnClickListener {
+            btnProfile.layout.onAvoidDoubleClick {
                 transitFragment(AccountInformationFragment(), R.id.parent_container)
             }
-            btnOrder.layout.setOnClickListener {
+            btnOrder.layout.onAvoidDoubleClick {
                 transitFragment(MyOrderFragment(), R.id.parent_container)
             }
-            btnLogout.setOnClickListener {
+            btnLogout.onAvoidDoubleClick {
                 viewModel.logout()
                 replaceFragment(MainFragment(), R.id.parent_container)
             }

@@ -35,7 +35,7 @@ class HomeProductAdapter(context: Context) : EndlessLoadingRecyclerViewAdapter(c
     inner class HomeCategoryViewHolder(private val binding: ItemCellHomeProductBinding) : RecyclerViewAdapter.NormalViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-                btnAddToCart.setOnClickListener {
+                btnAddToCart.onAvoidDoubleClick {
                     addToCart(product)
                 }
                 if (product.isSale == 1) {

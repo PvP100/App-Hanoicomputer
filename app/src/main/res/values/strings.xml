@@ -38,6 +38,7 @@
     <string name="gender_title">Giới tính</string>
     <string name="address_title">Địa chỉ nhà</string>
     <string name="phone_number_title">Số điện thoại</string>
+    <string name="already_have_account">Đã có tài khoản? <font fgcolor='#FFFF3B30'>Đăng nhập</font></string>
     <string name="email_title">Email</string>
 
     <!--Cart page-->

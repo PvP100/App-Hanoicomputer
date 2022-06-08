@@ -43,8 +43,12 @@ class CartAdapter(context: Context?, enableSelectedMode: Boolean = false) :
                 layoutMinusPlus.setQuantity(model?.totalQuantity)
                 layoutMinusPlus.setCount(model?.quantity ?: 1)
                 layoutMinusPlus.onCountListener = {
+                    if (it <= 1) {
+                        onRemoveCart(model?.productId, adapterPosition)
+                    } else {
+                        model?.productId?.let { it1 -> onCountQuantity(it, it1) }
+                    }
                     model?.quantity = it
-                    model?.productId?.let { it1 -> onCountQuantity(it, it1) }
                 }
                 btnRemove.setOnClickListener {
                     onRemoveCart(model?.productId, adapterPosition)

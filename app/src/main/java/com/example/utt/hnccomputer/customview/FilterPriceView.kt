@@ -8,11 +8,14 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.example.utt.hnccomputer.R
 import com.example.utt.hnccomputer.base.BaseConstraintCustomView
 import com.example.utt.hnccomputer.databinding.ViewFilterPriceBinding
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 
 class FilterPriceView(context: Context, attrs: AttributeSet? = null) :
     BaseConstraintCustomView<ViewFilterPriceBinding>(context, attrs) {
 
     var onReturnSelected: (Int) -> Unit = {}
+
+    var onFilterClick: () -> Unit = {}
 
     private var selectedPosition = 0
 
@@ -22,6 +25,9 @@ class FilterPriceView(context: Context, attrs: AttributeSet? = null) :
 
     override fun initListener() {
         binding.apply {
+            icFilter.onAvoidDoubleClick {
+                onFilterClick()
+            }
             btnSale.setOnClickListener {
                 selectedPosition = if (selectedPosition == 1) {
                     setSelect(false, it as AppCompatTextView)
@@ -64,7 +70,7 @@ class FilterPriceView(context: Context, attrs: AttributeSet? = null) :
 
     private fun setSelect(isSelect: Boolean, tv: AppCompatTextView) {
         tv.setBackgroundResource(if (isSelect) R.drawable.bg_selected_price else R.drawable.bg_unselected_price)
-        tv.setTextColor(if (isSelect) context.resources.getColor(R.color.colorPrimary) else context.resources.getColor(R.color.base_10))
+        tv.setTextColor(if (isSelect) context.resources.getColor(R.color.white) else context.resources.getColor(R.color.base_10))
     }
 
     override fun initStyAble(a: TypedArray) {

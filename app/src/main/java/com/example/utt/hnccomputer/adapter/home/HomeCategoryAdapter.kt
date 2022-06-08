@@ -10,6 +10,7 @@ import com.example.utt.hnccomputer.entity.model.HomeCategory
 import com.example.utt.hnccomputer.entity.model.Product
 import com.example.utt.hnccomputer.extension.gone
 import com.example.utt.hnccomputer.extension.inflate
+import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import kotlinx.android.synthetic.main.include_category_header_home.view.*
 import kotlinx.android.synthetic.main.item_cell_home_category.view.*
 
@@ -28,7 +29,7 @@ class HomeCategoryAdapter(context: Context) : RecyclerViewAdapter(context, false
     override fun bindNormalViewHolder(holder: NormalViewHolder, position: Int) {
         val homeCategory = getItem(position, HomeCategory::class.java)
         (holder as HomeCategoryViewHolder).itemView.apply {
-            header_home_category.tv_all.setOnClickListener {
+            header_home_category.tv_all.onAvoidDoubleClick {
                 onClickToCategoryDetail(position)
             }
             homeCategory?.product?.let {

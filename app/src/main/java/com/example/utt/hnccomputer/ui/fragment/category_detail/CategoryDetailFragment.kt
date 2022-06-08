@@ -23,6 +23,7 @@ import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.ui.dialog.FilterProductDialog
 import com.example.utt.hnccomputer.ui.dialog.LoginDialog
 import com.example.utt.hnccomputer.ui.fragment.brand.BrandViewModel
+import com.example.utt.hnccomputer.ui.fragment.cart.CartFragment
 import com.example.utt.hnccomputer.ui.fragment.category.CategoryViewModel
 import com.example.utt.hnccomputer.ui.fragment.login.LoginFragment
 import com.example.utt.hnccomputer.ui.fragment.product_detail.ProductDetailFragment
@@ -168,6 +169,13 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
                 brandId?.let { categoryDetailViewModel.brandId = it }
                 categoryDetailViewModel.getProduct(true)
             }
+            filterPrice.onFilterClick = {
+                if (isBrand) {
+                    categoryViewModel.getCategory()
+                } else {
+                    brandViewModel.getBrand()
+                }
+            }
             filterPrice.onReturnSelected = {
                 when(it) {
                     1 -> {
@@ -197,10 +205,17 @@ class CategoryDetailFragment : BaseFragment<FragmentCategoryDetailBinding>() {
                 }
 
                 override fun onRightClick() {
-                    if (isBrand) {
-                        categoryViewModel.getCategory()
+                    if (categoryDetailViewModel.checkLogin()) {
+                        transitFragment(CartFragment(), R.id.parent_container)
                     } else {
-                        brandViewModel.getBrand()
+                        val loginDialog = LoginDialog()
+                        loginDialog.setOnDialogListener(object : LoginDialog.OnDialogListener {
+                            override fun onLogin() {
+                                transitFragment(LoginFragment(), R.id.parent_container)
+                                loginDialog.dismiss()
+                            }
+                        })
+                        loginDialog.show(childFragmentManager, loginDialog.tag)
                     }
                 }
             }

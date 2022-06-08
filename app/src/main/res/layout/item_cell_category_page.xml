@@ -38,6 +38,7 @@
                 android:layout_height="0dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginHorizontal="8dp"
                 style="@style/medium"
                 android:textSize="18dp"
                 android:id="@+id/tv_category_title"
