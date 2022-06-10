@@ -8,6 +8,7 @@
     <string name="login_title">Đăng nhập</string>
     <string name="register_title">Chưa có tài khoản? <font fgcolor='#FFFF3B30'>Đăng ký</font></string> <!--red-->
     <string name="login_desc">Bạn cần đăng nhập để sử dụng được tính năng này</string>
+    <string name="confirm_order_title">Bạn chắc chắn muốn đặt đơn hàng này?</string>
 
     <!--bottom navigation-->
     <string name="menu_home">Trang chủ</string>

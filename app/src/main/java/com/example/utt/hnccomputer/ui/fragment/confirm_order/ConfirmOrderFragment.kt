@@ -13,6 +13,7 @@ import com.example.utt.hnccomputer.extension.onAvoidDoubleClick
 import com.example.utt.hnccomputer.extension.toast
 import com.example.utt.hnccomputer.extension.visible
 import com.example.utt.hnccomputer.ui.dialog.ChangeReceiverCustomerDialog
+import com.example.utt.hnccomputer.ui.dialog.ConfirmOrderDialog
 import com.example.utt.hnccomputer.ui.fragment.main.MainFragment
 import com.example.utt.hnccomputer.utils.BundleKey
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,12 +83,18 @@ class ConfirmOrderFragment : BaseFragment<FragmentConfirmOrderBinding>() {
                 dialog.show(childFragmentManager, dialog.tag)
             }
             bottom.btnPlaceOrder.onAvoidDoubleClick {
-                isCreate = true
-                viewModel.createOrder(
-                    address = orderInformation.address.detail.text.toString().trim(),
-                    phoneNumber = orderInformation.phoneNumber.detail.text.toString().trim(),
-                    customerName = orderInformation.name.detail.text.toString().trim()
-                )
+                val confirmDialog = ConfirmOrderDialog().apply {
+                    onDeleteListener = {
+                        isCreate = true
+                        viewModel.createOrder(
+                            address = orderInformation.address.detail.text.toString().trim(),
+                            phoneNumber = orderInformation.phoneNumber.detail.text.toString().trim(),
+                            customerName = orderInformation.name.detail.text.toString().trim()
+                        )
+                    }
+                }
+                confirmDialog.setTitle(getString(R.string.confirm_order_title))
+                confirmDialog.show(childFragmentManager, confirmDialog.tag)
             }
             header.listener = object : HncHeaderView.IOnClickHeader {
                 override fun onLeftClick() {

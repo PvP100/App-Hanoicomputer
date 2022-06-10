@@ -1,5 +1,6 @@
 package com.example.utt.hnccomputer.ui.fragment.product_detail
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +62,13 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
                 } else {
                     status.text = "Hết hàng"
                     status.setTextColor(ContextCompat.getColor(requireContext(), R.color.base_red_01))
+                }
+                if (data.isSale == 1) {
+                    bottom.tvSalePrice.visible()
+                    bottom.tvSalePrice.text = data.salePrice.convertToVnd()
+                    bottom.tvPrice.textSize = 12f
+                    bottom.tvPrice.setTextColor(Color.parseColor("#A8A8A8"))
+                    bottom.divider.visible()
                 }
                 productName.text = data.name
                 bottom.tvPrice.text = data.price.convertToVnd()
